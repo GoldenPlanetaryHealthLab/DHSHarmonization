@@ -1,0 +1,144 @@
+---
+title: "flat_climate-diarrhea-analysis.Rmd empty"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r development, include=FALSE}
+library(testthat)
+```
+
+```{r development-load}
+# Load already included functions if relevant
+pkgload::load_all(export_all = FALSE)
+```
+
+# climate_diarrhea_analysis
+
+This endpoint function develops the dataset for analyzing the relationship between climate variables
+and diarrhea incidence, based on [Issue #2](https://github.com/Climate-Smart-Public-Health/DHSHarmonization/issues/2).
+
+```{r}
+library(targets)
+library(here)
+library(dplyr)
+library(rdhs)
+tar_load(dhs_data_HR, store = here("_targets/"))
+
+```
+
+We first load the DHS data from the household recode and filter the relevant variables from the request:
+
+```{r}
+dhs_data_HR %>% length()
+```
+
+There's 7 datasets; will they merge automatically?
+
+```{r}
+tryCatch({
+
+  dhs_data_HR %>% rdhs::rbind_labelled()
+}, error = function(e) {
+  message("Error in merging datasets: ", e$message)
+})
+```
+
+Nope, so we have to filter it manually:
+
+```{r}
+var_req_list <- c(
+  "hv001",
+  "hv008",
+  "hv209",
+  "hv013",
+  "hv009",
+  "hv201",
+  "hv025",
+  "hv205",
+  "hv225",
+  "hv237",
+  "hv235",
+  "hv238",
+  "hv237b",
+  "hv237a",
+  "hv237z",
+  "hv237f",
+  "hv237x",
+  "hv237e",
+  "hv237c",
+  "hv246f",
+  "hv237d",
+  "hv246b",
+  "hv246d",
+  "hv246c",
+  "hv246",
+  "hv246e",
+  "hv232",
+  "hv238a",
+  "hv246f",
+  "hv246g",
+  "hv230a",
+  "hv230b",
+  "sh18a",
+  "hv246a",
+  "hv246f",
+  "hv246b",
+  "hv246g",
+  "hv246h",
+  "hv246d",
+  "hv246c",
+  "sh139c",
+  "sh139b",
+  "sh139a",
+  "hv233",
+  "hv232",
+  "hv231",
+  "hv246",
+  "hv246h",
+  "hv246i",
+  "hv246j",
+  "hv246k",
+  "hv246a",
+  "hv246f",
+  "hv246a",
+  "hv246i",
+  "hv246h",
+  "hv230",
+  "hv246e",
+  "sh22a",
+  "sh138"
+)
+
+```
+
+```{r function-climate_diarrhea_analysis}
+#' climate_diarrhea_analysis Title
+#'
+#' @return 1
+#' @export
+#'
+#' @examples
+climate_diarrhea_analysis <- function() {
+  1
+}
+```
+
+```{r examples-climate_diarrhea_analysis}
+climate_diarrhea_analysis()
+```
+
+```{r tests-climate_diarrhea_analysis}
+test_that("climate_diarrhea_analysis works", {
+  expect_true(inherits(climate_diarrhea_analysis, "function"))
+})
+```
+
+
+```{r development-inflate, eval=FALSE}
+# Run but keep eval=FALSE to avoid infinite loop
+# Execute in the console directly
+fusen::inflate(flat_file = "dev/flat_climate-diarrhea-analysis.Rmd", vignette_name = "Go further")
+```
+
