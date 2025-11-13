@@ -9,23 +9,26 @@ Description: This package documents the pipeline used to merge and
     harmonize the DHS data for the lab.
 License: MIT + file LICENSE
 Imports: 
+    cli,
     config,
     dplyr,
+    fs,
+    glue,
     here,
     magrittr,
     purrr,
     rdhs,
     readr,
     stringr,
+    targets,
+    xfun,
     zip
 Suggests: 
     DT,
-    glue,
     knitr,
     rmarkdown,
     sf,
     skimr,
-    targets,
     testthat,
     tibble,
     tidyverse

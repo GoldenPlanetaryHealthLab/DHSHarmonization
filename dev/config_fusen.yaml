@@ -1,3 +1,18 @@
+flat_build-targets-pipeline.Rmd:
+  path: dev/flat_build-targets-pipeline.Rmd
+  state: active
+  R: R/build_targets_pipeline.R
+  tests: tests/testthat/test-build_targets_pipeline.R
+  vignettes: vignettes/pipeline-definition.Rmd
+  inflate:
+    flat_file: dev/flat_build-targets-pipeline.Rmd
+    vignette_name: Pipeline Definition
+    open_vignette: false
+    check: false
+    document: true
+    overwrite: ask
+    clean: ask
+    codecov: false
 flat_linking_inputs.Rmd:
   path: dev/flat_linking_inputs.Rmd
   state: active

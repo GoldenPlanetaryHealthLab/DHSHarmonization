@@ -5,11 +5,13 @@
 <url><loc>/LICENSE.html</loc></url>
 <url><loc>/articles/index.html</loc></url>
 <url><loc>/articles/linking-and-tracking-raw-inputs.html</loc></url>
+<url><loc>/articles/pipeline-definition.html</loc></url>
 <url><loc>/articles/reading-in-files-from-dhs.html</loc></url>
 <url><loc>/authors.html</loc></url>
 <url><loc>/index.html</loc></url>
 <url><loc>/news/index.html</loc></url>
 <url><loc>/reference/DHSHarmonization-package.html</loc></url>
+<url><loc>/reference/build_targets_pipeline.html</loc></url>
 <url><loc>/reference/index.html</loc></url>
 <url><loc>/reference/link_inputs.html</loc></url>
 <url><loc>/reference/list_raw_flat_dhs.html</loc></url>

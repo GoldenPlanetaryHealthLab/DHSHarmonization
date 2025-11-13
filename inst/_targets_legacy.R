@@ -6,10 +6,23 @@
 # Load packages required to define the pipeline:
 library(targets)
 library(tarchetypes) # Load other packages as needed.
+library(here)
+library(tibble)
 
 # Set target options:
 tar_option_set(
-  packages = c("DHSHarmonization") # Packages that your targets need for their tasks.
+  # Packages that your targets need for their tasks.
+  packages = c(
+    "here",
+    "tibble",
+    "dplyr",
+    "lubridate",
+    "purrr",
+    "rdhs",
+    "stringr",
+    "sf",
+    "DHSHarmonization"
+  ) 
   # format = "qs", # Optionally set the default storage format. qs is fast.
   #
   # Pipelines that take a long time to run may benefit from
@@ -45,23 +58,68 @@ tar_option_set(
 )
 
 # Run the R scripts in the R/ folder with your custom functions:
-# tar_source()
+tar_source()
 # tar_source("other_functions.R") # Source other scripts as needed.
 
 # Replace the target list below with your own:
 list(
-  
-  # extract default pipeline from the targets notebook
-  tar_tangle("_target_notebook.Rmd") #,
+    tar_file(
+    name = cfg,
+    command = "config.yml"
+  ),
+  # link input data from google drive to local data folder
+  tar_target(
+    name = raw_data_ready,
+    command = link_inputs(cfg_path = cfg),
+    error = "stop",
+    format = "file" # Efficient storage for general data objects.
+  ),
+  # 2) Acknowledge file groups (return character vectors; DO NOT use format="file")
+  tar_target(
+    raw_flat_dhs_files,
+    list_raw_flat_dhs(raw_data_ready)
+  ),
+  tar_target(
+    raw_gps_dhs_files,
+    list_raw_gps_dhs(raw_data_ready)
+  ),
+  tar_target(
+    raw_gps_covar_files,
+    list_raw_gps_covars(raw_data_ready)
+  ),
+  # 2) For each recode type, create its own pair of targets
+  tar_map(
+    values = tibble(type = c("BR", "HW", "CR", "HR", "IR", "KR", "PR", "WI", "SQ", "MR", "FW")),
+    names  = type,  # suffix targets with the recode type, e.g. _BR
 
-  # you can now add more targets here if needed, e.g.:
-  # tar_target(
-  #   name = data,
-  #   command = tibble(x = rnorm(100), y = rnorm(100))
-  #   # format = "qs" # Efficient storage for general data objects.
-  # ),
-  # tar_target(
-  #   name = model,
-  #   command = coefficients(lm(y ~ x, data = data))
-  # )
+    # Pick only the files for this type (explicit dep on raw_flat_dhs_files)
+    tar_target(
+      files_for_type,
+      {
+        stringr::str_subset(raw_flat_dhs_files, paste0("MD", type))
+      }
+    ),
+
+  #   # Read/merge all files for this type in one target
+    tar_target(
+      dhs_data,
+      load_flat_dhs_data(files_for_type),
+      pattern = map(files_for_type),
+      iteration = "list"   # files_for_type is a character vector; pass as list
+    )
+  ),
+  tar_target(
+    gps_data,
+    {
+      st_read(raw_gps_dhs_files)
+    },
+    pattern = map(raw_gps_dhs_files),
+    iteration = "list"
+  ),
+  tar_target(
+    gps_covar_data,
+    load_gps_covars(raw_gps_covar_files),
+    pattern = map(raw_gps_covar_files),
+    iteration = "list"
+  )
 )

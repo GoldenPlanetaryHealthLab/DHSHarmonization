@@ -17,3 +17,5 @@ _targets/
 ^pkgdown$
 ^DHSHarmonization\.Rproj$
 ^\.Rproj\.user$
+^doc$
+^Meta$

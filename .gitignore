@@ -10,3 +10,5 @@ sandbox/
 _targets/
 
 /.quarto/
+/doc/
+/Meta/

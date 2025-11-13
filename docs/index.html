@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">DHSHarmonization</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9002</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,6 +36,7 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="articles/linking-and-tracking-raw-inputs.html">Linking and Tracking Raw Inputs</a></li>
+    <li><a class="dropdown-item" href="articles/pipeline-definition.html">Pipeline Definition</a></li>
     <li><a class="dropdown-item" href="articles/reading-in-files-from-dhs.html">Reading in Files from DHS</a></li>
   </ul>
 </li>
@@ -73,7 +74,7 @@
 <blockquote><p>Important: This is a work in progress; please make a data request on Github first before running the pipeline locally.</p></blockquote>
 <p>Once you’ve installed the package, you can run the pipeline with targets::tar_make()</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_make.html" class="external-link">tar_make</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">tar_make</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>This will execute the entire pipeline as defined in the <code>_targets.R</code> file, downloading and harmonizing the DHS data according to the specifications in the package.</p>
 <p>See the Articles section for vignettes that provide detailed walkthroughs of pipeline development and target components.</p>
 </div>

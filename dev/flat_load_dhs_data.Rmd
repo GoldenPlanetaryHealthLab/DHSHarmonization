@@ -222,18 +222,17 @@ To do this, we'll read in a list of file paths,
 and then map over them to read them in.
 
 In the targets pipeline, we've assigned the BR files to
-a target called `dhs_data_BR`, which has multiple branches for
-each file path.
+a target called `dhs_data_BR`, which has multiple files per target.
 
 ```{r}
-tar_read(dhs_data_BR, branches = 1, store = here("_targets")) -> ex_data_1
-tar_read(dhs_data_BR, branches = 5, store = here("_targets")) -> ex_data_2
+tar_read(dhs_data_BR, store = here("_targets"))[[1]] -> ex_data_1
+tar_read(dhs_data_BR, store = here("_targets"))[[5]] -> ex_data_2
 
-tibble(ex_data_1[[1]])
+tibble(ex_data_1)
 ```
 
 ```{r}
-tibble(ex_data_2[[1]])
+tibble(ex_data_2)
 ```
 
 So even though they come from the same type of survey,
@@ -506,6 +505,7 @@ perform a spatial join between the GPS points and the healthshed polygons.
 Fetching our healthsheds:
 
 ```{r}
+# note this is not part of the pipeline yet
 healthsheds <- st_read(here("sandbox", "mdg_healthsheds2022", "healthsheds2022.shp"))
 ```
 

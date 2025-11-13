@@ -3,5 +3,6 @@ pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   linking-and-tracking-raw-inputs: linking-and-tracking-raw-inputs.html
+  pipeline-definition: pipeline-definition.html
   reading-in-files-from-dhs: reading-in-files-from-dhs.html
-last_built: 2025-10-28T21:30Z
+last_built: 2025-11-13T00:16Z
