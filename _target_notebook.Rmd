@@ -143,6 +143,10 @@ raw_flat_dhs_files %>%
   map(~ load_flat_dhs_data(.x)) -> dhs_data_CR
 
 raw_flat_dhs_files %>%
+  str_subset(., "HR") %>%
+  map(~ load_flat_dhs_data(.x)) -> dhs_data_HR
+
+raw_flat_dhs_files %>%
   str_subset(., "IR") %>%
   map(~ load_flat_dhs_data(.x)) -> dhs_data_IR
 
@@ -186,6 +190,24 @@ gps_data <- st_read(raw_gps_dhs_files)
 #| iteration: list
 
 gps_covar_data <- load_gps_covars(raw_gps_covar_files)
+```
+
+
+## Climate Diarrhea Analysis
+
+Olivia's analysis function to prepare the DHS data for climate-diarrhea work.
+```{r}
+#| packages:
+#| - dplyr
+#| - haven
+#| - lubridate
+#| - purrr
+#| - tibble
+#| - janitor
+#| - glue
+#| - rdhs
+
+climate_diarrhea_data <- climate_diarrhea_analysis(dhs_data_HR)
 ```
 
 

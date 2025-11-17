@@ -13,6 +13,21 @@ flat_build-targets-pipeline.Rmd:
     overwrite: ask
     clean: ask
     codecov: false
+flat_climate-diarrhea-analysis.Rmd:
+  path: dev/flat_climate-diarrhea-analysis.Rmd
+  state: active
+  R: R/climate_diarrhea_analysis.R
+  tests: tests/testthat/test-climate_diarrhea_analysis.R
+  vignettes: vignettes/climate-diarrhea-analysis.Rmd
+  inflate:
+    flat_file: dev/flat_climate-diarrhea-analysis.Rmd
+    vignette_name: Climate Diarrhea Analysis
+    open_vignette: false
+    check: false
+    document: true
+    overwrite: ask
+    clean: ask
+    codecov: false
 flat_linking_inputs.Rmd:
   path: dev/flat_linking_inputs.Rmd
   state: active

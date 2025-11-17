@@ -14,7 +14,9 @@ Imports:
     dplyr,
     fs,
     glue,
+    haven,
     here,
+    janitor,
     magrittr,
     purrr,
     rdhs,
@@ -26,6 +28,7 @@ Imports:
 Suggests: 
     DT,
     knitr,
+    lubridate,
     rmarkdown,
     sf,
     skimr,

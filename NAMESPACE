@@ -2,6 +2,7 @@
 
 export("%>%")
 export(build_targets_pipeline)
+export(climate_diarrhea_analysis)
 export(link_inputs)
 export(list_raw_flat_dhs)
 export(list_raw_gps_covars)
