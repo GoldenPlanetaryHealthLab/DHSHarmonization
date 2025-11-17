@@ -23,6 +23,7 @@ and diarrhea incidence, based on [Issue #2](https://github.com/Climate-Smart-Pub
 library(targets)
 library(here)
 library(dplyr)
+library(purrr)
 library(rdhs)
 tar_load(dhs_data_HR, store = here("_targets/"))
 
@@ -110,7 +111,25 @@ var_req_list <- c(
   "sh22a",
   "sh138"
 )
+dhs_data_HR %>% 
+  summarize_dhs_flat_dictionary()
+```
 
+```{r}
+dhs_data_HR %>%
+  summarize_dhs_flat_dictionary() %>%
+  dplyr::filter(variable %in% var_req_list)
+```
+
+Now we need to filter each dataset for these variables and then merge them:
+
+```{r}
+dhs_data_HR %>%
+  map(., function(df) {
+    df %>%
+      dplyr::select(hv000, hv006, hv007, hv008,dplyr::any_of(var_req_list))
+
+  }) -> dhs_data_filtered_list
 ```
 
 ```{r function-climate_diarrhea_analysis}
