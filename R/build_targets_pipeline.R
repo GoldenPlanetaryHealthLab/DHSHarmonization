@@ -19,7 +19,8 @@ build_targets_pipeline <- function(
   targets_notebook_name = "_target_notebook.Rmd", 
   targets_file_name = "_targets.R", 
   pkg_name = "DHSHarmonization", 
-  vignette_name = "pipeline-definition"
+  vignette_name = "pipeline-definition.Rmd",
+  overwrite = FALSE
   ) {
   
   # Define the path to the targets notebook definition and file
@@ -27,8 +28,10 @@ build_targets_pipeline <- function(
   targets_file <- here::here(targets_file_name)
 
   # fetch this installed vignette
-  v <- vignette(vignette_name, package = pkg_name)
-  vignette_path <- fs::path(v$Dir, "doc", v$File)
+  # v <- vignette(vignette_name, package = pkg_name)
+  # vignette_path <- fs::path(v$Dir, "doc", v$File)
+
+  vignette_path <- system.file(vignette_name, package = pkg_name)
 
   # assert that the vignette exists
   if (!fs::file_exists(vignette_path)) {
@@ -37,7 +40,7 @@ build_targets_pipeline <- function(
   }
 
   # copy to local project
-  fs::file_copy(vignette_path, targets_notebook)
+  fs::file_copy(vignette_path, targets_notebook, overwrite = overwrite)
   # remove irrelevant quarto directives
   lines <- readr::read_lines(targets_notebook) %>%
     stringr::str_subset("#\\| eval: no", negate = TRUE)
@@ -48,7 +51,7 @@ build_targets_pipeline <- function(
   template_path <- system.file("_targets.R", package = pkg_name)
 
   # copy to local project
-  fs::file_copy(template_path, targets_file)
+  fs::file_copy(template_path, targets_file, overwrite = overwrite)
   cli::cli_alert_success("Created local targets file at: {targets_file}")
 
   # replace the tar_tangle() default to use the local notebook name

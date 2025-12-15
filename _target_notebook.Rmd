@@ -43,7 +43,7 @@ and reporting into distinct workspaces:
   and generates intermediate datasets and analysis results in your local workspace. To do this, simply:
     - Install this package in your local project space using `remotes::install_github()`.
     - Load the package using `library(your_package_name)`.
-    - Run the `targets` pipeline by executing `tar_make()` in the R console. This will execute all defined targets, processing the data and generating clean datasets.
+    - Run the `targets` pipeline by executing `build_targets_pipeline()` and then `tar_make()` in the R console. This will execute all defined targets, processing the data and generating clean datasets.
     - Access the processed data and analysis results stored in the `_targets/` directory using `tar_load()` or other `targets` functions.
 3. Analysis: Once you've run the `targets` pipeline, you can access the processed data
   and analysis results stored in the `_targets/` directory. This data is then used
@@ -84,7 +84,7 @@ the only important parameter is the path to the raw data repository on FASRC.
 ```{r}
 #| format: file
 
-cfg <- "config.yml"
+cfg <- system.file("config.yml", package = "DHSHarmonization")
 ```
 
 
@@ -211,4 +211,10 @@ climate_diarrhea_data <- climate_diarrhea_analysis(dhs_data_HR)
 ```
 
 
+To fetch this endpoint, after you've run `tar_make()`, you can use:
+
+```r
+tar_read(climate_diarrhea_data) #or
+tar_load(climate_diarrhea_data)
+```
 

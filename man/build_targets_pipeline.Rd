@@ -8,7 +8,8 @@ build_targets_pipeline(
   targets_notebook_name = "_target_notebook.Rmd",
   targets_file_name = "_targets.R",
   pkg_name = "DHSHarmonization",
-  vignette_name = "pipeline-definition"
+  vignette_name = "pipeline-definition.Rmd",
+  overwrite = FALSE
 )
 }
 \value{
