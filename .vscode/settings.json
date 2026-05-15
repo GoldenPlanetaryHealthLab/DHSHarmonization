@@ -1,7 +1,7 @@
 {
     "r.plot.useHttpgd": true,
-    "r.rterm.linux": "/n/home03/ttapera/.conda/envs/dhs-harmonization/bin/radian",
-    "r.useRenvLibPath": true,
+    // "r.rterm.linux": "/n/home03/ttapera/.cargo/bin/arf",
+    // "r.useRenvLibPath": true,
     "r.workspaceViewer.showObjectSize": true,
     "terminal.integrated.defaultProfile.linux": "bash",
     "terminal.integrated.profiles.linux": {
@@ -9,15 +9,17 @@
         "path": "/bin/bash"
         }
     },
-    "livePreview.defaultPreviewPath": "/docs/index.html",
+    "r.rterm.linux": "${workspaceFolder}/env/R-vscode",
+    "r.rterm.option": ["--no-save", "--no-restore"],
     "r.bracketedPaste": true,
+    "livePreview.defaultPreviewPath": "/docs/index.html",
     "r.sessionWatcher": true,
     "r.alwaysUseActiveTerminal": true,
-    "r.lsp.path": "/usr/local/bin/R",
-    "r.rpath.linux": "/n/sw/helmod-rocky8/apps/Core/R/4.5.1-fasrc01/bin/R",
+    // "r.lsp.path": "/usr/local/bin/R",
+    "r.rpath.linux": "/n/sw/helmod-rocky8/apps/Core/R/4.5.3-fasrc01/bin/R",
     "python.terminal.activateEnvInCurrentTerminal": true,
     "r.libPaths": [
-        "/n/holylabs/cgolden_lab/Lab/projects/DHSHarmonization/renv/library/linux-rocky-8.10/R-4.5/x86_64-pc-linux-gnu",
-        "/n/home03/ttapera/.cache/R/renv/sandbox/linux-rocky-8.10/R-4.5/x86_64-pc-linux-gnu/d2ec90c5"
+        "/n/holylabs/cgolden_lab/Lab/projects/DHSHarmonization/rv/library/4.5/x86_64/redhat8",
+        "/n/sw/helmod-rocky8/apps/Core/R/4.5.1-fasrc01/lib64/R/library"
     ]
 }

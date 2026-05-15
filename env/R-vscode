@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+source /etc/profile
+
+ml R/4.5.1-fasrc01
+
+exec arf "$@"
