@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# This script is used to activate the spack environment and set the necessary environment variables for R and other dependencies. It then executes the ARF command with any provided arguments.
+spack env activate -d .
+unset R_HOME
+unset CPATH C_INCLUDE_PATH CPLUS_INCLUDE_PATH LIBRARY_PATH PKG_CONFIG_PATH
+export PATH="$PROJECT_DIR/.spack-env/view/bin:$PATH"
+export LD_LIBRARY_PATH="$PROJECT_DIR/.spack-env/view/lib:$PROJECT_DIR/.spack-env/view/lib64:$PROJECT_DIR/.spack-env/view/rlib/R/lib:${LD_LIBRARY_PATH:-}"
+export LD_LIBRARY_PATH="/n/home03/ttapera/software/spack/opt/spack/linux-icelake/libxml2-2.15.1-3notlytf5el3yo4wbdmu5qrpingms7ch/lib:$PWD/.spack-env/view/lib:$PWD/.spack-env/view/lib64:$PWD/.spack-env/view/rlib/R/lib:${LD_LIBRARY_PATH:-}"
+
+exec arf "$@"
