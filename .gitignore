@@ -12,3 +12,4 @@ _targets/
 /.quarto/
 /doc/
 /Meta/
+.spack-env

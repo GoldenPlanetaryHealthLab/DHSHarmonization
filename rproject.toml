@@ -90,5 +90,6 @@ dependencies = [
     { name = "whisker", repository = "CRAN" },
     { name = "withr", repository = "CRAN" },
     { name = "xopen", repository = "CRAN" },
-    { name = "zip", repository = "CRAN" }
+    { name = "zip", repository = "CRAN" },
+    "httpgd",
 ]
