@@ -22,7 +22,11 @@ module purge
 # Project paths
 ###############################################################################
 
-PROJECT_DIR=/n/holylabs/LABS/cgolden_lab/Lab/projects/DHSHarmonization/
+PROJECT_DIR="${PROJECT_DIR:-${SLURM_SUBMIT_DIR:-/n/holylabs/LABS/cgolden_lab/Lab/projects/DHSHarmonization/}}"
+if [[ ! -d "${PROJECT_DIR}" ]]; then
+  echo "ERROR: PROJECT_DIR does not exist: ${PROJECT_DIR}" >&2
+  exit 1
+fi
 cd "${PROJECT_DIR}"
 
 ###############################################################################
