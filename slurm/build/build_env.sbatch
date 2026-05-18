@@ -125,7 +125,13 @@ spack env view regenerate
 # module load R/4.5.1
 spack env deactivate
 spack env activate --create -p "$PROJECT_DIR"
-rv sync
+if command -v rv >/dev/null 2>&1; then
+  rv sync
+else
+  echo "Error: 'rv' is not available in PATH after module purge and Spack activation." >&2
+  echo "Install/provision 'rv' in this batch environment or invoke it via a known absolute path before running this job." >&2
+  exit 1
+fi
 
 ###############################################################################
 # Completion diagnostics
