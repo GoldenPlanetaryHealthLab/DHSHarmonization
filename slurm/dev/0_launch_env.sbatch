@@ -33,7 +33,7 @@ which g++
 R CMD config CC
 R CMD config CXX17
 
-curl -Lk 'https://code.visualstudio.com/sha/download?build=stable&os=cli-alpine-x64' \
+curl -Lk 'https://code.visualstudio.com/sha/download?build=stable&os=cli-linux-x64' \
   | tar -C "$MY_SCRATCH" -xzf -
 
 export VSCODE_CLI_DISABLE_KEYCHAIN_ENCRYPT=1
