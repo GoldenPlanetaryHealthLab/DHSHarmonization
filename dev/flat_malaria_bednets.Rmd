@@ -1,0 +1,117 @@
+---
+title: "flat_malaria_bednets.Rmd empty"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r development, include=FALSE}
+library(testthat)
+```
+
+```{r development-load}
+# Load already included functions if relevant
+pkgload::load_all(export_all = FALSE)
+```
+
+# malaria_bednets
+
+This function creates an endpoint for the issue
+that Owen raised [here](https://github.com/GoldenPlanetaryHealthLab/DHSHarmonization/issues/1)
+
+It replicates the work from Olivia endpoint because it is fairly simple.
+
+```{r}
+library(targets)
+library(here)
+library(dplyr)
+library(purrr)
+library(rdhs)
+library(janitor)
+library(lubridate)
+library(glue)
+
+tar_load(dhs_data_BR, store = here("_targets/"))
+
+```
+
+Note that Owen's request is actually about Birth Recode,
+not Household Recode, so we load the BR data instead of HR data. Let's see what we have:
+
+```{r}
+dhs_data_BR %>%
+  summarize_dhs_flat_dictionary() %>%
+    mutate(description = janitor::make_clean_names(description))
+```
+
+Looks good. We set the variable list by hand:
+
+```{r}
+var_req_list <- c(
+  "v460",
+  "v459",
+  "v461",
+  "s494d",
+  "s494c",
+  "s494e",
+  "s494ac",
+  "s494ae",
+  "s494af",
+  "s494ad",
+  "s494ab",
+  "s494aa",
+  "v461",
+  "s494b",
+  "ml0",
+  "ml101",
+  "s494h"
+)
+```
+
+```{r}
+dhs_data_BR %>% 
+    summarize_dhs_flat_dictionary() %>%
+    mutate(description = janitor::make_clean_names(description)) -> dhs_dict_BR
+
+rename_map <- setNames(dhs_dict_BR$variable, dhs_dict_BR$description)
+dhs_data_BR %>%
+map(., function(df) {
+      df %>%
+        dplyr::select(dplyr::any_of(var_req_list))
+
+    })
+```
+
+```{r development-malaria_bednets}
+# Prepare the code of your function here
+```
+
+```{r function-malaria_bednets}
+#' malaria_bednets Title
+#'
+#' @return 1
+#' @export
+#'
+#' @examples
+malaria_bednets <- function() {
+  1
+}
+```
+
+```{r examples-malaria_bednets}
+malaria_bednets()
+```
+
+```{r tests-malaria_bednets}
+test_that("malaria_bednets works", {
+  expect_true(inherits(malaria_bednets, "function"))
+})
+```
+
+
+```{r development-inflate, eval=FALSE}
+# Run but keep eval=FALSE to avoid infinite loop
+# Execute in the console directly
+fusen::inflate(flat_file = "dev/flat_malaria_bednets.Rmd", vignette_name = "Go further")
+```
+

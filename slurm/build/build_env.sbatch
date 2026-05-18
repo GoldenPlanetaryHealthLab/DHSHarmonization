@@ -92,7 +92,7 @@ spack arch
 # xml2        – libxml2-devel
 ###############################################################################
 
-spack env activate --create -p "$PROJECT_DIR"
+spack env activate -p --create -d "$PROJECT_DIR"
 
 ###############################################################################
 # Concretize environment
@@ -124,7 +124,7 @@ spack env view regenerate
 
 # module load R/4.5.1
 spack env deactivate
-spack env activate --create -p "$PROJECT_DIR"
+spack env activate -p --create -d "$PROJECT_DIR"
 rv sync
 
 ###############################################################################
