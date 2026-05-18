@@ -1,27 +1,38 @@
-# This is a Spack Environment file.
-#
-# It describes a set of packages to be installed, along with
-# configuration settings.
 spack:
-  # add package specs to the `specs` list
+  packages:
+    all:
+      target: [x86_64_v3]
   specs:
-  - r@4.5.1 %gcc@8.5.0
-  - cmake %gcc@8.5.0
-  - gmake %gcc@8.5.0
-  - pkgconf %gcc@8.5.0
+    # Build tools
+  - cmake
+  - gmake
+  - git~nls~man
+
+    # Network / crypto / Git-backed R packages
+  - curl
+  - openssl
+  - libgit2
+
+    # Runtime/system libs
+  - libuv
   - libxml2
+  - icu4c
+  - libx11
+
+    # Graphics/text stack
+  - freetype
+  - fontconfig
+  - harfbuzz
+  - fribidi
+  - libpng
+  - libjpeg-turbo
+  - libtiff
+  - libwebp
+
+  - r@4.5.1
+  - cairo
   view: true
+
   concretizer:
     unify: true
-  packages:
-    gcc:
-      externals:
-      - spec: gcc@13.2.0 languages:='c,c++,fortran'
-        prefix: /n/sw/helmod-rocky8/apps/Core/gcc/13.2.0-fasrc01
-        extra_attributes:
-          compilers:
-            c: /n/sw/helmod-rocky8/apps/Core/gcc/13.2.0-fasrc01/bin/gcc
-            cxx: /n/sw/helmod-rocky8/apps/Core/gcc/13.2.0-fasrc01/bin/g++
-            fortran: /n/sw/helmod-rocky8/apps/Core/gcc/13.2.0-fasrc01/bin/gfortran
-    llvm:
-      externals: []
+

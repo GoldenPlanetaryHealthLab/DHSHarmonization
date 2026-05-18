@@ -19,3 +19,4 @@ _targets/
 ^\.Rproj\.user$
 ^doc$
 ^Meta$
+spack*

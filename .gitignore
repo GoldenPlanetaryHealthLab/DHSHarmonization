@@ -13,3 +13,5 @@ _targets/
 /doc/
 /Meta/
 .spack-env
+
+slurm/*/logs
