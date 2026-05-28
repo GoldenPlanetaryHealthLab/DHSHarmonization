@@ -13,3 +13,4 @@ _targets/
 /doc/
 /Meta/
 .spack-env
+spack
