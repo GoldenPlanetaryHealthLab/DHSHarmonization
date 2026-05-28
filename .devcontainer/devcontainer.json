@@ -1,0 +1,27 @@
+{
+  "name": "frontier-workbench",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "./Dockerfile"
+  },
+  "remoteUser": "vscode",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "username": "vscode"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "quarto.quarto",
+        "REditorSupport.r",
+        "ms-python.python",
+        "ms-vscode-remote.remote-containers"
+      ]
+    }
+  },
+  "postCreateCommand": "cargo install --locked arf || true"
+}
