@@ -1,4 +1,4 @@
-FROM rocker/r-ver:4.5.1
+FROM rocker/geospatial:4.5
 
 # setup args
 ARG DEBIAN_FRONTEND=noninteractive
@@ -43,7 +43,37 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   libfribidi-dev \
   libglpk-dev \
   gdebi \
-  && rm -rf /var/lib/apt/lists/*
+  # pak::pkg_sysreqs entries here:
+  libglpk-dev \
+  libxml2-dev \
+  pandoc \
+  libx11-dev \
+  make \
+  zlib1g-dev \
+  libabsl-dev \
+  cmake \
+  libssl-dev \
+  libgdal-dev \
+  gdal-bin \
+  libgeos-dev \
+  libproj-dev \
+  libsqlite3-dev \
+  libudunits2-dev \
+  git \
+  libcurl4-openssl-dev \
+  libuv1-dev \
+  libgit2-dev \
+  libfreetype6-dev \
+  libjpeg-dev \
+  libpng-dev \
+  libtiff-dev \
+  libwebp-dev \
+  libicu-dev \
+  libfontconfig1-dev \
+  libfribidi-dev \
+  libharfbuzz-dev \
+  libzstd-dev \
+  && rm -rf /private/r/lib/apt/lists/*
 
 # Debian names fd as fdfind; expose fd
 RUN ln -sf "$(command -v fdfind)" /usr/local/bin/fd || true
@@ -65,8 +95,8 @@ RUN set -eux; \
 RUN arf --version
 
 RUN echo " ================ Installing Quarto ================= "
-#RUN curl -LO https://quarto.org/download/latest/quarto-linux-amd64.deb
-#RUN gdebi --non-interactive quarto-linux-amd64.deb
+RUN curl -LO https://quarto.org/download/latest/quarto-linux-amd64.deb
+RUN gdebi --non-interactive quarto-linux-amd64.deb
 
 RUN echo " ============= Installing VS Code CLI =============== "
 
