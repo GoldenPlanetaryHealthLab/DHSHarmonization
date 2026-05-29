@@ -63,3 +63,4 @@ singularity exec \
         --verbose \
         --accept-server-license-terms \
         --name "'"$TUNNEL_NAME"'"
+      '

@@ -92,4 +92,7 @@ dependencies = [
     { name = "xopen", repository = "CRAN" },
     { name = "zip", repository = "CRAN" },
     "httpgd",
+    "sf",
+    "parsermd",
+    { name = "DHSHarmonization", path = "." },
 ]

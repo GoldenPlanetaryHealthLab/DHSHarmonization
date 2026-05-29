@@ -162,10 +162,10 @@ RUN command -v code && code --version
 RUN echo " ================ Setting Up Project ================ "
 RUN echo "Installing project dependencies with rv..."
 RUN rv --version
-RUN echo "Setting up spack..."
-RUN git clone --depth=2 https://github.com/spack/spack.git
-RUN . spack/share/spack/setup-env.sh
-#RUN spack env activate --create -pd .
-#RUN spack concretize -f
-#RUN spack install
+RUN echo "Setting up uv..."
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
+RUN uv init
+RUN uv venv
+RUN source .venv/bin/activate
+RUN uv tool install git+https://github.com/GoldenPlanetaryHealthLab/stagecoach.git@2-Stage-Data
 RUN echo " ============= Container Setup Complete ============= "
