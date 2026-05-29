@@ -95,4 +95,5 @@ dependencies = [
     "sf",
     "parsermd",
     { name = "DHSHarmonization", path = "." },
+    "DiagrammeR",
 ]

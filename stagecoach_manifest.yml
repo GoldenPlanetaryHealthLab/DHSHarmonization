@@ -24,6 +24,9 @@ sources:
     - name: google_drive_DHS_data
       path_regex: "/n/holylabs/LABS/cgolden_lab/Lab/data_freeze/golden_googledrive_rclone/Climate-Smart Public Health - Madagascar/4. Datasets/DHS Data"
       required: true
+    - name: mdg_healthsheds
+      path_regex: "/n/holylabs/LABS/cgolden_lab/Lab/frontier/gold_mine/01_ore/qualtrics_sync/mdg_healthsheds2022.zip"
+      required: true
   02_globus:
     enabled: false
     source_endpoint: null

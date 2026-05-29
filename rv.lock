@@ -64,6 +64,32 @@ dependencies = [
 ]
 
 [[packages]]
+name = "DiagrammeR"
+version = "1.0.12"
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
+force_source = false
+dependencies = [
+    { name = "dplyr", requirement = "(>= 1.0.7)" },
+    { name = "glue", requirement = "(>= 1.5.0)" },
+    { name = "htmltools", requirement = "(>= 0.5.2)" },
+    { name = "htmlwidgets", requirement = "(>= 1.5)" },
+    { name = "igraph", requirement = "(>= 2.0.0)" },
+    { name = "magrittr", requirement = "(>= 1.5)" },
+    { name = "purrr", requirement = "(>= 0.3.4)" },
+    { name = "RColorBrewer", requirement = "(>= 1.1-2)" },
+    { name = "readr", requirement = "(>= 2.1.1)" },
+    { name = "rlang", requirement = "(>= 1.1.0)" },
+    "cli",
+    { name = "rstudioapi", requirement = "(>= 0.7)" },
+    { name = "scales", requirement = "(>= 1.1)" },
+    { name = "stringr", requirement = "(>= 1.4)" },
+    { name = "tibble", requirement = "(>= 3.1)" },
+    { name = "tidyr", requirement = "(>= 1.1)" },
+    { name = "viridisLite", requirement = "(>= 0.4.2)" },
+    { name = "visNetwork", requirement = "(>= 2.1.0)" },
+]
+
+[[packages]]
 name = "KernSmooth"
 version = "2.23-26"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
@@ -2075,6 +2101,18 @@ version = "0.4.3"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
 force_source = false
 dependencies = []
+
+[[packages]]
+name = "visNetwork"
+version = "2.1.4"
+source = { repository = "https://packagemanager.posit.co/cran/latest" }
+force_source = false
+dependencies = [
+    "htmlwidgets",
+    "htmltools",
+    "jsonlite",
+    "magrittr",
+]
 
 [[packages]]
 name = "vroom"

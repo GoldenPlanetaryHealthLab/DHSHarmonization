@@ -1,0 +1,56 @@
+---
+title: "flat_dump.Rmd empty"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r development, include=FALSE}
+library(testthat)
+```
+
+```{r development-load}
+# Load already included functions if relevant
+pkgload::load_all(export_all = FALSE)
+```
+
+# dump_data
+
+Here's a simple function that dumps the
+processed data to a location on FASRC. The output
+data is then able to be connected to other projects
+by hailing the `stagecoach`.
+
+```{r development-dump_data, eval=FALSE}
+# Prepare the code of your function here
+```
+
+```{r function-dump_data}
+#' dump_data Title
+#'
+#' @return 1
+#' @export
+#'
+#' @examples
+dump_data <- function(output_path) {
+  1
+}
+```
+
+```{r examples-dump_data}
+dump_data()
+```
+
+```{r tests-dump_data}
+test_that("dump_data works", {
+  expect_true(inherits(dump_data, "function"))
+})
+```
+
+
+```{r development-inflate, eval=FALSE}
+# Run but keep eval=FALSE to avoid infinite loop
+# Execute in the console directly
+fusen::inflate(flat_file = "dev/flat_dump.Rmd", vignette_name = "Dump Data", open_vignette = FALSE, check = FALSE, overwrite = TRUE)
+```
+

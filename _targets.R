@@ -10,7 +10,7 @@ library(DHSHarmonization)
 
 # Set target options:
 tar_option_set(
-  packages = c("DHSHarmonization") # Packages that your targets need for their tasks.
+  packages = c("DHSHarmonization"), # Packages that your targets need for their tasks.
   # format = "qs", # Optionally set the default storage format. qs is fast.
   #
   # Pipelines that take a long time to run may benefit from
@@ -43,6 +43,12 @@ tar_option_set(
   #   )
   #
   # Set other options as needed.
+  
+  # A description of the pipeline.
+  # important: use this to flag useful vs development
+  # targets in the pipeline, ie filter throwaways.
+  description = "main" 
+
 )
 
 # Run the R scripts in the R/ folder with your custom functions:
