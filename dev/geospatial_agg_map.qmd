@@ -1,0 +1,25 @@
+---
+title: "Geospatial Data Mapping"
+format: html
+---
+
+This notebook extends the pipeline to incorporate
+a geospatial mapping of data points. In line with issue
+[#8](https://github.com/GoldenPlanetaryHealthLab/DHSHarmonization/issues/8),
+we'll utilize `sf` to create a geospatial mapping
+between the DHS data points and the points covered
+in our healthshed. This will allow future researchers
+to be able to run aggregation statistics of the DHS
+to the healthshed level, which is more relevant for
+public health decision-making.
+
+```{r}
+library(sf)
+library(targets)
+
+tar_load(gps_data)
+```
+
+```{r}
+test_output <- gps_data
+```

@@ -53,7 +53,8 @@ tar_option_set(
 list(
   
   # extract default pipeline from the targets notebook
-  tar_tangle("_target_notebook.Rmd") #,
+  tar_tangle("_target_notebook.Rmd"),
+  tar_tangle("dev/geospatial_agg_map.qmd")#,
 
   # you can now add more targets here if needed, e.g.:
   # tar_target(
