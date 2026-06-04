@@ -19,8 +19,10 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/climate-diarrhea-analysis.html">Climate Diarrhea Analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/dev/geospatial_agg_map.html">Geospatial Aggregation Mapping</a></li>
     <li><a class="dropdown-item" href="../articles/linking-and-tracking-raw-inputs.html">Linking and Tracking Raw Inputs</a></li>
     <li><a class="dropdown-item" href="../articles/pipeline-definition.html">Pipeline Definition</a></li>
+    <li><a class="dropdown-item" href="../articles/dev/Pipeline.html">Quarto Pipeline</a></li>
     <li><a class="dropdown-item" href="../articles/reading-in-files-from-dhs.html">Reading in Files from DHS</a></li>
   </ul></li>
 <li class="active nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -39,57 +41,58 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.0.0.9002" id="dhsharmonization-0-0-0-9002-2025-10-28">DHSHarmonization 0.0.0.9002 (2025-10-28)<a class="anchor" aria-label="anchor" href="#dhsharmonization-0-0-0-9002-2025-10-28"></a></h2>
-<ul><li>Updated <code>list_raw_flat_dhs</code> and <code>list_raw_gps_dhs</code> functions to accept a <code>file_list</code> argument for better flexibility.</li>
-<li>Removed the deprecated <code>list_raw_flat_mis</code> function and its associated tests.</li>
-<li>Enhanced documentation for <code>list_raw_flat_dhs</code>, <code>list_raw_gps_dhs</code>, and <code>list_raw_gps_covars</code> to reflect new usage patterns.</li>
-<li>Updated vignettes to demonstrate the new function signatures and provide clearer examples for users.</li>
+<h2 class="pkg-version" data-toc-text="0.0.0.9002" id="dhsharmonization-0009002-2025-10-28">DHSHarmonization 0.0.0.9002 (2025-10-28)<a class="anchor" aria-label="anchor" href="#dhsharmonization-0009002-2025-10-28"></a></h2>
+<ul><li><p>Updated <code>list_raw_flat_dhs</code> and <code>list_raw_gps_dhs</code> functions to accept a <code>file_list</code> argument for better flexibility.</p></li>
+<li><p>Removed the deprecated <code>list_raw_flat_mis</code> function and its associated tests.</p></li>
+<li><p>Enhanced documentation for <code>list_raw_flat_dhs</code>, <code>list_raw_gps_dhs</code>, and <code>list_raw_gps_covars</code> to reflect new usage patterns.</p></li>
+<li><p>Updated vignettes to demonstrate the new function signatures and provide clearer examples for users.</p></li>
 <li><p>Added error handling in the data merging process for better robustness.</p></li>
-<li>Updated <code>list_raw_flat_dhs</code> and <code>list_raw_gps_dhs</code> functions to accept a <code>file_list</code> argument for better flexibility.</li>
-<li>Removed the deprecated <code>list_raw_flat_mis</code> function and its associated tests.</li>
-<li>Enhanced documentation for <code>list_raw_flat_dhs</code>, <code>list_raw_gps_dhs</code>, and <code>list_raw_gps_covars</code> to reflect new usage patterns.</li>
-<li>Updated vignettes to demonstrate the new function signatures and provide clearer examples for users.</li>
+<li><p>Updated <code>list_raw_flat_dhs</code> and <code>list_raw_gps_dhs</code> functions to accept a <code>file_list</code> argument for better flexibility.</p></li>
+<li><p>Removed the deprecated <code>list_raw_flat_mis</code> function and its associated tests.</p></li>
+<li><p>Enhanced documentation for <code>list_raw_flat_dhs</code>, <code>list_raw_gps_dhs</code>, and <code>list_raw_gps_covars</code> to reflect new usage patterns.</p></li>
+<li><p>Updated vignettes to demonstrate the new function signatures and provide clearer examples for users.</p></li>
 <li><p>Added error handling in the data merging process for better robustness.</p></li>
 </ul></div>
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.0.0.9001" id="dhsharmonization-0-0-0-9001-2025-10-21">DHSHarmonization 0.0.0.9001 (2025-10-21)<a class="anchor" aria-label="anchor" href="#dhsharmonization-0-0-0-9001-2025-10-21"></a></h2>
-<ul><li>Add docs for github pages</li>
-<li>Update README with installation instructions</li>
-<li>Minor edits to dev/flat_load_dhs_data.Rmd</li>
-<li>Created package documentation for DHSHarmonization.</li>
-<li>Documented and implemented the link_inputs function for symlinking Google Drive data.</li>
-<li>Added functions for listing raw DHS data and GPS covariates.</li>
-<li>Implemented load functions for flat DHS data and GPS covariates.</li>
-<li>Created pipe operator documentation.</li>
-<li>Added summary function for DHS flat dictionary.</li>
-<li>Established test cases for all implemented functions.</li>
-<li>Developed vignettes for linking and tracking raw inputs, and reading in files from DHS.</li>
+<h2 class="pkg-version" data-toc-text="0.0.0.9001" id="dhsharmonization-0009001-2025-10-21">DHSHarmonization 0.0.0.9001 (2025-10-21)<a class="anchor" aria-label="anchor" href="#dhsharmonization-0009001-2025-10-21"></a></h2>
+<ul><li><p>Add docs for github pages</p></li>
+<li><p>Update README with installation instructions</p></li>
+<li><p>Minor edits to dev/flat_load_dhs_data.Rmd</p></li>
+<li><p>Created package documentation for DHSHarmonization.</p></li>
+<li><p>Documented and implemented the link_inputs function for symlinking Google Drive data.</p></li>
+<li><p>Added functions for listing raw DHS data and GPS covariates.</p></li>
+<li><p>Implemented load functions for flat DHS data and GPS covariates.</p></li>
+<li><p>Created pipe operator documentation.</p></li>
+<li><p>Added summary function for DHS flat dictionary.</p></li>
+<li><p>Established test cases for all implemented functions.</p></li>
+<li><p>Developed vignettes for linking and tracking raw inputs, and reading in files from DHS.</p></li>
 <li><p>Developed targets pipeline for initial loading and processing of flat data files</p></li>
-<li>Add docs for github pages</li>
-<li>Update README with installation instructions</li>
-<li>Minor edits to dev/flat_load_dhs_data.Rmd</li>
-<li>Created package documentation for DHSHarmonization.</li>
-<li>Documented and implemented the link_inputs function for symlinking Google Drive data.</li>
-<li>Added functions for listing raw DHS data and GPS covariates.</li>
-<li>Implemented load functions for flat DHS data and GPS covariates.</li>
-<li>Created pipe operator documentation.</li>
-<li>Added summary function for DHS flat dictionary.</li>
-<li>Established test cases for all implemented functions.</li>
-<li>Developed vignettes for linking and tracking raw inputs, and reading in files from DHS.</li>
+<li><p>Add docs for github pages</p></li>
+<li><p>Update README with installation instructions</p></li>
+<li><p>Minor edits to dev/flat_load_dhs_data.Rmd</p></li>
+<li><p>Created package documentation for DHSHarmonization.</p></li>
+<li><p>Documented and implemented the link_inputs function for symlinking Google Drive data.</p></li>
+<li><p>Added functions for listing raw DHS data and GPS covariates.</p></li>
+<li><p>Implemented load functions for flat DHS data and GPS covariates.</p></li>
+<li><p>Created pipe operator documentation.</p></li>
+<li><p>Added summary function for DHS flat dictionary.</p></li>
+<li><p>Established test cases for all implemented functions.</p></li>
+<li><p>Developed vignettes for linking and tracking raw inputs, and reading in files from DHS.</p></li>
 <li><p>Developed targets pipeline for initial loading and processing of flat data files</p></li>
-<li>Created package documentation for DHSHarmonization.</li>
-<li>Documented and implemented the link_inputs function for symlinking Google Drive data.</li>
-<li>Added functions for listing raw DHS data and GPS covariates.</li>
-<li>Implemented load functions for flat DHS data and GPS covariates.</li>
-<li>Created pipe operator documentation.</li>
-<li>Added summary function for DHS flat dictionary.</li>
-<li>Established test cases for all implemented functions.</li>
-<li>Developed vignettes for linking and tracking raw inputs, and reading in files from DHS.</li>
+<li><p>Created package documentation for DHSHarmonization.</p></li>
+<li><p>Documented and implemented the link_inputs function for symlinking Google Drive data.</p></li>
+<li><p>Added functions for listing raw DHS data and GPS covariates.</p></li>
+<li><p>Implemented load functions for flat DHS data and GPS covariates.</p></li>
+<li><p>Created pipe operator documentation.</p></li>
+<li><p>Added summary function for DHS flat dictionary.</p></li>
+<li><p>Established test cases for all implemented functions.</p></li>
+<li><p>Developed vignettes for linking and tracking raw inputs, and reading in files from DHS.</p></li>
 <li><p>Developed targets pipeline for initial loading and processing of flat data files</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="dhsharmonization-development-version">DHSHarmonization (development version)<a class="anchor" aria-label="anchor" href="#dhsharmonization-development-version"></a></h2>
-<ul><li>Initial commit.</li></ul></div>
+<ul><li>Initial commit.</li>
+</ul></div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 
@@ -99,7 +102,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

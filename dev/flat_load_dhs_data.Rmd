@@ -506,7 +506,7 @@ Fetching our healthsheds:
 
 ```{r}
 # note this is not part of the pipeline yet
-healthsheds <- st_read(here("sandbox", "mdg_healthsheds2022", "healthsheds2022.shp"))
+healthsheds <- tar_read(mdg_healthsheds, store = here("_targets"))
 ```
 
 Ensure both datasets use the same coordinate reference system (CRS):

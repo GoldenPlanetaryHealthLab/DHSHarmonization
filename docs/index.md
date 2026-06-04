@@ -1,0 +1,66 @@
+# DHSHarmonization
+
+The goal of DHSHarmonization is to provide the Golden Lab with a
+pipeline to harmonize and extract data from Demographic and Health
+Surveys (DHS) for analysis. The pipeline is built on targets to ensure
+reproducibility and is designed to be flexible to accommodate different
+research questions and datasets.
+
+To get an understanding of the data, investigate the vignettes in the
+Articles section, which contain detailed explanations of the data
+loading and harmonization process, and some minimal exploratory data
+analysis (EDA) to help you understand the variables available.
+
+If you require a pipeline endpoint dataset that is not currently
+implemented, please open an issue or reach out to Tinashe.
+
+## Installation
+
+If you would like to install the development version of
+DHSHarmonization, and build the package pipeline yourself, you can do so
+with the following code:
+
+``` r
+
+# install.packages("devtools")
+devtools::install_github("GoldenPlanetaryHealthLab/DHSHarmonization")
+```
+
+> Note: This can only be accomplished if you have access to the DHS data
+> through FASRC and the Golden Lab space on FASRC.
+
+## Example
+
+> Important: This is a work in progress; please make a data request on
+> Github first before running the pipeline locally.
+
+As a pre-requisite, you will need to have access to the Gold Mine on
+FASRC, which you can connect to using `stagecoach` to stage the raw
+data:
+
+``` sh
+uv tool install stagecoach
+stagecoach hail
+stagecoach inspect
+stagecoach stage
+```
+
+Once you’ve got a raw data directory ready in your project space and
+have installed the package, you can run the pipeline with
+targets::tar_make()
+
+``` r
+
+tar_make()
+```
+
+This will execute the entire pipeline as defined in the `_targets.R`
+file, downloading and harmonizing the DHS data according to the
+specifications in the package.
+
+See the Articles section for vignettes that provide detailed
+walkthroughs of pipeline development and target components.
+
+## Pipeline
+
+`{mermaid} graph LR style Legend fill:#FFFFFF00,stroke:#000000; style Graph fill:#FFFFFF00,stroke:#000000; subgraph Legend xf1522833a4d242c5(["Up to date"]):::uptodate x2db1ec7a48f65a9b(["Outdated"]):::outdated xbecb13963f49e50b{{"Object"}}:::none xd03d7c7dd2ddda2b(["Regular target"]):::none x6f7e04ea3427f824["Dynamic branches"]:::none end subgraph Graph direction LR x0d47dad6983a1aa2(["dhs_data_HR"]):::uptodate --> x4aedb210bc15dc37(["climate_diarrhea_data"]):::uptodate x95ba995a9b41bdb4(["raw_flat_dhs_files"]):::uptodate --> xaf71ba3753864455(["dhs_data_BR"]):::uptodate x95ba995a9b41bdb4(["raw_flat_dhs_files"]):::uptodate --> xc6a02429f1275e9c(["dhs_data_CR"]):::uptodate x95ba995a9b41bdb4(["raw_flat_dhs_files"]):::uptodate --> x6669e45951c76542(["dhs_data_FW"]):::uptodate x95ba995a9b41bdb4(["raw_flat_dhs_files"]):::uptodate --> x0d47dad6983a1aa2(["dhs_data_HR"]):::uptodate x95ba995a9b41bdb4(["raw_flat_dhs_files"]):::uptodate --> xfa615ac5c839fadb(["dhs_data_HW"]):::uptodate x95ba995a9b41bdb4(["raw_flat_dhs_files"]):::uptodate --> x43215ab83c9a3a83(["dhs_data_IR"]):::uptodate x95ba995a9b41bdb4(["raw_flat_dhs_files"]):::uptodate --> xba497180dafcc8ba(["dhs_data_KR"]):::uptodate x95ba995a9b41bdb4(["raw_flat_dhs_files"]):::uptodate --> x5de2f30116c2c3d1(["dhs_data_MR"]):::uptodate x95ba995a9b41bdb4(["raw_flat_dhs_files"]):::uptodate --> x9972cdca00cfdeb8(["dhs_data_PR"]):::uptodate x95ba995a9b41bdb4(["raw_flat_dhs_files"]):::uptodate --> xbb71bb17868ddc3a(["dhs_data_SQ"]):::uptodate x95ba995a9b41bdb4(["raw_flat_dhs_files"]):::uptodate --> x287b4c29954b3f82(["dhs_data_WI"]):::uptodate x1ac047943b5137b3(["raw_gps_covar_files"]):::uptodate --> xadcf4f38c96c60e2["gps_covar_data"]:::uptodate x64718cb17342870c(["raw_gps_dhs_files"]):::uptodate --> x7a02edc4b3df73c1["gps_data"]:::uptodate x7a02edc4b3df73c1["gps_data"]:::uptodate --> x39d97f5814db742b(["gps_healthshed_mapping"]):::outdated x9682742d8d5edd8f(["mdg_healthsheds"]):::uptodate --> x39d97f5814db742b(["gps_healthshed_mapping"]):::outdated xbde663d2ac234a88(["mdg_healthshed_raw"]):::uptodate --> x9682742d8d5edd8f(["mdg_healthsheds"]):::uptodate x26a1cf6aee197026(["cfg"]):::uptodate --> x8e231551575db7a7(["raw_data"]):::uptodate x8e231551575db7a7(["raw_data"]):::uptodate --> x95ba995a9b41bdb4(["raw_flat_dhs_files"]):::uptodate x8e231551575db7a7(["raw_data"]):::uptodate --> x1ac047943b5137b3(["raw_gps_covar_files"]):::uptodate x8e231551575db7a7(["raw_data"]):::uptodate --> x64718cb17342870c(["raw_gps_dhs_files"]):::uptodate x4afae7da5761bff7{{".rv"}}:::uptodate end classDef uptodate stroke:#000000,color:#ffffff,fill:#354823; classDef outdated stroke:#000000,color:#000000,fill:#78B7C5; classDef none stroke:#000000,color:#000000,fill:#94a4ac;`

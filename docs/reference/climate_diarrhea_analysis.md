@@ -1,0 +1,115 @@
+# climate_diarrhea_analysis
+
+Prepare and harmonize DHS household recode (HR) datasets for
+climate–diarrhea analysis.
+
+## Usage
+
+``` r
+climate_diarrhea_analysis(
+  dhs_data_HR,
+  var_req_list = c("hv001", "hv008", "hv209", "hv013", "hv009", "hv201", "hv025",
+    "hv205", "hv225", "hv237", "hv235", "hv238", "hv237b", "hv237a", "hv237z", "hv237f",
+    "hv237x", "hv237e", "hv237c", "hv246f", "hv237d", "hv246b", "hv246d", "hv246c",
+    "hv246", "hv246e", "hv232", "hv238a", "hv246f", "hv246g", "hv230a", "hv230b",
+    "sh18a", "hv246a", "hv246f", "hv246b", "hv246g", "hv246h", "hv246d", "hv246c",
+    "sh139c", "sh139b", "sh139a", "hv233", "hv232", "hv231", "hv246", "hv246h", "hv246i",
+    "hv246j", "hv246k", "hv246a", 
+     "hv246f", "hv246a", "hv246i", "hv246h", "hv230",
+    "hv246e", "sh22a", "sh138")
+)
+```
+
+## Arguments
+
+- dhs_data_HR:
+
+  A list of DHS household recode (HR) data frames / tibbles (flat
+  format). Each element is a survey dataset. The function expects these
+  to be in the flat DHS format and that a corresponding flat dictionary
+  can be produced via
+  [`summarize_dhs_flat_dictionary()`](summarize_dhs_flat_dictionary.md)
+  and that `data_and_labels()` is available to extract labelled
+  variables.
+
+- var_req_list:
+
+  Character vector of additional DHS variable names or cleaned
+  descriptions to keep for the analysis. Defaults to a long list of
+  common DHS household variables used in climate–diarrhea work (see
+  function default).
+
+## Value
+
+A tibble combining the selected variables from all input HR datasets.
+Columns are renamed according to the cleaned dictionary descriptions -\>
+original variable names. A new column `interview_date` (Date) is created
+from `month_of_interview` and `year_of_interview`. Intermediate
+interview date columns (`month_of_interview`, `year_of_interview`,
+`date_of_interview_cmc`) are removed.
+
+## Details
+
+This function:
+
+- Summarizes the flat DHS dictionary for the provided HR datasets and
+  cleans variable descriptions.
+
+- Builds a rename map from cleaned descriptions to original DHS variable
+  names.
+
+- Selects a set of required variables (always includes hv000, hv006,
+  hv007, hv008) plus any variables supplied in `var_req_list` from each
+  dataset in the input list.
+
+- Converts labelled vectors to factors (via `data_and_labels()` and
+  [`haven::as_factor()`](https://forcats.tidyverse.org/reference/as_factor.html)),
+  binds rows across surveys, and returns a single tibble.
+
+- Renames columns using the cleaned-description -\> variable-name
+  mapping, creates a parsed `interview_date` (from `month_of_interview`
+  and `year_of_interview`), and drops intermediate interview date
+  fields.
+
+The function relies on the following workflow:
+
+- [`summarize_dhs_flat_dictionary()`](summarize_dhs_flat_dictionary.md)
+  is called on the input list to produce a dictionary; variable
+  descriptions are cleaned with
+  [`janitor::make_clean_names()`](https://sfirke.github.io/janitor/reference/make_clean_names.html)
+  to form keys for renaming.
+
+- Each survey is subset to required variables using
+  [`dplyr::select()`](https://dplyr.tidyverse.org/reference/select.html)
+  and
+  [`dplyr::any_of()`](https://tidyselect.r-lib.org/reference/all_of.html).
+
+- Labelled vectors are converted to R factors using `data_and_labels()`
+  and
+  [`haven::as_factor()`](https://forcats.tidyverse.org/reference/as_factor.html).
+
+- The per-survey datasets are row-bound together and returned as a
+  tibble after renaming and date construction.
+
+## Note
+
+- The input list should contain DHS HR datasets in the expected flat
+  format; missing expected fields may cause errors.
+
+- This function uses functions from dplyr, purrr, janitor, haven, glue,
+  and lubridate; ensure those packages are loaded.
+
+## Examples
+
+``` r
+if (FALSE) { # \dontrun{
+# Assume `dhs_data_HR` is a named list of DHS HR data frames already loaded into the R session:
+result <- climate_diarrhea_analysis(dhs_data_HR)
+
+# To request a custom set of variables:
+vars <- c("hv001", "hv008", "hv201", "hv025")
+result2 <- climate_diarrhea_analysis(dhs_data_HR, var_req_list = vars)
+} # }
+
+#climate_diarrhea_analysis()
+```
