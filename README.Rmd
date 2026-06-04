@@ -38,7 +38,7 @@ and build the package pipeline yourself, you can do so with the following code:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("GoldenPlanetaryHealthLab/DHSHarmonization")
+devtools::install_github("Climate-Smart-Public-Health/DHSHarmonization")
 ```
 
 > Note: This can only be accomplished if you have access to the DHS data
@@ -49,20 +49,8 @@ through FASRC and the Golden Lab space on FASRC.
 > Important: This is a work in progress; please make a data request on Github
 first before running the pipeline locally.
 
-As a pre-requisite, you will need to have access to the Gold Mine
-on FASRC, which you can connect to using `stagecoach` to stage
-the raw data:
-
-```sh
-uv tool install stagecoach
-stagecoach hail
-stagecoach inspect
-stagecoach stage
-```
-
-Once you've got a raw data directory ready in your 
-project space and have installed the package, you can 
-run the pipeline with targets::tar_make()
+Once you've installed the package, you can run the pipeline
+with targets::tar_make()
 
 ```{r example, eval=FALSE}
 tar_make()
@@ -77,6 +65,7 @@ of pipeline development and target components.
 
 ## Pipeline
 
-  ```{r, results = "asis", echo = FALSE}
-  cat(c("```{mermaid}", targets::tar_mermaid(reporter="silent"), "```"), sep = "\n")
-  ```
+```{r}
+library(targets)
+tar_mermaid()
+```

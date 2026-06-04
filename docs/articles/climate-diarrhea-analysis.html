@@ -34,10 +34,8 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/climate-diarrhea-analysis.html">Climate Diarrhea Analysis</a></li>
-    <li><a class="dropdown-item" href="../articles/dev/geospatial_agg_map.html">Geospatial Aggregation Mapping</a></li>
     <li><a class="dropdown-item" href="../articles/linking-and-tracking-raw-inputs.html">Linking and Tracking Raw Inputs</a></li>
     <li><a class="dropdown-item" href="../articles/pipeline-definition.html">Pipeline Definition</a></li>
-    <li><a class="dropdown-item" href="../articles/dev/Pipeline.html">Quarto Pipeline</a></li>
     <li><a class="dropdown-item" href="../articles/reading-in-files-from-dhs.html">Reading in Files from DHS</a></li>
   </ul>
 </li>
@@ -53,9 +51,6 @@
 
   </div>
 </nav><div class="container template-article">
-
-
-
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
@@ -75,14 +70,11 @@
 <div class="section level2">
 <h2 id="climate_diarrhea_analysis">climate_diarrhea_analysis<a class="anchor" aria-label="anchor" href="#climate_diarrhea_analysis"></a>
 </h2>
-<p>This endpoint function develops the dataset for analyzing the
-relationship between climate variables and diarrhea incidence, based on
-<a href="https://github.com/Climate-Smart-Public-Health/DHSHarmonization/issues/2" class="external-link">Issue
-#2</a>.</p>
+<p>This endpoint function develops the dataset for analyzing the relationship between climate variables and diarrhea incidence, based on <a href="https://github.com/Climate-Smart-Public-Health/DHSHarmonization/issues/2" class="external-link">Issue #2</a>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/targets/" class="external-link">targets</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://here.r-lib.org/" class="external-link">here</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; here() starts at /work</span></span>
+<span><span class="co">#&gt; here() starts at /n/holylabs/cgolden_lab/Lab/projects/DHSHarmonization</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
@@ -113,8 +105,7 @@ relationship between climate variables and diarrhea incidence, based on
 <span><span class="co">#&gt;     date, intersect, setdiff, union</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://glue.tidyverse.org/" class="external-link">glue</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html" class="external-link">tar_load</a></span><span class="op">(</span><span class="va">dhs_data_HR</span>, store <span class="op">=</span> <span class="fu"><a href="https://here.r-lib.org/reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"_targets/"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>We first load the DHS data from the household recode and filter the
-relevant variables from the request:</p>
+<p>We first load the DHS data from the household recode and filter the relevant variables from the request:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dhs_data_HR</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 7</span></span></code></pre></div>
@@ -212,8 +203,7 @@ relevant variables from the request:</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> share_toilet_with_other_households           hv225        5</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> anything_done_to_water_to_make_safe_to_drink hv237        4</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 61 more rows</span></span></span></code></pre></div>
-<p>Now we need to filter each dataset for these variables and then merge
-them:</p>
+<p>Now we need to filter each dataset for these variables and then merge them:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dhs_data_HR</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">.</span>, <span class="kw">function</span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">{</span></span>
@@ -290,17 +280,7 @@ them:</p>
 </tbody>
 </table>
 <p><strong>Variable type: character</strong></p>
-<table style="width:100%;" class="table">
-<colgroup>
-<col width="28%">
-<col width="12%">
-<col width="17%">
-<col width="4%">
-<col width="4%">
-<col width="7%">
-<col width="11%">
-<col width="13%">
-</colgroup>
+<table class="table">
 <thead><tr class="header">
 <th align="left">skim_variable</th>
 <th align="right">n_missing</th>
@@ -324,15 +304,6 @@ them:</p>
 </table>
 <p><strong>Variable type: Date</strong></p>
 <table class="table">
-<colgroup>
-<col width="18%">
-<col width="12%">
-<col width="17%">
-<col width="13%">
-<col width="13%">
-<col width="13%">
-<col width="11%">
-</colgroup>
 <thead><tr class="header">
 <th align="left">skim_variable</th>
 <th align="right">n_missing</th>
@@ -703,19 +674,6 @@ them:</p>
 </table>
 <p><strong>Variable type: numeric</strong></p>
 <table class="table">
-<colgroup>
-<col width="30%">
-<col width="10%">
-<col width="15%">
-<col width="7%">
-<col width="7%">
-<col width="3%">
-<col width="4%">
-<col width="4%">
-<col width="4%">
-<col width="5%">
-<col width="6%">
-</colgroup>
 <thead><tr class="header">
 <th align="left">skim_variable</th>
 <th align="right">n_missing</th>
@@ -785,7 +743,7 @@ them:</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer>

@@ -11,11 +11,6 @@ This package documents the pipeline used to merge and harmonize the DHS data for
 \author{
 \strong{Maintainer}: Tinashe Tapera \email{ttapera@hsph.harvard.edu}
 
-Authors:
-\itemize{
-  \item Tinashe Tapera \email{ttapera@hsph.harvard.edu}
-}
-
 Other contributors:
 \itemize{
   \item Christopher Golden \email{golden@hsph.harvard.edu} [copyright holder]

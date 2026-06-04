@@ -19,10 +19,3 @@ _targets/
 ^\.Rproj\.user$
 ^doc$
 ^Meta$
-^\.container-home$
-^\.devcontainer$
-^\.spack-env$
-^spack\.yaml$
-^spack\.lock$
-^rv$
-^work\.Rproj$
