@@ -1,6 +1,6 @@
 ---
 title: "Geospatial Data Mapping"
-format: html
+format: gfm
 ---
 
 This notebook extends the pipeline to incorporate

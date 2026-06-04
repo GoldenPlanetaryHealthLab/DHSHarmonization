@@ -25,30 +25,6 @@ force_source = false
 dependencies = []
 
 [[packages]]
-name = "DHSHarmonization"
-version = "0.0.0.9002"
-source = { path = "." }
-force_source = true
-dependencies = [
-    "cli",
-    "config",
-    "dplyr",
-    "fs",
-    "glue",
-    "haven",
-    "here",
-    "janitor",
-    "magrittr",
-    "purrr",
-    "rdhs",
-    "readr",
-    "stringr",
-    "targets",
-    "xfun",
-    "zip",
-]
-
-[[packages]]
 name = "DT"
 version = "0.34.0"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
@@ -1003,26 +979,6 @@ dependencies = [
 ]
 
 [[packages]]
-name = "janitor"
-version = "2.2.1"
-source = { repository = "https://packagemanager.posit.co/cran/latest" }
-force_source = false
-dependencies = [
-    { name = "dplyr", requirement = "(>= 1.0.0)" },
-    "hms",
-    "lifecycle",
-    "lubridate",
-    "magrittr",
-    "purrr",
-    "rlang",
-    "stringi",
-    "stringr",
-    { name = "snakecase", requirement = "(>= 0.9.2)" },
-    { name = "tidyselect", requirement = "(>= 1.0.0)" },
-    { name = "tidyr", requirement = "(>= 0.7.0)" },
-]
-
-[[packages]]
 name = "jquerylib"
 version = "0.1.4"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
@@ -1754,13 +1710,23 @@ dependencies = [
 ]
 
 [[packages]]
-name = "snakecase"
-version = "0.11.1"
+name = "skimr"
+version = "2.2.2"
 source = { repository = "https://packagemanager.posit.co/cran/latest" }
 force_source = false
 dependencies = [
-    "stringr",
-    "stringi",
+    "cli",
+    { name = "dplyr", requirement = "(>= 1.0.0)" },
+    { name = "knitr", requirement = "(>= 1.2)" },
+    { name = "pillar", requirement = "(>= 1.6.4)" },
+    "purrr",
+    "repr",
+    "rlang",
+    { name = "stringr", requirement = "(>= 1.1)" },
+    { name = "tibble", requirement = "(>= 2.0.0)" },
+    { name = "tidyr", requirement = "(>= 1.0)" },
+    { name = "tidyselect", requirement = "(>= 1.0.0)" },
+    { name = "vctrs", requirement = "(>= 0.5.0)" },
 ]
 
 [[packages]]

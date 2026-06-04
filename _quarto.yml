@@ -1,5 +1,9 @@
 project:
   title: "default"
+  output-dir: vignettes
+  render:
+    - "dev/Pipeline.qmd"
+    - "dev/geospatial_agg_map.qmd"
 
 
 

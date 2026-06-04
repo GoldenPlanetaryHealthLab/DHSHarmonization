@@ -94,6 +94,7 @@ dependencies = [
     "httpgd",
     "sf",
     "parsermd",
-    { name = "DHSHarmonization", path = "." },
+    
     "DiagrammeR",
+    "skimr",
 ]

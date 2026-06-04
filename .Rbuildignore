@@ -25,3 +25,4 @@ _targets/
 ^spack\.yaml$
 ^spack\.lock$
 ^rv$
+^work\.Rproj$

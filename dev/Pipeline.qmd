@@ -1,5 +1,5 @@
 ---
-title: "DHS Pipeline"
+title: "DHS Pipeline (Quarto Orchestrator)"
 author: "Tinashe M. Tapera"
 filters:
   - sorting-hat
@@ -19,13 +19,6 @@ format: gfm
 
 Here we document, create, and run the pipeline all in
 one file thanks to Quarto and `targets`.
-
-```mermaid
-
-{{< include "pipeline.mmd" >}}
-
-```
-
 
 For the backend, we'll use this Quarto notebook as the 
 "orchestrator," meaning that the pipeline runs any time
