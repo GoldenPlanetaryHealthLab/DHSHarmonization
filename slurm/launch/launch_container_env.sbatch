@@ -5,8 +5,8 @@
 #SBATCH --time=04:00:00
 #SBATCH -c 4
 
-#SBATCH --output=/n/holylabs/LABS/cgolden_lab/Lab/frontier/works/prospectors/prospectorDHS/slurm/launch/logs/launch_%j.out
-#SBATCH --error=/n/holylabs/LABS/cgolden_lab/Lab/frontier/works/prospectors/prospectorDHS/slurm/launch/logs/launch_%j.err
+#SBATCH --output=/n/holylabs/LABS/cgolden_lab/Lab/frontier/works/prospectors/prospectorDHSMadagascar/slurm/launch/logs/launch_%j.out
+#SBATCH --error=/n/holylabs/LABS/cgolden_lab/Lab/frontier/works/prospectors/prospectorDHSMadagascar/slurm/launch/logs/launch_%j.err
 
 set -o errexit -o nounset -o pipefail
 

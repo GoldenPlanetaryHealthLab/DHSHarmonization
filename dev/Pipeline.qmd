@@ -1,0 +1,70 @@
+---
+title: "DHS Pipeline"
+author: "Tinashe M. Tapera"
+filters:
+  - sorting-hat
+  - ripper
+extensions:
+  sorting-hat:
+    keep:
+      - r
+    verbose: true
+  ripper:
+    include-yaml: false
+    output-dir: "../tests/testthat"
+    output-name: "test-pipeline_orchestrator"
+    script-links-position: "none"
+format: gfm
+---
+
+Here we document, create, and run the pipeline all in
+one file thanks to Quarto and `targets`.
+
+```mermaid
+
+{{< include "pipeline.mmd" >}}
+
+```
+
+
+For the backend, we'll use this Quarto notebook as the 
+"orchestrator," meaning that the pipeline runs any time
+this notebook is executed/rendered. First, let's get 
+the script files from the inputs directory:
+
+```{r}
+devtools::load_all()
+```
+
+```{r}
+library(stringr)
+library(testthat)
+library(dplyr)
+library(yaml)
+library(purrr)
+library(here)
+library(targets)
+```
+
+The inputs were provided by stagecoach. The manifest for
+the stagecoach run is in `stagecoach_manifest.yml` if you want to check it out.
+
+```{r}
+#| format: file
+#| packages: [here, dplyr, yaml, purrr]
+
+manifest <- here("stagecoach_manifest.yml")
+```
+
+```{r}
+#| packages: [stringr, dplyr, here]
+
+repo_files <- list.files(
+    here(
+      "data", 
+      "inputs"
+    ),
+    recursive = TRUE
+)
+```
+
