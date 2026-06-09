@@ -19,10 +19,8 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/climate-diarrhea-analysis.html">Climate Diarrhea Analysis</a></li>
-    <li><a class="dropdown-item" href="../articles/dev/geospatial_agg_map.html">Geospatial Aggregation Mapping</a></li>
     <li><a class="dropdown-item" href="../articles/linking-and-tracking-raw-inputs.html">Linking and Tracking Raw Inputs</a></li>
     <li><a class="dropdown-item" href="../articles/pipeline-definition.html">Pipeline Definition</a></li>
-    <li><a class="dropdown-item" href="../articles/dev/Pipeline.html">Quarto Pipeline</a></li>
     <li><a class="dropdown-item" href="../articles/reading-in-files-from-dhs.html">Reading in Files from DHS</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -56,20 +54,14 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="link_inputs.html">link_inputs</a></span><span class="op">(</span><span class="st">"config.yml"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu">list_raw_gps_covars</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Linking the google drive data space to the local Data directory: /n/holylabs/LABS/cgolden_lab/Lab/data_freeze/golden_googledrive_rclone/Climate-Smart Public Health - Madagascar/4. Datasets/DHS Data</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot symlink '/n/holylabs/LABS/cgolden_lab/Lab/data_freeze/golden_googledrive_rclone/Climate-Smart Public Health - Madagascar/4. Datasets/DHS Data' to '/work/data/DHS Data', reason 'File exists'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot symlink '/n/holylabs/LABS/cgolden_lab/Lab/data_freeze/golden_googledrive_rclone/Climate-Smart Public Health - Madagascar/4. Datasets/DHS Data' to '/n/holylabs/cgolden_lab/Lab/projects/DHSHarmonization/data/DHS Data', reason 'File exists'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Linking successful!</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "/work/data/DHS Data/DHS 1997/GPS Data/MDGC32FL/MDGC32FL.csv"                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2] "/work/data/DHS Data/DHS 2008 geospatial/MDGC52FL/MDGC52FL.csv"                                                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "/work/data/DHS Data/DHS 2008-09/GPS Data/MDGC52FL/MDGC52FL.csv"                                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "/work/data/DHS Data/DHS 2021/GPS data/MDGC81FL/MDGC81FL/MDGC81FL.csv"                                          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "/work/data/DHS Data/MIS 2011/GPS Data/MDGC62FL/MDGC62FL.csv"                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "/work/data/DHS Data/MIS 2016/GPS Data/MDGC72FL/MDGC72FL.csv"                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "/work/data/inputs/01_gold_mine/google_drive_DHS_data/DHS Data/DHS 1997/GPS Data/MDGC32FL/MDGC32FL.csv"         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] "/work/data/inputs/01_gold_mine/google_drive_DHS_data/DHS Data/DHS 2008 geospatial/MDGC52FL/MDGC52FL.csv"       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "/work/data/inputs/01_gold_mine/google_drive_DHS_data/DHS Data/DHS 2008-09/GPS Data/MDGC52FL/MDGC52FL.csv"      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "/work/data/inputs/01_gold_mine/google_drive_DHS_data/DHS Data/DHS 2021/GPS data/MDGC81FL/MDGC81FL/MDGC81FL.csv"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "/work/data/inputs/01_gold_mine/google_drive_DHS_data/DHS Data/MIS 2011/GPS Data/MDGC62FL/MDGC62FL.csv"         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [12] "/work/data/inputs/01_gold_mine/google_drive_DHS_data/DHS Data/MIS 2016/GPS Data/MDGC72FL/MDGC72FL.csv"         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/n/holylabs/cgolden_lab/Lab/projects/DHSHarmonization/data/DHS Data/DHS 1997/GPS Data/MDGC32FL/MDGC32FL.csv"         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2] "/n/holylabs/cgolden_lab/Lab/projects/DHSHarmonization/data/DHS Data/DHS 2008 geospatial/MDGC52FL/MDGC52FL.csv"       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3] "/n/holylabs/cgolden_lab/Lab/projects/DHSHarmonization/data/DHS Data/DHS 2008-09/GPS Data/MDGC52FL/MDGC52FL.csv"      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4] "/n/holylabs/cgolden_lab/Lab/projects/DHSHarmonization/data/DHS Data/DHS 2021/GPS data/MDGC81FL/MDGC81FL/MDGC81FL.csv"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5] "/n/holylabs/cgolden_lab/Lab/projects/DHSHarmonization/data/DHS Data/MIS 2011/GPS Data/MDGC62FL/MDGC62FL.csv"         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [6] "/n/holylabs/cgolden_lab/Lab/projects/DHSHarmonization/data/DHS Data/MIS 2016/GPS Data/MDGC72FL/MDGC72FL.csv"         </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -81,7 +73,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer></div>

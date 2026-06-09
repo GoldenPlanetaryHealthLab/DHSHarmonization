@@ -587,12 +587,12 @@ code .in { color: #008080; }
 </style>
 <style>
 body {
-box-sizing: border-box;
-min-width: 200px;
-max-width: 980px;
-margin: 0 auto;
-padding: 45px;
-padding-top: 0px;
+  box-sizing: border-box;
+  min-width: 200px;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 45px;
+  padding-top: 0px;
 }
 </style>
 
@@ -608,50 +608,102 @@ padding-top: 0px;
 
 <!-- badges: end -->
 
-<p>The goal of DHSHarmonization is to provide the Golden Lab with a
-pipeline to harmonize and extract data from Demographic and Health
-Surveys (DHS) for analysis. The pipeline is built on targets to ensure
-reproducibility and is designed to be flexible to accommodate different
-research questions and datasets.</p>
-<p>To get an understanding of the data, investigate the vignettes in the
-Articles section, which contain detailed explanations of the data
-loading and harmonization process, and some minimal exploratory data
-analysis (EDA) to help you understand the variables available.</p>
-<p>If you require a pipeline endpoint dataset that is not currently
-implemented, please open an issue or reach out to Tinashe.</p>
+<p>The goal of DHSHarmonization is to provide the Golden Lab with a pipeline to harmonize and extract data from Demographic and Health Surveys (DHS) for analysis. The pipeline is built on targets to ensure reproducibility and is designed to be flexible to accommodate different research questions and datasets.</p>
+<p>To get an understanding of the data, investigate the vignettes in the Articles section, which contain detailed explanations of the data loading and harmonization process, and some minimal exploratory data analysis (EDA) to help you understand the variables available.</p>
+<p>If you require a pipeline endpoint dataset that is not currently implemented, please open an issue or reach out to Tinashe.</p>
 <h2 id="installation">Installation</h2>
-<p>If you would like to install the development version of
-DHSHarmonization, and build the package pipeline yourself, you can do so
-with the following code:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># install.packages(&quot;devtools&quot;)</span></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;GoldenPlanetaryHealthLab/DHSHarmonization&quot;</span>)</span></code></pre></div>
+<p>If you would like to install the development version of DHSHarmonization, and build the package pipeline yourself, you can do so with the following code:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># install.packages(&quot;devtools&quot;)</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;Climate-Smart-Public-Health/DHSHarmonization&quot;</span>)</a></code></pre></div>
 <blockquote>
-<p>Note: This can only be accomplished if you have access to the DHS
-data through FASRC and the Golden Lab space on FASRC.</p>
+<p>Note: This can only be accomplished if you have access to the DHS data through FASRC and the Golden Lab space on FASRC.</p>
 </blockquote>
 <h2 id="example">Example</h2>
 <blockquote>
-<p>Important: This is a work in progress; please make a data request on
-Github first before running the pipeline locally.</p>
+<p>Important: This is a work in progress; please make a data request on Github first before running the pipeline locally.</p>
 </blockquote>
-<p>As a pre-requisite, you will need to have access to the Gold Mine on
-FASRC, which you can connect to using <code>stagecoach</code> to stage
-the raw data:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">uv</span> tool install stagecoach</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="ex">stagecoach</span> hail</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="ex">stagecoach</span> inspect</span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="ex">stagecoach</span> stage</span></code></pre></div>
-<p>Once you’ve got a raw data directory ready in your project space and
-have installed the package, you can run the pipeline with
-targets::tar_make()</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">tar_make</span>()</span></code></pre></div>
-<p>This will execute the entire pipeline as defined in the
-<code>_targets.R</code> file, downloading and harmonizing the DHS data
-according to the specifications in the package.</p>
-<p>See the Articles section for vignettes that provide detailed
-walkthroughs of pipeline development and target components.</p>
+<p>Once you’ve installed the package, you can run the pipeline with targets::tar_make()</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">tar_make</span>()</a></code></pre></div>
+<p>This will execute the entire pipeline as defined in the <code>_targets.R</code> file, downloading and harmonizing the DHS data according to the specifications in the package.</p>
+<p>See the Articles section for vignettes that provide detailed walkthroughs of pipeline development and target components.</p>
 <h2 id="pipeline">Pipeline</h2>
-<p><code>{mermaid}   graph LR     style Legend fill:#FFFFFF00,stroke:#000000;     style Graph fill:#FFFFFF00,stroke:#000000;     subgraph Legend       xf1522833a4d242c5([&quot;Up to date&quot;]):::uptodate       x2db1ec7a48f65a9b([&quot;Outdated&quot;]):::outdated       xbecb13963f49e50b{{&quot;Object&quot;}}:::none       xd03d7c7dd2ddda2b([&quot;Regular target&quot;]):::none       x6f7e04ea3427f824[&quot;Dynamic branches&quot;]:::none     end     subgraph Graph       direction LR       x0d47dad6983a1aa2([&quot;dhs_data_HR&quot;]):::uptodate --&gt; x4aedb210bc15dc37([&quot;climate_diarrhea_data&quot;]):::uptodate       x95ba995a9b41bdb4([&quot;raw_flat_dhs_files&quot;]):::uptodate --&gt; xaf71ba3753864455([&quot;dhs_data_BR&quot;]):::uptodate       x95ba995a9b41bdb4([&quot;raw_flat_dhs_files&quot;]):::uptodate --&gt; xc6a02429f1275e9c([&quot;dhs_data_CR&quot;]):::uptodate       x95ba995a9b41bdb4([&quot;raw_flat_dhs_files&quot;]):::uptodate --&gt; x6669e45951c76542([&quot;dhs_data_FW&quot;]):::uptodate       x95ba995a9b41bdb4([&quot;raw_flat_dhs_files&quot;]):::uptodate --&gt; x0d47dad6983a1aa2([&quot;dhs_data_HR&quot;]):::uptodate       x95ba995a9b41bdb4([&quot;raw_flat_dhs_files&quot;]):::uptodate --&gt; xfa615ac5c839fadb([&quot;dhs_data_HW&quot;]):::uptodate       x95ba995a9b41bdb4([&quot;raw_flat_dhs_files&quot;]):::uptodate --&gt; x43215ab83c9a3a83([&quot;dhs_data_IR&quot;]):::uptodate       x95ba995a9b41bdb4([&quot;raw_flat_dhs_files&quot;]):::uptodate --&gt; xba497180dafcc8ba([&quot;dhs_data_KR&quot;]):::uptodate       x95ba995a9b41bdb4([&quot;raw_flat_dhs_files&quot;]):::uptodate --&gt; x5de2f30116c2c3d1([&quot;dhs_data_MR&quot;]):::uptodate       x95ba995a9b41bdb4([&quot;raw_flat_dhs_files&quot;]):::uptodate --&gt; x9972cdca00cfdeb8([&quot;dhs_data_PR&quot;]):::uptodate       x95ba995a9b41bdb4([&quot;raw_flat_dhs_files&quot;]):::uptodate --&gt; xbb71bb17868ddc3a([&quot;dhs_data_SQ&quot;]):::uptodate       x95ba995a9b41bdb4([&quot;raw_flat_dhs_files&quot;]):::uptodate --&gt; x287b4c29954b3f82([&quot;dhs_data_WI&quot;]):::uptodate       x1ac047943b5137b3([&quot;raw_gps_covar_files&quot;]):::uptodate --&gt; xadcf4f38c96c60e2[&quot;gps_covar_data&quot;]:::uptodate       x64718cb17342870c([&quot;raw_gps_dhs_files&quot;]):::uptodate --&gt; x7a02edc4b3df73c1[&quot;gps_data&quot;]:::uptodate       x7a02edc4b3df73c1[&quot;gps_data&quot;]:::uptodate --&gt; x39d97f5814db742b([&quot;gps_healthshed_mapping&quot;]):::outdated       x9682742d8d5edd8f([&quot;mdg_healthsheds&quot;]):::uptodate --&gt; x39d97f5814db742b([&quot;gps_healthshed_mapping&quot;]):::outdated       xbde663d2ac234a88([&quot;mdg_healthshed_raw&quot;]):::uptodate --&gt; x9682742d8d5edd8f([&quot;mdg_healthsheds&quot;]):::uptodate       x26a1cf6aee197026([&quot;cfg&quot;]):::uptodate --&gt; x8e231551575db7a7([&quot;raw_data&quot;]):::uptodate       x8e231551575db7a7([&quot;raw_data&quot;]):::uptodate --&gt; x95ba995a9b41bdb4([&quot;raw_flat_dhs_files&quot;]):::uptodate       x8e231551575db7a7([&quot;raw_data&quot;]):::uptodate --&gt; x1ac047943b5137b3([&quot;raw_gps_covar_files&quot;]):::uptodate       x8e231551575db7a7([&quot;raw_data&quot;]):::uptodate --&gt; x64718cb17342870c([&quot;raw_gps_dhs_files&quot;]):::uptodate       x4afae7da5761bff7{{&quot;.rv&quot;}}:::uptodate     end     classDef uptodate stroke:#000000,color:#ffffff,fill:#354823;     classDef outdated stroke:#000000,color:#000000,fill:#78B7C5;     classDef none stroke:#000000,color:#000000,fill:#94a4ac;</code></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">library</span>(targets)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">tar_mermaid</span>()</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; - The project is out-of-sync -- use `renv::status()` for details.</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; here() starts at /n/holylabs/cgolden_lab/Lab/projects/DHSHarmonization</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt; + gps_covar_data declared [6 branches]</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt; + gps_data declared [6 branches]</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt; + dhs_data_SQ declared [1 branches]</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt; + dhs_data_HR declared [7 branches]</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt; + dhs_data_BR declared [5 branches]</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; + dhs_data_CR declared [3 branches]</span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt; + dhs_data_PR declared [7 branches]</span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; + dhs_data_IR declared [7 branches]</span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; + dhs_data_HW declared [3 branches]</span></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; + dhs_data_FW declared [1 branches]</span></a>
+<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; + dhs_data_WI declared [1 branches]</span></a>
+<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt; + dhs_data_MR declared [3 branches]</span></a>
+<a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt; + dhs_data_KR declared [7 branches]</span></a>
+<a class="sourceLine" id="cb3-18" data-line-number="18"><span class="co">#&gt;  [1] &quot;graph LR&quot;                                                                                                             </span></a>
+<a class="sourceLine" id="cb3-19" data-line-number="19"><span class="co">#&gt;  [2] &quot;  style Legend fill:#FFFFFF00,stroke:#000000;&quot;                                                                        </span></a>
+<a class="sourceLine" id="cb3-20" data-line-number="20"><span class="co">#&gt;  [3] &quot;  style Graph fill:#FFFFFF00,stroke:#000000;&quot;                                                                         </span></a>
+<a class="sourceLine" id="cb3-21" data-line-number="21"><span class="co">#&gt;  [4] &quot;  subgraph Legend&quot;                                                                                                    </span></a>
+<a class="sourceLine" id="cb3-22" data-line-number="22"><span class="co">#&gt;  [5] &quot;    xf1522833a4d242c5([\&quot;Up to date\&quot;]):::uptodate&quot;                                                                   </span></a>
+<a class="sourceLine" id="cb3-23" data-line-number="23"><span class="co">#&gt;  [6] &quot;    xeb2d7cac8a1ce544&gt;\&quot;Function\&quot;]:::none&quot;                                                                           </span></a>
+<a class="sourceLine" id="cb3-24" data-line-number="24"><span class="co">#&gt;  [7] &quot;    xd03d7c7dd2ddda2b([\&quot;Regular target\&quot;]):::none&quot;                                                                   </span></a>
+<a class="sourceLine" id="cb3-25" data-line-number="25"><span class="co">#&gt;  [8] &quot;    x6f7e04ea3427f824[\&quot;Dynamic branches\&quot;]:::none&quot;                                                                   </span></a>
+<a class="sourceLine" id="cb3-26" data-line-number="26"><span class="co">#&gt;  [9] &quot;  end&quot;                                                                                                                </span></a>
+<a class="sourceLine" id="cb3-27" data-line-number="27"><span class="co">#&gt; [10] &quot;  subgraph Graph&quot;                                                                                                     </span></a>
+<a class="sourceLine" id="cb3-28" data-line-number="28"><span class="co">#&gt; [11] &quot;    direction LR&quot;                                                                                                     </span></a>
+<a class="sourceLine" id="cb3-29" data-line-number="29"><span class="co">#&gt; [12] &quot;    xee0c57ecf70dae2e([\&quot;files_for_type_BR\&quot;]):::uptodate --&gt; xaf71ba3753864455[\&quot;dhs_data_BR\&quot;]:::uptodate&quot;          </span></a>
+<a class="sourceLine" id="cb3-30" data-line-number="30"><span class="co">#&gt; [13] &quot;    x5950ce2b2ae8abf6&gt;\&quot;load_flat_dhs_data\&quot;]:::uptodate --&gt; xaf71ba3753864455[\&quot;dhs_data_BR\&quot;]:::uptodate&quot;           </span></a>
+<a class="sourceLine" id="cb3-31" data-line-number="31"><span class="co">#&gt; [14] &quot;    xed47c6d9491838ba([\&quot;files_for_type_CR\&quot;]):::uptodate --&gt; xc6a02429f1275e9c[\&quot;dhs_data_CR\&quot;]:::uptodate&quot;          </span></a>
+<a class="sourceLine" id="cb3-32" data-line-number="32"><span class="co">#&gt; [15] &quot;    x5950ce2b2ae8abf6&gt;\&quot;load_flat_dhs_data\&quot;]:::uptodate --&gt; xc6a02429f1275e9c[\&quot;dhs_data_CR\&quot;]:::uptodate&quot;           </span></a>
+<a class="sourceLine" id="cb3-33" data-line-number="33"><span class="co">#&gt; [16] &quot;    xe2d628dbe32b92f9([\&quot;files_for_type_FW\&quot;]):::uptodate --&gt; x6669e45951c76542[\&quot;dhs_data_FW\&quot;]:::uptodate&quot;          </span></a>
+<a class="sourceLine" id="cb3-34" data-line-number="34"><span class="co">#&gt; [17] &quot;    x5950ce2b2ae8abf6&gt;\&quot;load_flat_dhs_data\&quot;]:::uptodate --&gt; x6669e45951c76542[\&quot;dhs_data_FW\&quot;]:::uptodate&quot;           </span></a>
+<a class="sourceLine" id="cb3-35" data-line-number="35"><span class="co">#&gt; [18] &quot;    x2a0c300e1a8a6de2([\&quot;files_for_type_HR\&quot;]):::uptodate --&gt; x0d47dad6983a1aa2[\&quot;dhs_data_HR\&quot;]:::uptodate&quot;          </span></a>
+<a class="sourceLine" id="cb3-36" data-line-number="36"><span class="co">#&gt; [19] &quot;    x5950ce2b2ae8abf6&gt;\&quot;load_flat_dhs_data\&quot;]:::uptodate --&gt; x0d47dad6983a1aa2[\&quot;dhs_data_HR\&quot;]:::uptodate&quot;           </span></a>
+<a class="sourceLine" id="cb3-37" data-line-number="37"><span class="co">#&gt; [20] &quot;    xf99a6980afe5beec([\&quot;files_for_type_HW\&quot;]):::uptodate --&gt; xfa615ac5c839fadb[\&quot;dhs_data_HW\&quot;]:::uptodate&quot;          </span></a>
+<a class="sourceLine" id="cb3-38" data-line-number="38"><span class="co">#&gt; [21] &quot;    x5950ce2b2ae8abf6&gt;\&quot;load_flat_dhs_data\&quot;]:::uptodate --&gt; xfa615ac5c839fadb[\&quot;dhs_data_HW\&quot;]:::uptodate&quot;           </span></a>
+<a class="sourceLine" id="cb3-39" data-line-number="39"><span class="co">#&gt; [22] &quot;    x5950ce2b2ae8abf6&gt;\&quot;load_flat_dhs_data\&quot;]:::uptodate --&gt; x43215ab83c9a3a83[\&quot;dhs_data_IR\&quot;]:::uptodate&quot;           </span></a>
+<a class="sourceLine" id="cb3-40" data-line-number="40"><span class="co">#&gt; [23] &quot;    x8ae7d8720f60fe7e([\&quot;files_for_type_IR\&quot;]):::uptodate --&gt; x43215ab83c9a3a83[\&quot;dhs_data_IR\&quot;]:::uptodate&quot;          </span></a>
+<a class="sourceLine" id="cb3-41" data-line-number="41"><span class="co">#&gt; [24] &quot;    x5950ce2b2ae8abf6&gt;\&quot;load_flat_dhs_data\&quot;]:::uptodate --&gt; xba497180dafcc8ba[\&quot;dhs_data_KR\&quot;]:::uptodate&quot;           </span></a>
+<a class="sourceLine" id="cb3-42" data-line-number="42"><span class="co">#&gt; [25] &quot;    x94310d3977452ff7([\&quot;files_for_type_KR\&quot;]):::uptodate --&gt; xba497180dafcc8ba[\&quot;dhs_data_KR\&quot;]:::uptodate&quot;          </span></a>
+<a class="sourceLine" id="cb3-43" data-line-number="43"><span class="co">#&gt; [26] &quot;    xc5c93bfd1a87c867([\&quot;files_for_type_MR\&quot;]):::uptodate --&gt; x5de2f30116c2c3d1[\&quot;dhs_data_MR\&quot;]:::uptodate&quot;          </span></a>
+<a class="sourceLine" id="cb3-44" data-line-number="44"><span class="co">#&gt; [27] &quot;    x5950ce2b2ae8abf6&gt;\&quot;load_flat_dhs_data\&quot;]:::uptodate --&gt; x5de2f30116c2c3d1[\&quot;dhs_data_MR\&quot;]:::uptodate&quot;           </span></a>
+<a class="sourceLine" id="cb3-45" data-line-number="45"><span class="co">#&gt; [28] &quot;    x68c3c6c4b8901331([\&quot;files_for_type_PR\&quot;]):::uptodate --&gt; x9972cdca00cfdeb8[\&quot;dhs_data_PR\&quot;]:::uptodate&quot;          </span></a>
+<a class="sourceLine" id="cb3-46" data-line-number="46"><span class="co">#&gt; [29] &quot;    x5950ce2b2ae8abf6&gt;\&quot;load_flat_dhs_data\&quot;]:::uptodate --&gt; x9972cdca00cfdeb8[\&quot;dhs_data_PR\&quot;]:::uptodate&quot;           </span></a>
+<a class="sourceLine" id="cb3-47" data-line-number="47"><span class="co">#&gt; [30] &quot;    xde9081cd754fef2c([\&quot;files_for_type_SQ\&quot;]):::uptodate --&gt; xbb71bb17868ddc3a[\&quot;dhs_data_SQ\&quot;]:::uptodate&quot;          </span></a>
+<a class="sourceLine" id="cb3-48" data-line-number="48"><span class="co">#&gt; [31] &quot;    x5950ce2b2ae8abf6&gt;\&quot;load_flat_dhs_data\&quot;]:::uptodate --&gt; xbb71bb17868ddc3a[\&quot;dhs_data_SQ\&quot;]:::uptodate&quot;           </span></a>
+<a class="sourceLine" id="cb3-49" data-line-number="49"><span class="co">#&gt; [32] &quot;    x5950ce2b2ae8abf6&gt;\&quot;load_flat_dhs_data\&quot;]:::uptodate --&gt; x287b4c29954b3f82[\&quot;dhs_data_WI\&quot;]:::uptodate&quot;           </span></a>
+<a class="sourceLine" id="cb3-50" data-line-number="50"><span class="co">#&gt; [33] &quot;    xb5d9d5201bbb3f3f([\&quot;files_for_type_WI\&quot;]):::uptodate --&gt; x287b4c29954b3f82[\&quot;dhs_data_WI\&quot;]:::uptodate&quot;          </span></a>
+<a class="sourceLine" id="cb3-51" data-line-number="51"><span class="co">#&gt; [34] &quot;    x95ba995a9b41bdb4([\&quot;raw_flat_dhs_files\&quot;]):::uptodate --&gt; xee0c57ecf70dae2e([\&quot;files_for_type_BR\&quot;]):::uptodate&quot; </span></a>
+<a class="sourceLine" id="cb3-52" data-line-number="52"><span class="co">#&gt; [35] &quot;    x95ba995a9b41bdb4([\&quot;raw_flat_dhs_files\&quot;]):::uptodate --&gt; xed47c6d9491838ba([\&quot;files_for_type_CR\&quot;]):::uptodate&quot; </span></a>
+<a class="sourceLine" id="cb3-53" data-line-number="53"><span class="co">#&gt; [36] &quot;    x95ba995a9b41bdb4([\&quot;raw_flat_dhs_files\&quot;]):::uptodate --&gt; xe2d628dbe32b92f9([\&quot;files_for_type_FW\&quot;]):::uptodate&quot; </span></a>
+<a class="sourceLine" id="cb3-54" data-line-number="54"><span class="co">#&gt; [37] &quot;    x95ba995a9b41bdb4([\&quot;raw_flat_dhs_files\&quot;]):::uptodate --&gt; x2a0c300e1a8a6de2([\&quot;files_for_type_HR\&quot;]):::uptodate&quot; </span></a>
+<a class="sourceLine" id="cb3-55" data-line-number="55"><span class="co">#&gt; [38] &quot;    x95ba995a9b41bdb4([\&quot;raw_flat_dhs_files\&quot;]):::uptodate --&gt; xf99a6980afe5beec([\&quot;files_for_type_HW\&quot;]):::uptodate&quot; </span></a>
+<a class="sourceLine" id="cb3-56" data-line-number="56"><span class="co">#&gt; [39] &quot;    x95ba995a9b41bdb4([\&quot;raw_flat_dhs_files\&quot;]):::uptodate --&gt; x8ae7d8720f60fe7e([\&quot;files_for_type_IR\&quot;]):::uptodate&quot; </span></a>
+<a class="sourceLine" id="cb3-57" data-line-number="57"><span class="co">#&gt; [40] &quot;    x95ba995a9b41bdb4([\&quot;raw_flat_dhs_files\&quot;]):::uptodate --&gt; x94310d3977452ff7([\&quot;files_for_type_KR\&quot;]):::uptodate&quot; </span></a>
+<a class="sourceLine" id="cb3-58" data-line-number="58"><span class="co">#&gt; [41] &quot;    x95ba995a9b41bdb4([\&quot;raw_flat_dhs_files\&quot;]):::uptodate --&gt; xc5c93bfd1a87c867([\&quot;files_for_type_MR\&quot;]):::uptodate&quot; </span></a>
+<a class="sourceLine" id="cb3-59" data-line-number="59"><span class="co">#&gt; [42] &quot;    x95ba995a9b41bdb4([\&quot;raw_flat_dhs_files\&quot;]):::uptodate --&gt; x68c3c6c4b8901331([\&quot;files_for_type_PR\&quot;]):::uptodate&quot; </span></a>
+<a class="sourceLine" id="cb3-60" data-line-number="60"><span class="co">#&gt; [43] &quot;    x95ba995a9b41bdb4([\&quot;raw_flat_dhs_files\&quot;]):::uptodate --&gt; xde9081cd754fef2c([\&quot;files_for_type_SQ\&quot;]):::uptodate&quot; </span></a>
+<a class="sourceLine" id="cb3-61" data-line-number="61"><span class="co">#&gt; [44] &quot;    x95ba995a9b41bdb4([\&quot;raw_flat_dhs_files\&quot;]):::uptodate --&gt; xb5d9d5201bbb3f3f([\&quot;files_for_type_WI\&quot;]):::uptodate&quot; </span></a>
+<a class="sourceLine" id="cb3-62" data-line-number="62"><span class="co">#&gt; [45] &quot;    x1bba643633e63347&gt;\&quot;load_gps_covars\&quot;]:::uptodate --&gt; xadcf4f38c96c60e2[\&quot;gps_covar_data\&quot;]:::uptodate&quot;           </span></a>
+<a class="sourceLine" id="cb3-63" data-line-number="63"><span class="co">#&gt; [46] &quot;    x1ac047943b5137b3([\&quot;raw_gps_covar_files\&quot;]):::uptodate --&gt; xadcf4f38c96c60e2[\&quot;gps_covar_data\&quot;]:::uptodate&quot;     </span></a>
+<a class="sourceLine" id="cb3-64" data-line-number="64"><span class="co">#&gt; [47] &quot;    x64718cb17342870c([\&quot;raw_gps_dhs_files\&quot;]):::uptodate --&gt; x7a02edc4b3df73c1[\&quot;gps_data\&quot;]:::uptodate&quot;             </span></a>
+<a class="sourceLine" id="cb3-65" data-line-number="65"><span class="co">#&gt; [48] &quot;    x26a1cf6aee197026([\&quot;cfg\&quot;]):::uptodate --&gt; x66a202fd287760fb([\&quot;raw_data_ready\&quot;]):::uptodate&quot;                   </span></a>
+<a class="sourceLine" id="cb3-66" data-line-number="66"><span class="co">#&gt; [49] &quot;    x39e927dcb2b817b3&gt;\&quot;link_inputs\&quot;]:::uptodate --&gt; x66a202fd287760fb([\&quot;raw_data_ready\&quot;]):::uptodate&quot;             </span></a>
+<a class="sourceLine" id="cb3-67" data-line-number="67"><span class="co">#&gt; [50] &quot;    x97072365a517b011&gt;\&quot;list_raw_flat_dhs\&quot;]:::uptodate --&gt; x95ba995a9b41bdb4([\&quot;raw_flat_dhs_files\&quot;]):::uptodate&quot;   </span></a>
+<a class="sourceLine" id="cb3-68" data-line-number="68"><span class="co">#&gt; [51] &quot;    x66a202fd287760fb([\&quot;raw_data_ready\&quot;]):::uptodate --&gt; x95ba995a9b41bdb4([\&quot;raw_flat_dhs_files\&quot;]):::uptodate&quot;    </span></a>
+<a class="sourceLine" id="cb3-69" data-line-number="69"><span class="co">#&gt; [52] &quot;    x66a202fd287760fb([\&quot;raw_data_ready\&quot;]):::uptodate --&gt; x1ac047943b5137b3([\&quot;raw_gps_covar_files\&quot;]):::uptodate&quot;   </span></a>
+<a class="sourceLine" id="cb3-70" data-line-number="70"><span class="co">#&gt; [53] &quot;    x19c8cc5c1c41859e&gt;\&quot;list_raw_gps_covars\&quot;]:::uptodate --&gt; x1ac047943b5137b3([\&quot;raw_gps_covar_files\&quot;]):::uptodate&quot;</span></a>
+<a class="sourceLine" id="cb3-71" data-line-number="71"><span class="co">#&gt; [54] &quot;    xbec1a22f3438e8ad&gt;\&quot;list_raw_gps_dhs\&quot;]:::uptodate --&gt; x64718cb17342870c([\&quot;raw_gps_dhs_files\&quot;]):::uptodate&quot;     </span></a>
+<a class="sourceLine" id="cb3-72" data-line-number="72"><span class="co">#&gt; [55] &quot;    x66a202fd287760fb([\&quot;raw_data_ready\&quot;]):::uptodate --&gt; x64718cb17342870c([\&quot;raw_gps_dhs_files\&quot;]):::uptodate&quot;     </span></a>
+<a class="sourceLine" id="cb3-73" data-line-number="73"><span class="co">#&gt; [56] &quot;    xb18bb9f7b1b9f70c&gt;\&quot;list_raw_flat_mis\&quot;]:::uptodate&quot;                                                              </span></a>
+<a class="sourceLine" id="cb3-74" data-line-number="74"><span class="co">#&gt; [57] &quot;    x5d59b91dfcb23bc3&gt;\&quot;summarize_dhs_flat_dictionary\&quot;]:::uptodate&quot;                                                  </span></a>
+<a class="sourceLine" id="cb3-75" data-line-number="75"><span class="co">#&gt; [58] &quot;  end&quot;                                                                                                                </span></a>
+<a class="sourceLine" id="cb3-76" data-line-number="76"><span class="co">#&gt; [59] &quot;  classDef uptodate stroke:#000000,color:#ffffff,fill:#354823;&quot;                                                       </span></a>
+<a class="sourceLine" id="cb3-77" data-line-number="77"><span class="co">#&gt; [60] &quot;  classDef none stroke:#000000,color:#000000,fill:#94a4ac;&quot;</span></a></code></pre></div>
 
 </body>
 </html>

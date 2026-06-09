@@ -10,7 +10,6 @@ spack:
   - gmake %gcc@8.5.0
   - pkgconf %gcc@8.5.0
   - libxml2
-  - gmake
   view: true
   concretizer:
     unify: true

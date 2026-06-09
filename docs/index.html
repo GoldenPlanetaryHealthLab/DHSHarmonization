@@ -36,10 +36,8 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="articles/climate-diarrhea-analysis.html">Climate Diarrhea Analysis</a></li>
-    <li><a class="dropdown-item" href="articles/dev/geospatial_agg_map.html">Geospatial Aggregation Mapping</a></li>
     <li><a class="dropdown-item" href="articles/linking-and-tracking-raw-inputs.html">Linking and Tracking Raw Inputs</a></li>
     <li><a class="dropdown-item" href="articles/pipeline-definition.html">Pipeline Definition</a></li>
-    <li><a class="dropdown-item" href="articles/dev/Pipeline.html">Quarto Pipeline</a></li>
     <li><a class="dropdown-item" href="articles/reading-in-files-from-dhs.html">Reading in Files from DHS</a></li>
   </ul>
 </li>
@@ -59,9 +57,7 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="dhsharmonization">DHSHarmonization<a class="anchor" aria-label="anchor" href="#dhsharmonization"></a>
 </h1></div>
-<!-- badges: start -->
-<!-- badges: end -->
-<p>The goal of DHSHarmonization is to provide the Golden Lab with a pipeline to harmonize and extract data from Demographic and Health Surveys (DHS) for analysis. The pipeline is built on targets to ensure reproducibility and is designed to be flexible to accommodate different research questions and datasets.</p>
+<!-- badges: start --><!-- badges: end --><p>The goal of DHSHarmonization is to provide the Golden Lab with a pipeline to harmonize and extract data from Demographic and Health Surveys (DHS) for analysis. The pipeline is built on targets to ensure reproducibility and is designed to be flexible to accommodate different research questions and datasets.</p>
 <p>To get an understanding of the data, investigate the vignettes in the Articles section, which contain detailed explanations of the data loading and harmonization process, and some minimal exploratory data analysis (EDA) to help you understand the variables available.</p>
 <p>If you require a pipeline endpoint dataset that is not currently implemented, please open an issue or reach out to Tinashe.</p>
 <div class="section level2">
@@ -70,24 +66,15 @@
 <p>If you would like to install the development version of DHSHarmonization, and build the package pipeline yourself, you can do so with the following code:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/install-deprecated.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"GoldenPlanetaryHealthLab/DHSHarmonization"</span><span class="op">)</span></span></code></pre></div>
-<blockquote>
-<p>Note: This can only be accomplished if you have access to the DHS data through FASRC and the Golden Lab space on FASRC.</p>
-</blockquote>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"Climate-Smart-Public-Health/DHSHarmonization"</span><span class="op">)</span></span></code></pre></div>
+<blockquote><p>Note: This can only be accomplished if you have access to the DHS data through FASRC and the Golden Lab space on FASRC.</p></blockquote>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
-<blockquote>
-<p>Important: This is a work in progress; please make a data request on Github first before running the pipeline locally.</p>
-</blockquote>
-<p>As a pre-requisite, you will need to have access to the Gold Mine on FASRC, which you can connect to using <code>stagecoach</code> to stage the raw data:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">uv</span> tool install stagecoach</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="ex">stagecoach</span> hail</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="ex">stagecoach</span> inspect</span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="ex">stagecoach</span> stage</span></code></pre></div>
-<p>Once you’ve got a raw data directory ready in your project space and have installed the package, you can run the pipeline with targets::tar_make()</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<blockquote><p>Important: This is a work in progress; please make a data request on Github first before running the pipeline locally.</p></blockquote>
+<p>Once you’ve installed the package, you can run the pipeline with targets::tar_make()</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">tar_make</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>This will execute the entire pipeline as defined in the <code>_targets.R</code> file, downloading and harmonizing the DHS data according to the specifications in the package.</p>
 <p>See the Articles section for vignettes that provide detailed walkthroughs of pipeline development and target components.</p>
@@ -95,7 +82,84 @@
 <div class="section level2">
 <h2 id="pipeline">Pipeline<a class="anchor" aria-label="anchor" href="#pipeline"></a>
 </h2>
-<p><code>{mermaid}   graph LR     style Legend fill:#FFFFFF00,stroke:#000000;     style Graph fill:#FFFFFF00,stroke:#000000;     subgraph Legend       xf1522833a4d242c5(["Up to date"]):::uptodate       x2db1ec7a48f65a9b(["Outdated"]):::outdated       xbecb13963f49e50b{{"Object"}}:::none       xd03d7c7dd2ddda2b(["Regular target"]):::none       x6f7e04ea3427f824["Dynamic branches"]:::none     end     subgraph Graph       direction LR       x0d47dad6983a1aa2(["dhs_data_HR"]):::uptodate --&gt; x4aedb210bc15dc37(["climate_diarrhea_data"]):::uptodate       x95ba995a9b41bdb4(["raw_flat_dhs_files"]):::uptodate --&gt; xaf71ba3753864455(["dhs_data_BR"]):::uptodate       x95ba995a9b41bdb4(["raw_flat_dhs_files"]):::uptodate --&gt; xc6a02429f1275e9c(["dhs_data_CR"]):::uptodate       x95ba995a9b41bdb4(["raw_flat_dhs_files"]):::uptodate --&gt; x6669e45951c76542(["dhs_data_FW"]):::uptodate       x95ba995a9b41bdb4(["raw_flat_dhs_files"]):::uptodate --&gt; x0d47dad6983a1aa2(["dhs_data_HR"]):::uptodate       x95ba995a9b41bdb4(["raw_flat_dhs_files"]):::uptodate --&gt; xfa615ac5c839fadb(["dhs_data_HW"]):::uptodate       x95ba995a9b41bdb4(["raw_flat_dhs_files"]):::uptodate --&gt; x43215ab83c9a3a83(["dhs_data_IR"]):::uptodate       x95ba995a9b41bdb4(["raw_flat_dhs_files"]):::uptodate --&gt; xba497180dafcc8ba(["dhs_data_KR"]):::uptodate       x95ba995a9b41bdb4(["raw_flat_dhs_files"]):::uptodate --&gt; x5de2f30116c2c3d1(["dhs_data_MR"]):::uptodate       x95ba995a9b41bdb4(["raw_flat_dhs_files"]):::uptodate --&gt; x9972cdca00cfdeb8(["dhs_data_PR"]):::uptodate       x95ba995a9b41bdb4(["raw_flat_dhs_files"]):::uptodate --&gt; xbb71bb17868ddc3a(["dhs_data_SQ"]):::uptodate       x95ba995a9b41bdb4(["raw_flat_dhs_files"]):::uptodate --&gt; x287b4c29954b3f82(["dhs_data_WI"]):::uptodate       x1ac047943b5137b3(["raw_gps_covar_files"]):::uptodate --&gt; xadcf4f38c96c60e2["gps_covar_data"]:::uptodate       x64718cb17342870c(["raw_gps_dhs_files"]):::uptodate --&gt; x7a02edc4b3df73c1["gps_data"]:::uptodate       x7a02edc4b3df73c1["gps_data"]:::uptodate --&gt; x39d97f5814db742b(["gps_healthshed_mapping"]):::outdated       x9682742d8d5edd8f(["mdg_healthsheds"]):::uptodate --&gt; x39d97f5814db742b(["gps_healthshed_mapping"]):::outdated       xbde663d2ac234a88(["mdg_healthshed_raw"]):::uptodate --&gt; x9682742d8d5edd8f(["mdg_healthsheds"]):::uptodate       x26a1cf6aee197026(["cfg"]):::uptodate --&gt; x8e231551575db7a7(["raw_data"]):::uptodate       x8e231551575db7a7(["raw_data"]):::uptodate --&gt; x95ba995a9b41bdb4(["raw_flat_dhs_files"]):::uptodate       x8e231551575db7a7(["raw_data"]):::uptodate --&gt; x1ac047943b5137b3(["raw_gps_covar_files"]):::uptodate       x8e231551575db7a7(["raw_data"]):::uptodate --&gt; x64718cb17342870c(["raw_gps_dhs_files"]):::uptodate       x4afae7da5761bff7{{".rv"}}:::uptodate     end     classDef uptodate stroke:#000000,color:#ffffff,fill:#354823;     classDef outdated stroke:#000000,color:#000000,fill:#78B7C5;     classDef none stroke:#000000,color:#000000,fill:#94a4ac;</code></p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/targets/" class="external-link">targets</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_mermaid.html" class="external-link">tar_mermaid</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; - The project is out-of-sync -- use `renv::status()` for details.</span></span>
+<span><span class="co">#&gt; here() starts at /n/holylabs/cgolden_lab/Lab/projects/DHSHarmonization</span></span>
+<span><span class="co">#&gt; + gps_covar_data declared [6 branches]</span></span>
+<span><span class="co">#&gt; + gps_data declared [6 branches]</span></span>
+<span><span class="co">#&gt; + dhs_data_SQ declared [1 branches]</span></span>
+<span><span class="co">#&gt; + dhs_data_HR declared [7 branches]</span></span>
+<span><span class="co">#&gt; + dhs_data_BR declared [5 branches]</span></span>
+<span><span class="co">#&gt; + dhs_data_CR declared [3 branches]</span></span>
+<span><span class="co">#&gt; + dhs_data_PR declared [7 branches]</span></span>
+<span><span class="co">#&gt; + dhs_data_IR declared [7 branches]</span></span>
+<span><span class="co">#&gt; + dhs_data_HW declared [3 branches]</span></span>
+<span><span class="co">#&gt; + dhs_data_FW declared [1 branches]</span></span>
+<span><span class="co">#&gt; + dhs_data_WI declared [1 branches]</span></span>
+<span><span class="co">#&gt; + dhs_data_MR declared [3 branches]</span></span>
+<span><span class="co">#&gt; + dhs_data_KR declared [7 branches]</span></span>
+<span><span class="co">#&gt;  [1] "graph LR"                                                                                                             </span></span>
+<span><span class="co">#&gt;  [2] "  style Legend fill:#FFFFFF00,stroke:#000000;"                                                                        </span></span>
+<span><span class="co">#&gt;  [3] "  style Graph fill:#FFFFFF00,stroke:#000000;"                                                                         </span></span>
+<span><span class="co">#&gt;  [4] "  subgraph Legend"                                                                                                    </span></span>
+<span><span class="co">#&gt;  [5] "    xf1522833a4d242c5([\"Up to date\"]):::uptodate"                                                                   </span></span>
+<span><span class="co">#&gt;  [6] "    xeb2d7cac8a1ce544&gt;\"Function\"]:::none"                                                                           </span></span>
+<span><span class="co">#&gt;  [7] "    xd03d7c7dd2ddda2b([\"Regular target\"]):::none"                                                                   </span></span>
+<span><span class="co">#&gt;  [8] "    x6f7e04ea3427f824[\"Dynamic branches\"]:::none"                                                                   </span></span>
+<span><span class="co">#&gt;  [9] "  end"                                                                                                                </span></span>
+<span><span class="co">#&gt; [10] "  subgraph Graph"                                                                                                     </span></span>
+<span><span class="co">#&gt; [11] "    direction LR"                                                                                                     </span></span>
+<span><span class="co">#&gt; [12] "    xee0c57ecf70dae2e([\"files_for_type_BR\"]):::uptodate --&gt; xaf71ba3753864455[\"dhs_data_BR\"]:::uptodate"          </span></span>
+<span><span class="co">#&gt; [13] "    x5950ce2b2ae8abf6&gt;\"load_flat_dhs_data\"]:::uptodate --&gt; xaf71ba3753864455[\"dhs_data_BR\"]:::uptodate"           </span></span>
+<span><span class="co">#&gt; [14] "    xed47c6d9491838ba([\"files_for_type_CR\"]):::uptodate --&gt; xc6a02429f1275e9c[\"dhs_data_CR\"]:::uptodate"          </span></span>
+<span><span class="co">#&gt; [15] "    x5950ce2b2ae8abf6&gt;\"load_flat_dhs_data\"]:::uptodate --&gt; xc6a02429f1275e9c[\"dhs_data_CR\"]:::uptodate"           </span></span>
+<span><span class="co">#&gt; [16] "    xe2d628dbe32b92f9([\"files_for_type_FW\"]):::uptodate --&gt; x6669e45951c76542[\"dhs_data_FW\"]:::uptodate"          </span></span>
+<span><span class="co">#&gt; [17] "    x5950ce2b2ae8abf6&gt;\"load_flat_dhs_data\"]:::uptodate --&gt; x6669e45951c76542[\"dhs_data_FW\"]:::uptodate"           </span></span>
+<span><span class="co">#&gt; [18] "    x2a0c300e1a8a6de2([\"files_for_type_HR\"]):::uptodate --&gt; x0d47dad6983a1aa2[\"dhs_data_HR\"]:::uptodate"          </span></span>
+<span><span class="co">#&gt; [19] "    x5950ce2b2ae8abf6&gt;\"load_flat_dhs_data\"]:::uptodate --&gt; x0d47dad6983a1aa2[\"dhs_data_HR\"]:::uptodate"           </span></span>
+<span><span class="co">#&gt; [20] "    xf99a6980afe5beec([\"files_for_type_HW\"]):::uptodate --&gt; xfa615ac5c839fadb[\"dhs_data_HW\"]:::uptodate"          </span></span>
+<span><span class="co">#&gt; [21] "    x5950ce2b2ae8abf6&gt;\"load_flat_dhs_data\"]:::uptodate --&gt; xfa615ac5c839fadb[\"dhs_data_HW\"]:::uptodate"           </span></span>
+<span><span class="co">#&gt; [22] "    x5950ce2b2ae8abf6&gt;\"load_flat_dhs_data\"]:::uptodate --&gt; x43215ab83c9a3a83[\"dhs_data_IR\"]:::uptodate"           </span></span>
+<span><span class="co">#&gt; [23] "    x8ae7d8720f60fe7e([\"files_for_type_IR\"]):::uptodate --&gt; x43215ab83c9a3a83[\"dhs_data_IR\"]:::uptodate"          </span></span>
+<span><span class="co">#&gt; [24] "    x5950ce2b2ae8abf6&gt;\"load_flat_dhs_data\"]:::uptodate --&gt; xba497180dafcc8ba[\"dhs_data_KR\"]:::uptodate"           </span></span>
+<span><span class="co">#&gt; [25] "    x94310d3977452ff7([\"files_for_type_KR\"]):::uptodate --&gt; xba497180dafcc8ba[\"dhs_data_KR\"]:::uptodate"          </span></span>
+<span><span class="co">#&gt; [26] "    xc5c93bfd1a87c867([\"files_for_type_MR\"]):::uptodate --&gt; x5de2f30116c2c3d1[\"dhs_data_MR\"]:::uptodate"          </span></span>
+<span><span class="co">#&gt; [27] "    x5950ce2b2ae8abf6&gt;\"load_flat_dhs_data\"]:::uptodate --&gt; x5de2f30116c2c3d1[\"dhs_data_MR\"]:::uptodate"           </span></span>
+<span><span class="co">#&gt; [28] "    x68c3c6c4b8901331([\"files_for_type_PR\"]):::uptodate --&gt; x9972cdca00cfdeb8[\"dhs_data_PR\"]:::uptodate"          </span></span>
+<span><span class="co">#&gt; [29] "    x5950ce2b2ae8abf6&gt;\"load_flat_dhs_data\"]:::uptodate --&gt; x9972cdca00cfdeb8[\"dhs_data_PR\"]:::uptodate"           </span></span>
+<span><span class="co">#&gt; [30] "    xde9081cd754fef2c([\"files_for_type_SQ\"]):::uptodate --&gt; xbb71bb17868ddc3a[\"dhs_data_SQ\"]:::uptodate"          </span></span>
+<span><span class="co">#&gt; [31] "    x5950ce2b2ae8abf6&gt;\"load_flat_dhs_data\"]:::uptodate --&gt; xbb71bb17868ddc3a[\"dhs_data_SQ\"]:::uptodate"           </span></span>
+<span><span class="co">#&gt; [32] "    x5950ce2b2ae8abf6&gt;\"load_flat_dhs_data\"]:::uptodate --&gt; x287b4c29954b3f82[\"dhs_data_WI\"]:::uptodate"           </span></span>
+<span><span class="co">#&gt; [33] "    xb5d9d5201bbb3f3f([\"files_for_type_WI\"]):::uptodate --&gt; x287b4c29954b3f82[\"dhs_data_WI\"]:::uptodate"          </span></span>
+<span><span class="co">#&gt; [34] "    x95ba995a9b41bdb4([\"raw_flat_dhs_files\"]):::uptodate --&gt; xee0c57ecf70dae2e([\"files_for_type_BR\"]):::uptodate" </span></span>
+<span><span class="co">#&gt; [35] "    x95ba995a9b41bdb4([\"raw_flat_dhs_files\"]):::uptodate --&gt; xed47c6d9491838ba([\"files_for_type_CR\"]):::uptodate" </span></span>
+<span><span class="co">#&gt; [36] "    x95ba995a9b41bdb4([\"raw_flat_dhs_files\"]):::uptodate --&gt; xe2d628dbe32b92f9([\"files_for_type_FW\"]):::uptodate" </span></span>
+<span><span class="co">#&gt; [37] "    x95ba995a9b41bdb4([\"raw_flat_dhs_files\"]):::uptodate --&gt; x2a0c300e1a8a6de2([\"files_for_type_HR\"]):::uptodate" </span></span>
+<span><span class="co">#&gt; [38] "    x95ba995a9b41bdb4([\"raw_flat_dhs_files\"]):::uptodate --&gt; xf99a6980afe5beec([\"files_for_type_HW\"]):::uptodate" </span></span>
+<span><span class="co">#&gt; [39] "    x95ba995a9b41bdb4([\"raw_flat_dhs_files\"]):::uptodate --&gt; x8ae7d8720f60fe7e([\"files_for_type_IR\"]):::uptodate" </span></span>
+<span><span class="co">#&gt; [40] "    x95ba995a9b41bdb4([\"raw_flat_dhs_files\"]):::uptodate --&gt; x94310d3977452ff7([\"files_for_type_KR\"]):::uptodate" </span></span>
+<span><span class="co">#&gt; [41] "    x95ba995a9b41bdb4([\"raw_flat_dhs_files\"]):::uptodate --&gt; xc5c93bfd1a87c867([\"files_for_type_MR\"]):::uptodate" </span></span>
+<span><span class="co">#&gt; [42] "    x95ba995a9b41bdb4([\"raw_flat_dhs_files\"]):::uptodate --&gt; x68c3c6c4b8901331([\"files_for_type_PR\"]):::uptodate" </span></span>
+<span><span class="co">#&gt; [43] "    x95ba995a9b41bdb4([\"raw_flat_dhs_files\"]):::uptodate --&gt; xde9081cd754fef2c([\"files_for_type_SQ\"]):::uptodate" </span></span>
+<span><span class="co">#&gt; [44] "    x95ba995a9b41bdb4([\"raw_flat_dhs_files\"]):::uptodate --&gt; xb5d9d5201bbb3f3f([\"files_for_type_WI\"]):::uptodate" </span></span>
+<span><span class="co">#&gt; [45] "    x1bba643633e63347&gt;\"load_gps_covars\"]:::uptodate --&gt; xadcf4f38c96c60e2[\"gps_covar_data\"]:::uptodate"           </span></span>
+<span><span class="co">#&gt; [46] "    x1ac047943b5137b3([\"raw_gps_covar_files\"]):::uptodate --&gt; xadcf4f38c96c60e2[\"gps_covar_data\"]:::uptodate"     </span></span>
+<span><span class="co">#&gt; [47] "    x64718cb17342870c([\"raw_gps_dhs_files\"]):::uptodate --&gt; x7a02edc4b3df73c1[\"gps_data\"]:::uptodate"             </span></span>
+<span><span class="co">#&gt; [48] "    x26a1cf6aee197026([\"cfg\"]):::uptodate --&gt; x66a202fd287760fb([\"raw_data_ready\"]):::uptodate"                   </span></span>
+<span><span class="co">#&gt; [49] "    x39e927dcb2b817b3&gt;\"link_inputs\"]:::uptodate --&gt; x66a202fd287760fb([\"raw_data_ready\"]):::uptodate"             </span></span>
+<span><span class="co">#&gt; [50] "    x97072365a517b011&gt;\"list_raw_flat_dhs\"]:::uptodate --&gt; x95ba995a9b41bdb4([\"raw_flat_dhs_files\"]):::uptodate"   </span></span>
+<span><span class="co">#&gt; [51] "    x66a202fd287760fb([\"raw_data_ready\"]):::uptodate --&gt; x95ba995a9b41bdb4([\"raw_flat_dhs_files\"]):::uptodate"    </span></span>
+<span><span class="co">#&gt; [52] "    x66a202fd287760fb([\"raw_data_ready\"]):::uptodate --&gt; x1ac047943b5137b3([\"raw_gps_covar_files\"]):::uptodate"   </span></span>
+<span><span class="co">#&gt; [53] "    x19c8cc5c1c41859e&gt;\"list_raw_gps_covars\"]:::uptodate --&gt; x1ac047943b5137b3([\"raw_gps_covar_files\"]):::uptodate"</span></span>
+<span><span class="co">#&gt; [54] "    xbec1a22f3438e8ad&gt;\"list_raw_gps_dhs\"]:::uptodate --&gt; x64718cb17342870c([\"raw_gps_dhs_files\"]):::uptodate"     </span></span>
+<span><span class="co">#&gt; [55] "    x66a202fd287760fb([\"raw_data_ready\"]):::uptodate --&gt; x64718cb17342870c([\"raw_gps_dhs_files\"]):::uptodate"     </span></span>
+<span><span class="co">#&gt; [56] "    xb18bb9f7b1b9f70c&gt;\"list_raw_flat_mis\"]:::uptodate"                                                              </span></span>
+<span><span class="co">#&gt; [57] "    x5d59b91dfcb23bc3&gt;\"summarize_dhs_flat_dictionary\"]:::uptodate"                                                  </span></span>
+<span><span class="co">#&gt; [58] "  end"                                                                                                                </span></span>
+<span><span class="co">#&gt; [59] "  classDef uptodate stroke:#000000,color:#ffffff,fill:#354823;"                                                       </span></span>
+<span><span class="co">#&gt; [60] "  classDef none stroke:#000000,color:#000000,fill:#94a4ac;"</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="license">
@@ -139,7 +203,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer>

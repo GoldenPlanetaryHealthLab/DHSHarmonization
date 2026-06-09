@@ -34,10 +34,8 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/climate-diarrhea-analysis.html">Climate Diarrhea Analysis</a></li>
-    <li><a class="dropdown-item" href="../articles/dev/geospatial_agg_map.html">Geospatial Aggregation Mapping</a></li>
     <li><a class="dropdown-item" href="../articles/linking-and-tracking-raw-inputs.html">Linking and Tracking Raw Inputs</a></li>
     <li><a class="dropdown-item" href="../articles/pipeline-definition.html">Pipeline Definition</a></li>
-    <li><a class="dropdown-item" href="../articles/dev/Pipeline.html">Quarto Pipeline</a></li>
     <li><a class="dropdown-item" href="../articles/reading-in-files-from-dhs.html">Reading in Files from DHS</a></li>
   </ul>
 </li>
@@ -53,9 +51,6 @@
 
   </div>
 </nav><div class="container template-article">
-
-
-
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
@@ -75,96 +70,52 @@
 <div class="section level3">
 <h3 id="preamble">Preamble<a class="anchor" aria-label="anchor" href="#preamble"></a>
 </h3>
-<p>The primary distribution mechanism of our data in the lab is via a
-<code>targets</code> pipeline. <code>targets</code> is a powerful R
-package for orchestrating data analysis pipelines. It helps manage
-dependencies, ensures reproducibility, and optimizes performance by only
-rerunning the parts of the pipeline that have changed.</p>
-<p>In the lab, we separate the technical concerns of data storage,
-processing, analysis, and reporting into distinct workspaces:</p>
+<p>The primary distribution mechanism of our data in the lab is via a <code>targets</code> pipeline. <code>targets</code> is a powerful R package for orchestrating data analysis pipelines. It helps manage dependencies, ensures reproducibility, and optimizes performance by only rerunning the parts of the pipeline that have changed.</p>
+<p>In the lab, we separate the technical concerns of data storage, processing, analysis, and reporting into distinct workspaces:</p>
 <ol style="list-style-type: decimal">
-<li>Storage: Each project’s raw data is stored in a dedicated data
-repository on Google Drive
-(<code>Drive / &lt;PROJECT&gt; / 4. Datasets / &lt;DATASET NAME&gt;</code>).
-That dataset is <em>mirrored</em> to FASRC via <code>rclone</code> for
-processing. To work on your own project, you must be on FASRC – the
-pipeline will then <em>symlink</em> the google drive data to your local
-“data/” directory using the <code><a href="../reference/link_inputs.html">link_inputs()</a></code> function defined
-in the pipeline.</li>
-<li>Processing and Analysis: The <code>targets</code> pipeline handles
-preliminary data processing and analysis. It reads raw data from the
-“data/” directory, processes it, and generates intermediate datasets and
-analysis results in your local workspace. To do this, simply:
+<li>Storage: Each project’s raw data is stored in a dedicated data repository on Google Drive (<code>Drive / &lt;PROJECT&gt; / 4. Datasets / &lt;DATASET NAME&gt;</code>). That dataset is <em>mirrored</em> to FASRC via <code>rclone</code> for processing. To work on your own project, you must be on FASRC – the pipeline will then <em>symlink</em> the google drive data to your local “data/” directory using the <code><a href="../reference/link_inputs.html">link_inputs()</a></code> function defined in the pipeline.</li>
+<li>Processing and Analysis: The <code>targets</code> pipeline handles preliminary data processing and analysis. It reads raw data from the “data/” directory, processes it, and generates intermediate datasets and analysis results in your local workspace. To do this, simply:
 <ul>
-<li>Install this package in your local project space using
-<code><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">remotes::install_github()</a></code>.</li>
+<li>Install this package in your local project space using <code><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">remotes::install_github()</a></code>.</li>
 <li>Load the package using <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library(your_package_name)</a></code>.</li>
-<li>Run the <code>targets</code> pipeline by executing
-<code><a href="../reference/build_targets_pipeline.html">build_targets_pipeline()</a></code> and then <code><a href="https://docs.ropensci.org/targets/reference/tar_make.html" class="external-link">tar_make()</a></code>
-in the R console. This will execute all defined targets, processing the
-data and generating clean datasets.</li>
-<li>Access the processed data and analysis results stored in the
-<code>_targets/</code> directory using <code><a href="https://docs.ropensci.org/targets/reference/tar_load.html" class="external-link">tar_load()</a></code> or other
-<code>targets</code> functions.</li>
+<li>Run the <code>targets</code> pipeline by executing <code><a href="../reference/build_targets_pipeline.html">build_targets_pipeline()</a></code> and then <code><a href="https://docs.ropensci.org/targets/reference/tar_make.html" class="external-link">tar_make()</a></code> in the R console. This will execute all defined targets, processing the data and generating clean datasets.</li>
+<li>Access the processed data and analysis results stored in the <code>_targets/</code> directory using <code><a href="https://docs.ropensci.org/targets/reference/tar_load.html" class="external-link">tar_load()</a></code> or other <code>targets</code> functions.</li>
 </ul>
 </li>
-<li>Analysis: Once you’ve run the <code>targets</code> pipeline, you can
-access the processed data and analysis results stored in the
-<code>_targets/</code> directory. This data is then used for further
-analysis and reporting.</li>
-<li>Reporting: Your modelling and analysis are conducted on your own in
-the project space, using the processed data outputs from the
-<code>targets</code> pipeline. You can create reports, visualizations,
-and other outputs based on the analysis results. I recommend using
-Quarto for this purpose.</li>
-<li>Sharing: Finally, when you are ready to share your work, use the
-respective project’s <code>5. Data &amp; Code Elements</code> Google
-Drive folder. This folder is intended for sharing intermediate data
-products — not raw or final data. You should always be able to reproduce
-any data product shared here by running the <code>targets</code>
-pipeline from raw data, and then rerunning your own analysis code.</li>
+<li>Analysis: Once you’ve run the <code>targets</code> pipeline, you can access the processed data and analysis results stored in the <code>_targets/</code> directory. This data is then used for further analysis and reporting.</li>
+<li>Reporting: Your modelling and analysis are conducted on your own in the project space, using the processed data outputs from the <code>targets</code> pipeline. You can create reports, visualizations, and other outputs based on the analysis results. I recommend using Quarto for this purpose.</li>
+<li>Sharing: Finally, when you are ready to share your work, use the respective project’s <code>5. Data &amp; Code Elements</code> Google Drive folder. This folder is intended for sharing intermediate data products — not raw or final data. You should always be able to reproduce any data product shared here by running the <code>targets</code> pipeline from raw data, and then rerunning your own analysis code.</li>
 </ol>
 </div>
 <div class="section level2">
 <h2 id="build_targets_pipeline">build_targets_pipeline<a class="anchor" aria-label="anchor" href="#build_targets_pipeline"></a>
 </h2>
-<p>This is a convenience function that can build the targets pipeline
-for the user in their local project. It does this by providing skeleton
-code for the targets file, as well as the list of necessary targets in a
-separate Quarto file, which is converted to targets objects via
-<code><a href="https://docs.ropensci.org/tarchetypes/reference/tar_tangle.html" class="external-link">tarchetypes::tar_tangle()</a></code></p>
+<p>This is a convenience function that can build the targets pipeline for the user in their local project. It does this by providing skeleton code for the targets file, as well as the list of necessary targets in a separate Quarto file, which is converted to targets objects via <code><a href="https://docs.ropensci.org/tarchetypes/reference/tar_tangle.html" class="external-link">tarchetypes::tar_tangle()</a></code></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#build_targets_pipeline()</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="pipeline-definition">Pipeline Definition<a class="anchor" aria-label="anchor" href="#pipeline-definition"></a>
 </h2>
-<p>Below we define the actual targets of the pipeline using
-<code>tar_tangle()</code>.</p>
+<p>Below we define the actual targets of the pipeline using <code>tar_tangle()</code>.</p>
 <div class="section level3">
 <h3 id="config">Config<a class="anchor" aria-label="anchor" href="#config"></a>
 </h3>
-<p>A YAML config file is used to define parameters for the pipeline. At
-present, the only important parameter is the path to the raw data
-repository on FASRC.</p>
+<p>A YAML config file is used to define parameters for the pipeline. At present, the only important parameter is the path to the raw data repository on FASRC.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cfg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"config.yml"</span>, package <span class="op">=</span> <span class="st">"DHSHarmonization"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">cfg</span> <span class="op">&lt;-</span> <span class="st">"config.yml"</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="raw-data-linking">Raw Data Linking<a class="anchor" aria-label="anchor" href="#raw-data-linking"></a>
 </h3>
-<p>We use the function <code><a href="../reference/link_inputs.html">link_inputs()</a></code> to symlink the raw
-data from the data repository to your local “data/” directory. If
-successful, stores the full list of files in the raw data.</p>
+<p>We use the function <code><a href="../reference/link_inputs.html">link_inputs()</a></code> to symlink the raw data from the data repository to your local “data/” directory. If successful, stores the full list of files in the raw data.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">raw_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/link_inputs.html">link_inputs</a></span><span class="op">(</span>cfg_path <span class="op">=</span> <span class="va">cfg</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="acknowledge-file-types">Acknowledge File Types<a class="anchor" aria-label="anchor" href="#acknowledge-file-types"></a>
 </h3>
-<p>As demonstrated in the
-<code>vignette("Linking and Tracking Raw Inputs")</code>, we catalog the
-different types of DHS data files present in the raw data directory.</p>
+<p>As demonstrated in the <code>vignette("Linking and Tracking Raw Inputs")</code>, we catalog the different types of DHS data files present in the raw data directory.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">raw_flat_dhs_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/list_raw_flat_dhs.html">list_raw_flat_dhs</a></span><span class="op">(</span><span class="va">raw_data</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -217,19 +168,17 @@ different types of DHS data files present in the raw data directory.</p>
 <span>  <span class="fu">str_subset</span><span class="op">(</span><span class="va">.</span>, <span class="st">"FW"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="op">~</span> <span class="fu"><a href="../reference/load_flat_dhs_data.html">load_flat_dhs_data</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">dhs_data_FW</span></span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">gps_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html" class="external-link">st_read</a></span><span class="op">(</span><span class="va">raw_gps_dhs_files</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">gps_data</span> <span class="op">&lt;-</span> <span class="fu">st_read</span><span class="op">(</span><span class="va">raw_gps_dhs_files</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gps_covar_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/load_gps_covars.html">load_gps_covars</a></span><span class="op">(</span><span class="va">raw_gps_covar_files</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="climate-diarrhea-analysis">Climate Diarrhea Analysis<a class="anchor" aria-label="anchor" href="#climate-diarrhea-analysis"></a>
 </h3>
-<p>Olivia’s analysis function to prepare the DHS data for
-climate-diarrhea work.</p>
+<p>Olivia’s analysis function to prepare the DHS data for climate-diarrhea work.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">climate_diarrhea_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/climate_diarrhea_analysis.html">climate_diarrhea_analysis</a></span><span class="op">(</span><span class="va">dhs_data_HR</span><span class="op">)</span></span></code></pre></div>
-<p>To fetch this endpoint, after you’ve run <code><a href="https://docs.ropensci.org/targets/reference/tar_make.html" class="external-link">tar_make()</a></code>, you
-can use:</p>
+<p>To fetch this endpoint, after you’ve run <code><a href="https://docs.ropensci.org/targets/reference/tar_make.html" class="external-link">tar_make()</a></code>, you can use:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_read.html" class="external-link">tar_read</a></span><span class="op">(</span><span class="va">climate_diarrhea_data</span><span class="op">)</span> <span class="co">#or</span></span>
 <span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html" class="external-link">tar_load</a></span><span class="op">(</span><span class="va">climate_diarrhea_data</span><span class="op">)</span></span></code></pre></div>
@@ -246,7 +195,7 @@ can use:</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer>
