@@ -9,14 +9,14 @@
         "path": "/bin/bash"
         }
     },
-    "r.rterm.linux": "${workspaceFolder}/.vscode/arf",
+    "r.rterm.linux": "${workspaceFolder}/.vscode/rterm",
     "r.rterm.option": ["--no-save", "--no-restore"],
     "r.bracketedPaste": true,
     "livePreview.defaultPreviewPath": "/docs/index.html",
     "r.sessionWatcher": true,
     "r.alwaysUseActiveTerminal": true,
     // "r.lsp.path": "/usr/local/bin/R",
-    "r.rpath.linux": "/n/holylabs/cgolden_lab/Lab/projects/DHSHarmonization/.spack-env/view/bin/R",
+    "r.rpath.linux": "/n/holylabs/LABS/cgolden_lab/Lab/projects/DHSHarmonization/.spack-env/view/bin/R",
     "python.terminal.activateEnvInCurrentTerminal": true,
     "r.libPaths": [
         "/n/holylabs/cgolden_lab/Lab/projects/DHSHarmonization/rv/library/4.5/x86_64/redhat8",
