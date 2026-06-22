@@ -13,3 +13,11 @@ _targets/
 /doc/
 /Meta/
 .spack-env
+.container-home/
+
+*.err
+*.out
+*.log
+*.vdoc*
+*.sif
+*.envrc
