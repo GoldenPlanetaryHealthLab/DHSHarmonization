@@ -151,7 +151,7 @@ We'll provide this final table as a target output for future users:
 ```{r}
 #| packages: [dplyr, sf, purrr]
 
-gps_healthshed_mapping <- map(
+dhs_gps_2_healthshed_xwalk <- map(
   gps_data,
   function(x) {
     year <- unique(x$DHSYEAR)
@@ -160,15 +160,16 @@ gps_healthshed_mapping <- map(
     joined
   }
 ) %>%
-  list_rbind()
+  list_rbind() %>%
+  st_sf()
 ```
 
-Now, the `gps_healthshed_mapping` target can be used 
+Now, the `dhs_gps_2_healthshed_xwalk` target can be used 
 in future analyses to aggregate DHS and climate data to the 
 healthshed level, by referencing and joining your data
 to this dataframe using the `fs_uid` column for healthshed
 lookups, and to the DHSID column for DHS survey lookups.
 
 ```{r}
-head(gps_healthshed_mapping)
+head(dhs_gps_2_healthshed_xwalk)
 ```

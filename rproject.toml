@@ -94,7 +94,11 @@ dependencies = [
     "httpgd",
     "sf",
     "parsermd",
-    
     "DiagrammeR",
     "skimr",
+    "nanoparquet",
+    "assertr",
+    { name = "sess", git = "https://github.com/REditorSupport/vscode-R", branch = "master", directory = "sess" },
+    { name = "frictionless", git = "https://github.com/frictionlessdata/frictionless-r/", branch = "main" },
+    { name = "DHSHarmonization", path = "." }
 ]
