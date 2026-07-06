@@ -1,0 +1,198 @@
+---
+title: "DHS Pipeline (Quarto Orchestrator)"
+author: "Tinashe M. Tapera"
+format: gfm
+---
+
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  eval = FALSE,
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r}
+library(targets)
+library(tarchetypes)
+library(here)
+```
+
+## Preamble
+
+This project uses a notebook-driven pipeline architecture with three distinct layers:
+function development, pipeline definition, and reporting.
+
+Function-development notebooks live in a dedicated Quarto sub-project in `dev`. That
+sub-project uses `sorting-hat` and `ripper` to extract selected R code chunks into
+R module/package files. These generated functions define the reusable implementation
+details of the pipeline.
+
+The pipeline itself is defined in this notebook. Rather than being run as a normal
+analysis report, this document is read by `tarchetypes::tar_tangle()`, which converts
+top-level assignments in R chunks into `targets` objects. The `_targets.R` file then
+loads this notebook as the literate source of the pipeline and `targets::tar_make()`
+executes the resulting workflow.
+
+Rendered reports, Quarto websites, and downstream analyses are kept separate from
+pipeline definition and function extraction. They should consume completed pipeline
+outputs from the `_targets/` store using `targets::tar_read()` or `targets::tar_load()`,
+rather than redefining or rerunning the pipeline.
+
+In short:
+
+```text
+function notebooks      -> generated R/package code
+this target notebook    -> targets pipeline via tar_tangle()
+targets pipeline        -> reproducible computed outputs in _targets/
+reports/websites        -> downstream consumers of pipeline outputs
+```
+
+This separation lets us use notebook-driven development while avoiding accidental
+coupling between code generation, pipeline execution, and rendered publication
+content.
+
+## `stagecoach` Input Tracking
+
+The first thing to track is the stagecoach manifest file:
+
+```{r}
+#| format: file
+#| packages: [here]
+
+stagecoach_manifest <- here("stagecoach_manifest.yaml")
+```
+
+After running `stagecoach`, the input data were deposited:
+
+```{r}
+#| packages: [stringr, dplyr, here]
+
+repo_files <- list.files(
+    here(
+      "data", 
+      "inputs"
+    ),
+    recursive = TRUE
+)
+```
+
+## Acknowledge File Types
+
+As demonstrated in the `vignette("Linking and Tracking Raw Inputs")`,
+we catalog the different types of DHS data files present in the raw data directory.
+
+```{r}
+
+raw_flat_dhs_files <- list_raw_flat_dhs(raw_data)
+```
+
+
+```{r}
+
+raw_gps_dhs_files <- list_raw_gps_dhs(raw_data)
+```
+
+
+```{r}
+
+raw_gps_covar_files <- list_raw_gps_covars(raw_data)
+```
+
+
+For each type above, we create a mapping to read the data in:
+```{r}
+#| packages:
+#| - dplyr
+#| - stringr
+#| - purrr
+
+raw_flat_dhs_files %>%
+  str_subset(., "BR") %>%
+  map(~ load_flat_dhs_data(.x)) -> dhs_data_BR
+
+raw_flat_dhs_files %>%
+  str_subset(., "HW") %>%
+  map(~ load_flat_dhs_data(.x)) -> dhs_data_HW
+
+raw_flat_dhs_files %>%
+  str_subset(., "CR") %>%
+  map(~ load_flat_dhs_data(.x)) -> dhs_data_CR
+
+raw_flat_dhs_files %>%
+  str_subset(., "HR") %>%
+  map(~ load_flat_dhs_data(.x)) -> dhs_data_HR
+
+raw_flat_dhs_files %>%
+  str_subset(., "IR") %>%
+  map(~ load_flat_dhs_data(.x)) -> dhs_data_IR
+
+raw_flat_dhs_files %>%
+  str_subset(., "KR") %>%
+  map(~ load_flat_dhs_data(.x)) -> dhs_data_KR
+
+raw_flat_dhs_files %>%
+  str_subset(., "PR") %>%
+  map(~ load_flat_dhs_data(.x)) -> dhs_data_PR
+
+raw_flat_dhs_files %>%
+  str_subset(., "WI") %>%
+  map(~ load_flat_dhs_data(.x)) -> dhs_data_WI
+
+raw_flat_dhs_files %>%
+  str_subset(., "SQ") %>%
+  map(~ load_flat_dhs_data(.x)) -> dhs_data_SQ
+
+raw_flat_dhs_files %>%
+  str_subset(., "MR") %>%
+  map(~ load_flat_dhs_data(.x)) -> dhs_data_MR
+
+raw_flat_dhs_files %>%
+  str_subset(., "FW") %>%
+  map(~ load_flat_dhs_data(.x)) -> dhs_data_FW
+```
+
+
+```{r}
+#| packages: sf
+#| pattern: map(raw_gps_dhs_files)
+#| iteration: list
+
+gps_data <- st_read(raw_gps_dhs_files)
+```
+
+
+```{r}
+#| pattern: map(raw_gps_covar_files)
+#| iteration: list
+
+gps_covar_data <- load_gps_covars(raw_gps_covar_files)
+```
+
+
+## Climate Diarrhea Analysis
+
+Olivia's analysis function to prepare the DHS data for climate-diarrhea work.
+```{r}
+#| packages:
+#| - dplyr
+#| - haven
+#| - lubridate
+#| - purrr
+#| - tibble
+#| - janitor
+#| - glue
+#| - rdhs
+
+climate_diarrhea_data <- climate_diarrhea_analysis(dhs_data_HR)
+```
+
+
+To fetch this endpoint, after you've run `tar_make()`, you can use:
+
+```r
+tar_read(climate_diarrhea_data) #or
+tar_load(climate_diarrhea_data)
+```
+

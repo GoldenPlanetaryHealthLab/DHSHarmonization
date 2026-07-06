@@ -1,0 +1,73 @@
+Bootstrap: docker
+From: spack/rockylinux8:develop
+Stage: spython-base
+
+%post
+dnf install -y curl ca-certificates tar gzip which findutils file shadow-utils
+dnf install -y epel-release
+mkdir -p /work /tmp/spack-user-config /tmp/spack-user-cache /tmp/spack-misc-cache
+curl --proto '=https' --tlsv1.2 -LsSf https://github.com/eitsupi/arf/releases/latest/download/arf-console-installer.sh | sh
+ARF_BIN="$(find /root/.cargo/bin /home -path '*/.cargo/bin/arf' -type f 2>/dev/null | head -n 1)"
+if [ -z "$ARF_BIN" ]; then
+ARF_BIN="$(find / -path '*/.cargo/bin/arf' -type f 2>/dev/null | head -n 1)"
+fi
+test -n "$ARF_BIN"
+install -m 0755 "$ARF_BIN" /usr/local/bin/arf
+
+tmpdir="$(mktemp -d)"
+cd "$tmpdir"
+curl -L --fail --show-error --output vscode_cli.tar.gz "https://code.visualstudio.com/sha/download?build=stable&os=cli-alpine-x64"
+tar -xzf vscode_cli.tar.gz
+CODE_BIN="$(find "$tmpdir" -type f -name code | head -n 1)"
+test -n "$CODE_BIN"
+test -x "$CODE_BIN" || chmod +x "$CODE_BIN"
+install -m 0755 "$CODE_BIN" /usr/local/bin/code
+/usr/local/bin/code --version
+
+curl -sSL https://raw.githubusercontent.com/A2-ai/rv/refs/heads/main/scripts/install.sh | bash
+RV_BIN="$(find /root/.local/bin /home -path '*/.local/bin/rv' -type f 2>/dev/null | head -n 1)"
+if [ -z "$RV_BIN" ]; then
+RV_BIN="$(find / -path '*/.local/bin/rv' -type f 2>/dev/null | head -n 1)"
+fi
+test -n "$RV_BIN"
+install -m 0755 "$RV_BIN" /usr/local/bin/rv
+
+curl -LsSf https://astral.sh/uv/install.sh | sh
+UV_BIN="$(find /root/.local/bin /home -path '*/.local/bin/uv' -type f 2>/dev/null | head -n 1)"
+if [ -z "$UV_BIN" ]; then
+UV_BIN="$(find / -path '*/.local/bin/uv' -type f 2>/dev/null | head -n 1)"
+fi
+test -n "$UV_BIN"
+install -m 0755 "$UV_BIN" /usr/local/bin/uv
+%environment
+export PATH=/usr/local/bin:/opt/views/view/bin:/root/.cargo/bin:/usr/cargo/bin:$PATH
+export SPACK_DISABLE_LOCAL_CONFIG=true
+export SPACK_USER_CONFIG_PATH=/tmp/spack-user-config
+export SPACK_USER_CACHE_PATH=/tmp/spack-user-cache
+export SPACK_MISC_CACHE_PATH=/tmp/spack-misc-cache
+export SPACK_VIEW=/work/.spack-env/view
+export PATH=${SPACK_VIEW}/bin:/usr/local/bin:/opt/views/view/bin:/root/.cargo/bin:/usr/cargo/bin:${PATH:-}
+export PKG_CONFIG_PATH=${SPACK_VIEW}/lib/pkgconfig:${SPACK_VIEW}/lib64/pkgconfig:${SPACK_VIEW}/share/pkgconfig:${PKG_CONFIG_PATH:-}
+export CPATH=${SPACK_VIEW}/include:${CPATH:-}
+export LIBRARY_PATH=${SPACK_VIEW}/lib:${SPACK_VIEW}/lib64:${LIBRARY_PATH:-}
+export LD_LIBRARY_PATH=${SPACK_VIEW}/lib:${SPACK_VIEW}/lib64:${LD_LIBRARY_PATH:-}
+export SPACK_DISABLE_LOCAL_CONFIG=true
+export SPACK_USER_CONFIG_PATH=/tmp/spack-user-config
+export SPACK_USER_CACHE_PATH=/tmp/spack-user-cache
+export SPACK_MISC_CACHE_PATH=/tmp/spack-misc-cache
+%runscript
+cd /work
+exec /bin/bash "$@"
+%startscript
+cd /work
+exec /bin/bash "$@"
+%test
+command -v spack
+command -v arf
+arf --version
+command -v code
+code --version
+command -v rv
+rv --version
+command -v uv
+uv --version

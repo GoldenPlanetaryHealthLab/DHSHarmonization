@@ -9,17 +9,15 @@
         "path": "/bin/bash"
         }
     },
-    "r.rterm.linux": "${workspaceFolder}/.vscode/arf",
-    "r.rterm.option": ["--no-save", "--no-restore"],
+    "r.rterm.linux": "/usr/local/bin/arf",
     "r.bracketedPaste": true,
     "livePreview.defaultPreviewPath": "/docs/index.html",
     "r.sessionWatcher": true,
     "r.alwaysUseActiveTerminal": true,
-    // "r.lsp.path": "/usr/local/bin/R",
-    "r.rpath.linux": "/n/holylabs/cgolden_lab/Lab/projects/DHSHarmonization/.spack-env/view/bin/R",
+    "r.rpath.linux": "/work/.spack-env/view/bin/R",
     "python.terminal.activateEnvInCurrentTerminal": true,
     "r.libPaths": [
-        "/n/holylabs/cgolden_lab/Lab/projects/DHSHarmonization/rv/library/4.5/x86_64/redhat8",
-        "/n/home03/ttapera/software/spack/opt/spack/linux-icelake/r-4.5.1-7hho5emqpuvlwt7hhy7i5fval54zz7mx/rlib/R/library"
+        "/work/rv/library/4.5/x86_64/redhat8",
+        "/work/.spack-env/view/rlib/R/library"
     ]
 }

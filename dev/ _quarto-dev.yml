@@ -1,0 +1,3 @@
+# _quarto-dev.yml
+execute:
+  eval: true

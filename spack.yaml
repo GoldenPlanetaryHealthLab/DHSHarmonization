@@ -1,27 +1,58 @@
-# This is a Spack Environment file.
-#
-# It describes a set of packages to be installed, along with
-# configuration settings.
 spack:
-  # add package specs to the `specs` list
   specs:
-  - r@4.5.1 %gcc@8.5.0
-  - cmake %gcc@8.5.0
-  - gmake %gcc@8.5.0
-  - pkgconf %gcc@8.5.0
+  - r@4.5.1
+  - python@3.14
+  - libiconv
+  - ncurses
+  - openblas
+  - curl
+  - openssl
+  - pkgconf
+  - abseil-cpp
+  - zlib
+  - zlib-ng+compat
+  - cmake
+  - gmake
+  - git
+  - libx11
   - libxml2
-  view: true
-  concretizer:
-    unify: true
+  - freetype
+  - libjpeg
+  - libjpeg-turbo
+  - libpng
+  - libtiff
+  - libwebp +libwebpmux
+  - icu4c
+  - fontconfig
+  - fribidi
+  - harfbuzz
+  - libgit2
+  - cairo
+  - readline
+  - libuv
+  - proj
+  - geos
+  - gdal
+  - udunits
+  - r-udunits2
+  view: /work/.spack-env/view
+  config:
+    install_tree:
+      root: /work/.spack-env/install
+    source_cache: /work/.spack/cache/source
+    misc_cache: /work/.spack/cache/misc
+    build_stage:
+    - /work/.spack/stage
+    shared_linking:
+      type: rpath
+      missing_library_policy: error
   packages:
     gcc:
       externals:
-      - spec: gcc@13.2.0 languages:='c,c++,fortran'
-        prefix: /n/sw/helmod-rocky8/apps/Core/gcc/13.2.0-fasrc01
+      - spec: gcc@8.5.0 languages:='c,c++,fortran'
+        prefix: /usr
         extra_attributes:
           compilers:
-            c: /n/sw/helmod-rocky8/apps/Core/gcc/13.2.0-fasrc01/bin/gcc
-            cxx: /n/sw/helmod-rocky8/apps/Core/gcc/13.2.0-fasrc01/bin/g++
-            fortran: /n/sw/helmod-rocky8/apps/Core/gcc/13.2.0-fasrc01/bin/gfortran
-    llvm:
-      externals: []
+            c: /usr/bin/gcc
+            cxx: /usr/bin/g++
+            fortran: /usr/bin/gfortran

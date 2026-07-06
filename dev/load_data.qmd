@@ -1,17 +1,25 @@
 ---
-title: "flat_load_flat_dhs_data.Rmd empty"
-output: html_document
-editor_options: 
-  chunk_output_type: console
+title: "Loading All the DHS Data"
+format: gfm
+filters:
+  - sorting-hat
+  - ripper
+extensions:
+  sorting-hat:
+    keep:
+      - r
+    verbose: true
+  ripper:
+    include-yaml: false
+    output-dir: "../R"
+    output-name: "load_data"
+    script-links-position: "none"
 ---
 
-```{r development, include=FALSE}
-library(testthat)
-```
-
 ```{r development-load}
+#| sorting-hat: remove
 # Load already included functions if relevant
-pkgload::load_all(export_all = FALSE)
+#pkgload::load_all(export_all = FALSE)
 library(here)
 library(tidyverse)
 library(purrr)
@@ -19,7 +27,7 @@ library(rdhs)
 library(glue)
 ```
 
-Here we demonstrate how to load and view the DHS datasets that will be
+Here we demonstrate how we load and view the DHS datasets that will be
 harmonized in this package. Each section builds the function needed
 to read in the data, and then tests it to ensure it works as expected.
 The functions are then implemented in the targets pipeline.
@@ -38,6 +46,9 @@ library(sf)
 ```
 
 ## load_flat_dhs_data
+
+The goal of this section is a function that can read any
+`flat` DHS dataset (e.g., BR, HR, IR, KR, PR, WI, CR, MR, FW, SQ) and return it as a tibble.
 
 So long as the data has a flat structure, it should be straightforward to
 load it into R and view it using the `rdhs` package. The structure is taken from
@@ -171,19 +182,25 @@ get_variable_labels(dhs_data) %>%
 
 So, to read in a generic flat file from DHS, we can define the function `load_flat_dhs_data()`:
 
-```{r development-load_flat_dhs_data}
-# Prepare the code of your function here
-```
-
 ```{r function-load_flat_dhs_data}
-#' load_flat_dhs_data Title
+#' Load a flat DHS dataset from a folder
 #'
-#' @return 1
+#' This function zips the contents of the provided folder and uses rdhs:::
+#' read_dhs_flat to read a DHS flat file archive into R. It is intended for
+#' DHS flat file folders (e.g. MDIR21FL) that contain the standard DHS flat
+#' data files.
+#'
+#' @param folder_path Character. Path to a folder containing DHS flat files to
+#'   be zipped and read.
+#' @return A data.frame/tibble containing the DHS flat data as returned by
+#'   rdhs:::read_dhs_flat.
 #' @export
-#'
 #' @examples
+#' ex_data <- here::here("data", "DHS Data", "DHS 1992", "MDIR21FL")
+#' df <- load_flat_dhs_data(ex_data)
+#' head(df)
 load_flat_dhs_data <- function(folder_path) {
-  
+
   temp_zip <- tempfile(fileext = ".zip")
   zip::zipr(zipfile = temp_zip, files = list.files(folder_path, full.names = TRUE))
   dhs_data <- rdhs:::read_dhs_flat(temp_zip)
