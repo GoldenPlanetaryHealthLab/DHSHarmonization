@@ -1,0 +1,180 @@
+---
+title: "7-DHS-data-exploration-climate-and-general-foodborne-illness"
+format: html
+---
+
+THis notebook addresses the addition of the following variables:
+
+```{r}
+library(readr)
+library(here)
+library(dplyr)
+library(tibble)
+library(rdhs)
+library(purrr)
+library(stringr)
+
+vars <- here("data", "datalad", "7-DHS-data-exploration-climate-and-general-foodborne-illness", "DHS_explore_cjk.csv") %>%
+   read_csv()
+```
+
+We pull in the main targets:
+
+```{r}
+library(targets)
+tar_manifest(store = here("_targets"))
+```
+
+We'll pull the variables from each category in `vars`:
+
+```{r}
+unique(vars$category)
+```
+
+```{r}
+hr <- tar_read(dhs_data_HR, store = here("_targets")) %>%
+   enframe()
+pr <- tar_read(dhs_data_PR, store = here("_targets")) %>%
+   enframe()
+wi <- tar_read(dhs_data_WI, store = here("_targets")) %>%
+   enframe()
+```
+
+Each of these is a list of data frames, one for each year. We will want the
+standard columns for each, and the select columns that have been requested in the `vars` file.
+
+For HR, we will always select hv0**, and then the requested:
+
+```{r}
+hr_vars <- vars %>%
+   filter(category == "HR") %>%
+   pull(Variable) %>%
+   c(paste0("hv", str_pad(0:100, 3, pad = "0")), .)
+```
+
+We'll do the same for the other categories:
+
+```{r}
+pr_vars <- vars %>%
+   filter(category == "PR") %>%
+   pull(Variable) %>%
+   c(paste0("hv", str_pad(0:100, 3, pad = "0")), .)
+wi_vars <- vars %>%
+   filter(category == "WI") %>%
+   pull(Variable) %>%
+   c(paste0("hv", str_pad(0:100, 3, pad = "0")), .)
+```
+
+Now, we filter the dataframes:
+
+```{r}
+hr_filtered <- hr %>%
+   mutate(foodborne_illness = map(value, ~ select(.x, any_of(hr_vars)))) %>%
+   pull(foodborne_illness)
+
+pr_filtered <- pr %>%
+   mutate(foodborne_illness = map(value, ~ select(.x, any_of(pr_vars)))) %>%
+   pull(foodborne_illness)
+
+wi_filtered <- wi %>%
+   mutate(foodborne_illness = map(value, ~ select(.x, any_of(wi_vars)))) %>%
+   pull(foodborne_illness)
+```
+
+Now, we add a `frictionless` catalog view:
+
+```{r}
+library(frictionless)
+```
+
+```{r}
+climate_foodborne_illness_hr <- reduce2(
+  hr_filtered,
+  seq_along(hr_filtered),
+  function(pkg, x, i) {
+    dat <- data_and_labels(x)$data %>%
+         delabel_df()
+    labs <- data_and_labels(x)$variable_names
+
+    schema <- create_schema(dat)
+
+    desc_lookup <- setNames(labs$description, labs$variable)
+
+    schema$fields <- map(schema$fields, \(field) {
+      field$description <- unname(desc_lookup[field$name])
+      field
+    })
+
+    pkg %>%
+      add_resource(
+        data = dat,
+        resource_name = paste0("hr_foodborne_illness_", i),
+        schema = schema
+      )
+  },
+  .init = create_package()
+)
+
+climate_foodborne_illness_pr <- reduce2(
+  pr_filtered,
+  seq_along(pr_filtered),
+  function(pkg, x, i) {
+    dat <- data_and_labels(x)$data %>%
+      delabel_df()
+    labs <- data_and_labels(x)$variable_names
+
+    schema <- create_schema(dat)
+
+    desc_lookup <- setNames(labs$description, labs$variable)
+
+    schema$fields <- map(schema$fields, \(field) {
+      field$description <- unname(desc_lookup[field$name])
+      field
+    })
+
+    pkg %>%
+      add_resource(
+        data = dat,
+        resource_name = paste0("pr_foodborne_illness_", i),
+        schema = schema
+      )
+  },
+  .init = create_package()
+)
+
+climate_foodborne_illness_wi <- reduce2(
+  wi_filtered,
+  seq_along(wi_filtered),
+  function(pkg, x, i) {
+    dat <- data_and_labels(x)$data %>%
+      delabel_df()
+    labs <- data_and_labels(x)$variable_names
+
+    schema <- create_schema(dat)
+
+    desc_lookup <- setNames(labs$description, labs$variable)
+
+    schema$fields <- map(schema$fields, \(field) {
+      field$description <- unname(desc_lookup[field$name])
+      field
+    })
+
+    pkg %>%
+      add_resource(
+        data = dat,
+        resource_name = paste0("wi_foodborne_illness_", i),
+        schema = schema
+      )
+  },
+  .init = create_package()
+)
+```
+
+And we write those out to file
+
+
+```{r}
+write_package(climate_foodborne_illness_hr, here("data", "datalad", "7-DHS-data-exploration-climate-and-general-foodborne-illness", "climate_foodborne_illness_hr"))
+write_package(climate_foodborne_illness_pr, here("data", "datalad", "7-DHS-data-exploration-climate-and-general-foodborne-illness", "climate_foodborne_illness_pr"))
+write_package(climate_foodborne_illness_wi, here("data", "datalad", "7-DHS-data-exploration-climate-and-general-foodborne-illness", "climate_foodborne_illness_wi"))
+```

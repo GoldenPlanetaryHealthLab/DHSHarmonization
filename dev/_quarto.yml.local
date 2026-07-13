@@ -1,0 +1,24 @@
+project:
+  type: default
+  render:
+    - "load_data.qmd"
+
+format: gfm
+
+filters:
+  - coatless-quarto/sorting-hat
+  - coatless-quarto/ripper
+
+extensions:
+  sorting-hat:
+    keep:
+      - r
+    verbose: true
+
+  ripper:
+    include-yaml: false
+    output-dir: "../R"
+    script-links-position: "none"
+
+execute:
+  eval: false
