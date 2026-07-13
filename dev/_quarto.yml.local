@@ -1,13 +1,13 @@
 project:
   type: default
   render:
-    - "*.qmd"
+    - "load_data.qmd"
 
 format: gfm
 
 filters:
-  - sorting-hat
-  - ripper
+  - coatless-quarto/sorting-hat
+  - coatless-quarto/ripper
 
 extensions:
   sorting-hat:
