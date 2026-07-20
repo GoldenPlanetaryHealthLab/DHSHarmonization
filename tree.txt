@@ -1,0 +1,436 @@
+.
+├── _extensions
+│   └── coatless-quarto
+│       ├── ripper
+│       └── sorting-hat
+├── _quarto.yml
+├── _site
+│   ├── about.html
+│   ├── dev
+│   │   └── load_data.md
+│   ├── index.html
+│   ├── search.json
+│   ├── site_libs
+│   │   ├── bootstrap
+│   │   ├── clipboard
+│   │   ├── quarto-html
+│   │   ├── quarto-nav
+│   │   └── quarto-search
+│   └── styles.css
+├── _target_notebook.qmd
+├── _targets
+│   ├── meta
+│   │   ├── meta
+│   │   ├── process
+│   │   └── progress
+│   ├── objects
+│   │   ├── climate_diarrhea_data
+│   │   ├── dhs_data_BR
+│   │   ├── dhs_data_CR
+│   │   ├── dhs_data_FW
+│   │   ├── dhs_data_HR
+│   │   ├── dhs_data_HW
+│   │   ├── dhs_data_IR
+│   │   ├── dhs_data_KR
+│   │   ├── dhs_data_MR
+│   │   ├── dhs_data_PR
+│   │   ├── dhs_data_SQ
+│   │   ├── dhs_data_WI
+│   │   ├── dhs_gps_2_healthshed_xwalk
+│   │   ├── gps_covar_data_9ff09753cb194390
+│   │   ├── gps_covar_data_172fb4879fb1c8ae
+│   │   ├── gps_covar_data_479dacd594da001d
+│   │   ├── gps_covar_data_665938a4b5409f62
+│   │   ├── gps_covar_data_aefe0627b01d3df2
+│   │   ├── gps_covar_data_b14fb0703eb93174
+│   │   ├── gps_data_64ab67e0f91b63ce
+│   │   ├── gps_data_8298b5191d2ae010
+│   │   ├── gps_data_ae75628c32935f2f
+│   │   ├── gps_data_b28c64131ce2bbdc
+│   │   ├── gps_data_b505060d1bee8a8f
+│   │   ├── gps_data_f50ff43195c3431a
+│   │   ├── mdg_healthshed
+│   │   ├── mdg_healthsheds
+│   │   ├── raw_flat_dhs_files
+│   │   ├── raw_gps_covar_files
+│   │   ├── raw_gps_dhs_files
+│   │   └── repo_files
+│   └── workspaces
+│       ├── mdg_healthshed
+│       ├── mdg_healthshed_raw
+│       ├── raw_flat_dhs_files
+│       └── stagecoach_manifest
+├── _targets.R
+├── about.qmd
+├── CODE_OF_CONDUCT.md
+├── data
+│   ├── climate_diarrhea_data.parquet
+│   ├── datalad
+│   │   ├── 7-DHS-data-exploration-climate-and-general-foodborne-illness
+│   │   └── 8-geospatial-mapping
+│   ├── dhs_gps_2_healthshed_xwalk.parquet
+│   ├── 'DHS Data' -> '/n/holylabs/LABS/cgolden_lab/Lab/data_freeze/golden_googledrive_rclone/Climate-Smart Public Health - Madagascar/4. Datasets'/'DHS Data'
+│   ├── inputs
+│   │   └── 01_gold_mine
+│   ├── intermediates
+│   └── outputs
+│       └── dhs_gps_2_healthshed_xwalk.parquet
+├── DESCRIPTION
+├── dev
+│   ├── 28-incorporating-dhs-weighting-variables.qmd
+│   ├── _extensions
+│   │   └── coatless-quarto
+│   ├── _quarto-dev.yml.local
+│   ├── _quarto.yml.local
+│   ├── foodborne-illness.qmd
+│   └── load_data.qmd
+├── DHSHarmonization.Rproj
+├── docs
+│   ├── 404.html
+│   ├── articles
+│   │   ├── climate-diarrhea-analysis.html
+│   │   ├── index.html
+│   │   ├── linking-and-tracking-raw-inputs.html
+│   │   ├── linking-and-tracking-raw-inputs_files
+│   │   ├── pipeline-definition.html
+│   │   ├── reading-in-files-from-dhs.html
+│   │   └── reading-in-files-from-dhs_files
+│   ├── authors.html
+│   ├── CODE_OF_CONDUCT.html
+│   ├── deps
+│   │   ├── bootstrap-5.3.1
+│   │   ├── bootstrap-toc-1.0.1
+│   │   ├── clipboard.js-2.0.11
+│   │   ├── data-deps.txt
+│   │   ├── font-awesome-6.5.2
+│   │   ├── headroom-0.11.0
+│   │   ├── jquery-3.6.0
+│   │   └── search-1.0.0
+│   ├── index.html
+│   ├── katex-auto.js
+│   ├── LICENSE-text.html
+│   ├── LICENSE.html
+│   ├── lightswitch.js
+│   ├── link.svg
+│   ├── news
+│   │   └── index.html
+│   ├── pkgdown.js
+│   ├── pkgdown.yml
+│   ├── reference
+│   │   ├── build_targets_pipeline.html
+│   │   ├── climate_diarrhea_analysis.html
+│   │   ├── DHSHarmonization-package.html
+│   │   ├── figures
+│   │   ├── index.html
+│   │   ├── link_inputs.html
+│   │   ├── list_raw_flat_dhs.html
+│   │   ├── list_raw_flat_mis.html
+│   │   ├── list_raw_gps_covars.html
+│   │   ├── list_raw_gps_dhs.html
+│   │   ├── load_flat_dhs_data.html
+│   │   ├── load_gps_covars.html
+│   │   ├── pipe.html
+│   │   └── summarize_dhs_flat_dictionary.html
+│   ├── search.json
+│   ├── sitemap.xml
+│   └── tutorials
+├── env
+│   └── activate.sh
+├── index.qmd
+├── LICENSE
+├── LICENSE.md
+├── man
+│   ├── build_targets_pipeline.Rd
+│   ├── climate_diarrhea_analysis.Rd
+│   ├── DHSHarmonization-package.Rd
+│   ├── figures
+│   │   └── README-pressure-1.png
+│   ├── link_inputs.Rd
+│   ├── list_raw_flat_dhs.Rd
+│   ├── list_raw_gps_covars.Rd
+│   ├── list_raw_gps_dhs.Rd
+│   ├── load_flat_dhs_data.Rd
+│   ├── load_gps_covars.Rd
+│   ├── pipe.Rd
+│   └── summarize_dhs_flat_dictionary.Rd
+├── NAMESPACE
+├── NEWS.md
+├── pyproject.toml
+├── quarto-debug.log
+├── quarto-inspect.json
+├── R
+│   ├── build_targets_pipeline.R
+│   ├── climate_diarrhea_analysis.R
+│   ├── DHSHarmonization-package.R
+│   ├── link_inputs.R
+│   ├── list_raw_flat_dhs.R
+│   ├── list_raw_gps_covars.R
+│   ├── list_raw_gps_dhs.R
+│   ├── load_data.R
+│   ├── load_flat_dhs_data.R
+│   ├── load_gps_covars.R
+│   ├── summarize_dhs_flat_dictionary.R
+│   └── utils-pipe.R
+├── README.html
+├── README.md
+├── README.Rmd
+├── rproject.toml
+├── rv
+│   ├── cache
+│   │   ├── 43480178e4
+│   │   ├── builtin-4.5.1.mp
+│   │   ├── CACHEDIR.TAG
+│   │   ├── f4780dda90
+│   │   ├── git
+│   │   └── logs
+│   ├── library
+│   │   ├── AsioHeaders -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/AsioHeaders/1.30.2-1/AsioHeaders
+│   │   ├── askpass -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/askpass/1.2.1/askpass
+│   │   ├── backports -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/backports/1.5.1/backports
+│   │   ├── base64enc -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/base64enc/0.1-6/base64enc
+│   │   ├── base64url -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/base64url/1.4/base64url
+│   │   ├── BH -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/BH/1.90.0-1/BH
+│   │   ├── bit -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/bit/4.6.0/bit
+│   │   ├── bit64 -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/bit64/4.8.2/bit64
+│   │   ├── blob -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/blob/1.3.0/blob
+│   │   ├── box -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/box/1.2.2/box
+│   │   ├── brew -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/brew/1.0-10/brew
+│   │   ├── brio -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/brio/1.1.5/brio
+│   │   ├── broom -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/broom/1.0.13/broom
+│   │   ├── bslib -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/bslib/0.11.0/bslib
+│   │   ├── cachem -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/cachem/1.1.0/cachem
+│   │   ├── callr -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/callr/3.8.0/callr
+│   │   ├── cellranger -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/cellranger/1.1.0/cellranger
+│   │   ├── checkmate -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/checkmate/2.3.4/checkmate
+│   │   ├── class -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/class/7.3-23/class
+│   │   ├── classInt -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/classInt/0.4-11/classInt
+│   │   ├── cli -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/cli/3.6.6/cli
+│   │   ├── clipr -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/clipr/0.8.1/clipr
+│   │   ├── codetools -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/codetools/0.2-20/codetools
+│   │   ├── collections -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/collections/0.3.12/collections
+│   │   ├── commonmark -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/commonmark/2.0.0/commonmark
+│   │   ├── conflicted -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/conflicted/1.2.0/conflicted
+│   │   ├── cpp11 -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/cpp11/0.5.5/cpp11
+│   │   ├── crayon -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/crayon/1.5.3/crayon
+│   │   ├── credentials -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/credentials/2.0.3/credentials
+│   │   ├── curl -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/curl/7.1.0/curl
+│   │   ├── data.table -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/data.table/1.18.4/data.table
+│   │   ├── DBI -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/DBI/1.3.0/DBI
+│   │   ├── dbplyr -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/dbplyr/2.6.0/dbplyr
+│   │   ├── desc -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/desc/1.4.3/desc
+│   │   ├── devtools -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/devtools/2.5.2/devtools
+│   │   ├── DiagrammeR -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/DiagrammeR/1.0.12/DiagrammeR
+│   │   ├── diffobj -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/diffobj/0.3.6/diffobj
+│   │   ├── digest -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/digest/0.6.39/digest
+│   │   ├── downlit -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/downlit/0.4.5/downlit
+│   │   ├── dplyr -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/dplyr/1.2.1/dplyr
+│   │   ├── dtplyr -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/dtplyr/1.3.3/dtplyr
+│   │   ├── e1071 -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/e1071/1.7-17/e1071
+│   │   ├── ellipsis -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/ellipsis/0.3.3/ellipsis
+│   │   ├── evaluate -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/evaluate/1.0.5/evaluate
+│   │   ├── fansi -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/fansi/1.0.7/fansi
+│   │   ├── farver -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/farver/2.1.2/farver
+│   │   ├── fastmap -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/fastmap/1.2.0/fastmap
+│   │   ├── fledge -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/fledge/0.1.4/fledge
+│   │   ├── fontawesome -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/fontawesome/0.5.3/fontawesome
+│   │   ├── forcats -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/forcats/1.0.1/forcats
+│   │   ├── foreign -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/foreign/0.8-91/foreign
+│   │   ├── frictionless -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/frictionless/1.2.1/frictionless
+│   │   ├── fs -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/fs/2.1.0/fs
+│   │   ├── gargle -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/gargle/1.6.1/gargle
+│   │   ├── generics -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/generics/0.1.4/generics
+│   │   ├── gert -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/gert/2.3.1/gert
+│   │   ├── getPass -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/getPass/0.2-4/getPass
+│   │   ├── ggplot2 -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/ggplot2/4.0.3/ggplot2
+│   │   ├── gh -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/gh/1.6.0/gh
+│   │   ├── gitcreds -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/gitcreds/0.1.2/gitcreds
+│   │   ├── glue -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/glue/1.8.1/glue
+│   │   ├── googledrive -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/googledrive/2.1.2/googledrive
+│   │   ├── googlesheets4 -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/googlesheets4/1.1.2/googlesheets4
+│   │   ├── gtable -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/gtable/0.3.6/gtable
+│   │   ├── haven -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/haven/2.5.5/haven
+│   │   ├── here -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/here/1.0.2/here
+│   │   ├── highr -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/highr/0.12/highr
+│   │   ├── hms -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/hms/1.1.4/hms
+│   │   ├── htmltools -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/htmltools/0.5.9/htmltools
+│   │   ├── htmlwidgets -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/htmlwidgets/1.6.4/htmlwidgets
+│   │   ├── httpgd -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/httpgd/2.1.4/httpgd
+│   │   ├── httpuv -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/httpuv/1.6.17/httpuv
+│   │   ├── httr -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/httr/1.4.8/httr
+│   │   ├── httr2 -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/httr2/1.2.3/httr2
+│   │   ├── ids -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/ids/1.0.1/ids
+│   │   ├── igraph -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/igraph/2.3.3/igraph
+│   │   ├── ini -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/ini/0.3.1/ini
+│   │   ├── iotools -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/iotools/0.4-0/iotools
+│   │   ├── isoband -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/isoband/0.3.0/isoband
+│   │   ├── janitor -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/janitor/2.2.1/janitor
+│   │   ├── jquerylib -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/jquerylib/0.1.4/jquerylib
+│   │   ├── jsonlite -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/jsonlite/2.0.0/jsonlite
+│   │   ├── KernSmooth -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/KernSmooth/2.23-26/KernSmooth
+│   │   ├── knitr -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/knitr/1.51/knitr
+│   │   ├── labeling -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/labeling/0.4.3/labeling
+│   │   ├── languageserver -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/languageserver/0.3.18/languageserver
+│   │   ├── later -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/later/1.4.8/later
+│   │   ├── lattice -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/lattice/0.22-9/lattice
+│   │   ├── lifecycle -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/lifecycle/1.0.5/lifecycle
+│   │   ├── lintr -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/lintr/3.3.0-1/lintr
+│   │   ├── lubridate -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/lubridate/1.9.5/lubridate
+│   │   ├── magrittr -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/magrittr/2.0.5/magrittr
+│   │   ├── MASS -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/MASS/7.3-65/MASS
+│   │   ├── Matrix -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/Matrix/1.7-5/Matrix
+│   │   ├── memoise -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/memoise/2.0.1/memoise
+│   │   ├── mime -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/mime/0.13/mime
+│   │   ├── miniUI -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/miniUI/0.1.2/miniUI
+│   │   ├── modelr -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/modelr/0.1.11/modelr
+│   │   ├── nanoparquet -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/nanoparquet/0.5.1/nanoparquet
+│   │   ├── openssl -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/openssl/2.4.2/openssl
+│   │   ├── otel -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/otel/0.2.0/otel
+│   │   ├── pak -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/pak/0.10.0/pak
+│   │   ├── parsermd -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/parsermd/0.2.0/parsermd
+│   │   ├── pillar -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/pillar/1.11.1/pillar
+│   │   ├── pkgbuild -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/pkgbuild/1.4.8/pkgbuild
+│   │   ├── pkgconfig -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/pkgconfig/2.0.3/pkgconfig
+│   │   ├── pkgdown -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/pkgdown/2.2.1/pkgdown
+│   │   ├── pkgload -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/pkgload/1.5.3/pkgload
+│   │   ├── pkgsite -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/pkgsite/0.1.0/pkgsite
+│   │   ├── praise -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/praise/1.0.0/praise
+│   │   ├── prettyunits -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/prettyunits/1.2.0/prettyunits
+│   │   ├── processx -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/processx/3.9.0/processx
+│   │   ├── profvis -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/profvis/0.4.0/profvis
+│   │   ├── progress -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/progress/1.2.3/progress
+│   │   ├── promises -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/promises/1.5.0/promises
+│   │   ├── proxy -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/proxy/0.4-29/proxy
+│   │   ├── ps -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/ps/1.9.3/ps
+│   │   ├── purrr -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/purrr/1.2.2/purrr
+│   │   ├── qdapRegex -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/qdapRegex/0.7.10/qdapRegex
+│   │   ├── quarto -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/quarto/1.5.1/quarto
+│   │   ├── R.cache -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/R.cache/0.17.0/R.cache
+│   │   ├── R.methodsS3 -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/R.methodsS3/1.8.2/R.methodsS3
+│   │   ├── R.oo -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/R.oo/1.27.1/R.oo
+│   │   ├── R.utils -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/R.utils/2.13.0/R.utils
+│   │   ├── R6 -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/R6/2.6.1/R6
+│   │   ├── ragg -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/ragg/1.5.2/ragg
+│   │   ├── rappdirs -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/rappdirs/0.3.4/rappdirs
+│   │   ├── rcmdcheck -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/rcmdcheck/1.4.0/rcmdcheck
+│   │   ├── RColorBrewer -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/RColorBrewer/1.1-3/RColorBrewer
+│   │   ├── Rcpp -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/Rcpp/1.1.2/Rcpp
+│   │   ├── rdhs -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/rdhs/0.8.1/rdhs
+│   │   ├── readr -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/readr/2.2.0/readr
+│   │   ├── readxl -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/readxl/1.5.0/readxl
+│   │   ├── rematch -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/rematch/2.0.0/rematch
+│   │   ├── rematch2 -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/rematch2/2.1.2/rematch2
+│   │   ├── remotes -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/remotes/2.5.0/remotes
+│   │   ├── repr -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/repr/1.1.7/repr
+│   │   ├── reprex -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/reprex/2.1.1/reprex
+│   │   ├── rex -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/rex/1.2.2/rex
+│   │   ├── rlang -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/rlang/1.3.0/rlang
+│   │   ├── rmarkdown -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/rmarkdown/2.31/rmarkdown
+│   │   ├── roxygen2 -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/roxygen2/8.0.0/roxygen2
+│   │   ├── rprojroot -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/rprojroot/2.1.1/rprojroot
+│   │   ├── rstudioapi -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/rstudioapi/0.19.0/rstudioapi
+│   │   ├── rversions -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/rversions/3.0.0/rversions
+│   │   ├── rvest -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/rvest/1.0.5/rvest
+│   │   ├── s2 -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/s2/1.1.11/s2
+│   │   ├── S7 -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/S7/0.2.2/S7
+│   │   ├── sass -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/sass/0.4.10/sass
+│   │   ├── scales -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/scales/1.4.0/scales
+│   │   ├── secretbase -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/secretbase/1.3.0/secretbase
+│   │   ├── selectr -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/selectr/0.6-0/selectr
+│   │   ├── sess -> /work/rv/cache/43480178e4/4.5/x86_64/redhat9/c02ace5291/sess
+│   │   ├── sessioninfo -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/sessioninfo/1.2.4/sessioninfo
+│   │   ├── sf -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/sf/1.1-1/sf
+│   │   ├── shiny -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/shiny/1.14.0/shiny
+│   │   ├── skimr -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/skimr/2.2.2/skimr
+│   │   ├── snakecase -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/snakecase/0.11.1/snakecase
+│   │   ├── sourcetools -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/sourcetools/0.1.7-2/sourcetools
+│   │   ├── storr -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/storr/1.2.6/storr
+│   │   ├── stringi -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/stringi/1.8.7/stringi
+│   │   ├── stringr -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/stringr/1.6.0/stringr
+│   │   ├── styler -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/styler/1.11.0/styler
+│   │   ├── svglite -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/svglite/2.2.2/svglite
+│   │   ├── sys -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/sys/3.4.3/sys
+│   │   ├── systemfonts -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/systemfonts/1.3.2/systemfonts
+│   │   ├── tarchetypes -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/tarchetypes/0.14.1/tarchetypes
+│   │   ├── targets -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/targets/1.12.0/targets
+│   │   ├── testthat -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/testthat/3.3.2/testthat
+│   │   ├── textshaping -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/textshaping/1.0.5/textshaping
+│   │   ├── tibble -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/tibble/3.3.1/tibble
+│   │   ├── tidyr -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/tidyr/1.3.2/tidyr
+│   │   ├── tidyselect -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/tidyselect/1.2.1/tidyselect
+│   │   ├── tidyverse -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/tidyverse/2.0.0/tidyverse
+│   │   ├── timechange -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/timechange/0.4.0/timechange
+│   │   ├── tinytex -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/tinytex/0.60/tinytex
+│   │   ├── tzdb -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/tzdb/0.5.0/tzdb
+│   │   ├── unigd -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/unigd/0.2.0/unigd
+│   │   ├── units -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/units/1.0-1/units
+│   │   ├── urlchecker -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/urlchecker/2.0.0/urlchecker
+│   │   ├── usethis -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/usethis/3.2.1/usethis
+│   │   ├── utf8 -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/utf8/1.2.6/utf8
+│   │   ├── uuid -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/uuid/1.2-2/uuid
+│   │   ├── vctrs -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/vctrs/0.7.3/vctrs
+│   │   ├── viridisLite -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/viridisLite/0.4.3/viridisLite
+│   │   ├── visNetwork -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/visNetwork/2.1.4/visNetwork
+│   │   ├── vroom -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/vroom/1.7.1/vroom
+│   │   ├── waldo -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/waldo/0.6.2/waldo
+│   │   ├── websocket -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/websocket/1.4.4/websocket
+│   │   ├── whisker -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/whisker/0.4.1/whisker
+│   │   ├── whoami -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/whoami/1.3.0/whoami
+│   │   ├── withr -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/withr/3.0.3/withr
+│   │   ├── wk -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/wk/0.9.5/wk
+│   │   ├── xfun -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/xfun/0.60/xfun
+│   │   ├── xml2 -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/xml2/1.6.0/xml2
+│   │   ├── xmlparsedata -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/xmlparsedata/1.0.5/xmlparsedata
+│   │   ├── xopen -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/xopen/1.0.1/xopen
+│   │   ├── xtable -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/xtable/1.8-8/xtable
+│   │   ├── yaml -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/yaml/2.3.12/yaml
+│   │   └── zip -> /work/rv/cache/f4780dda90/4.5/x86_64/redhat9/zip/3.0.0/zip
+│   └── scripts
+│       ├── activate.R
+│       └── rvr.R
+├── rv.lock
+├── sandbox
+│   ├── dev
+│   │   ├── 0-dev_history.Rmd
+│   │   ├── config_attachment.yaml
+│   │   ├── config_fusen.yaml
+│   │   ├── export_targets.qmd
+│   │   ├── flat_build-targets-pipeline.Rmd
+│   │   ├── flat_climate-diarrhea-analysis.Rmd
+│   │   ├── flat_full.Rmd
+│   │   ├── flat_linking_inputs.Rmd
+│   │   ├── flat_load_dhs_data.Rmd
+│   │   └── geospatial_agg_map.qmd
+│   └── journal.txt
+├── slurm
+│   ├── install
+│   │   └── logs
+│   ├── launch
+│   │   ├── launch_container.sbatch
+│   │   └── logs
+│   └── submitit
+│       ├── 31061192
+│       ├── 31406256
+│       └── 31410016
+├── spack.lock
+├── spack.yaml
+├── stagecoach_manifest.yml
+├── styles.css
+├── tests
+│   ├── testthat
+│   │   ├── test-build_targets_pipeline.R
+│   │   ├── test-climate_diarrhea_analysis.R
+│   │   ├── test-link_inputs.R
+│   │   ├── test-list_raw_flat_dhs.R
+│   │   ├── test-list_raw_gps_covars.R
+│   │   ├── test-list_raw_gps_dhs.R
+│   │   ├── test-load_flat_dhs_data.R
+│   │   ├── test-load_gps_covars.R
+│   │   └── test-summarize_dhs_flat_dictionary.R
+│   └── testthat.R
+├── tree.txt
+├── uv.lock
+└── vignettes
+    ├── climate-diarrhea-analysis.Rmd
+    ├── linking-and-tracking-raw-inputs.Rmd
+    ├── pipeline-definition.Rmd
+    └── reading-in-files-from-dhs.Rmd

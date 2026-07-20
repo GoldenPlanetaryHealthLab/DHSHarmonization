@@ -1,27 +1,65 @@
-# This is a Spack Environment file.
-#
-# It describes a set of packages to be installed, along with
-# configuration settings.
 spack:
-  # add package specs to the `specs` list
   specs:
-  - r@4.5.1 %gcc@8.5.0
-  - cmake %gcc@8.5.0
-  - gmake %gcc@8.5.0
-  - pkgconf %gcc@8.5.0
+  - r-udunits2
+  - libwebp +libwebpmux
+  - fontconfig
+  - fribidi
+  - openblas
+  - geos
+  - freetype
+  - cairo
+  - flexiblas
+  - libgit2
+  - readline
+  - gdal
+  - abseil-cpp
+  - libjpeg-turbo
+  - icu4c
+  - openssl
+  - libjpeg
+  - libuv
+  - udunits
+  - r@4.5.1 +X
+  - proj
+  - pkgconf
+  - libx11
+  - python@3.14
+  - libiconv
   - libxml2
-  view: true
-  concretizer:
-    unify: true
+  - cmake
+  - cairo +X
+  - git
+  - harfbuzz
+  - libpng
+  - libtiff
+  - gmake
+  - zlib
+  - rust
+  - glpk
+  - curl
+  - ncurses
+  - zlib-ng+compat
+  view: /work/.spack-env/view
   packages:
     gcc:
       externals:
-      - spec: gcc@13.2.0 languages:='c,c++,fortran'
-        prefix: /n/sw/helmod-rocky8/apps/Core/gcc/13.2.0-fasrc01
+      - spec: gcc@11.5.0 languages:='c,c++,fortran'
+        prefix: /usr
         extra_attributes:
           compilers:
-            c: /n/sw/helmod-rocky8/apps/Core/gcc/13.2.0-fasrc01/bin/gcc
-            cxx: /n/sw/helmod-rocky8/apps/Core/gcc/13.2.0-fasrc01/bin/g++
-            fortran: /n/sw/helmod-rocky8/apps/Core/gcc/13.2.0-fasrc01/bin/gfortran
-    llvm:
-      externals: []
+            c: /usr/bin/gcc
+            cxx: /usr/bin/g++
+            fortran: /usr/bin/gfortran
+    all:
+      compiler:
+      - gcc@11.5.0
+  config:
+    install_tree:
+      root: /work/.spack-env/install
+    source_cache: /work/.spack/cache/source
+    misc_cache: /work/.spack/cache/misc
+    build_stage:
+    - /work/.spack/stage
+    shared_linking:
+      type: rpath
+      missing_library_policy: error

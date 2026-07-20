@@ -1,0 +1,66 @@
+---
+title: "28-incorporating-dhs-weighting-variables"
+format: html
+---
+
+This notebook addresses [issue 28](https://github.com/GoldenPlanetaryHealthLab/prospectorDHSMadagascar/issues/28)
+
+::: {.callout-note}
+
+**## Issue 28: Incorporating DHS Weighting Variables**
+
+Hi @TinasheMTapera,
+
+To create aggregate metrics from the DHS household records, we will need to apply the survey weights that are used to make the households sampled representative at a higher level. While different survey weights would be applied differently to different variables in DHS, I'm including them all here so that hopefully it covers all uses of DHS data for Madagascar for the lab.
+
+From a brief review of [Guide to DHS Statististics](https://dhsprogram.com/Data/Guide-to-DHS-Statistics/Analyzing_DHS_Data.htm), there should be 4 different weights:
+
+- household weight (hv005) for a particular household
+
+- household weight for the men’s subsample (hv028) for a particular household
+
+- individual weight for women (v005)
+
+- individual weight for men (mv005)
+
+For analyses, it appears we also need:
+
+- The primary sampling unit variable, typically v021 (or hv021 or mv021)
+
+- The stratification variable, typically v022 (or hv022 or mv022)
+
+- The weight variable, v005 (or hv005 or mv005)
+
+Based on Rea's presentation, we should also include the variables hv021-023, hv213-215, hv211, and hv212.
+
+Let me know if this is enough information for you or if you'd like me to document this differently in any way. Thank you!
+
+cc @gdenicola  
+
+:::
+
+To start, we will pull in the main targets:
+
+```{r}
+library(targets)
+library(here)
+library(dplyr)
+library(rdhs)
+library(tibble)
+library(purrr)
+library(stringr)
+library(tidyr)
+```
+
+```{r}
+tar_load(dhs_data_grp, store = here("_targets"))
+```
+
+We can use this to export a subset of the variables, naming the data just `weights` or similar
+
+```{r}
+dhs_data_grp %>%
+  mutate(weights = map(data, ~ select(.x, 1, any_of(c("mcaseid", "hhid", "caseid", "hv005", "hv028", "v005", "mv005", "hv021", "mv021", "hv022", "mv022", "hv005", "mv005", "hv023", "hv213", "hv214", "hv215", "hv211", "hv212"))))) %>%
+  select(-data) %>%
+  rename(data = weights) -> dhs_weights
+```

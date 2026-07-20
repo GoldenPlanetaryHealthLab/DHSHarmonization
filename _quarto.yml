@@ -1,0 +1,54 @@
+project:
+  type: website
+  lib-dir: site_libs
+  output-dir: _site
+
+  render:
+    - index.qmd
+    - about.qmd
+    - "!dev/"
+    - "!sandbox/"
+    - "!_site/"
+    - "!docs/"
+    - "!data/"
+    - "!_targets/"
+    - "!rv/"
+    - "!env/"
+    - "!R/"
+    - "!man/"
+    - "!tests/"
+    - "!vignettes/"
+    - "!slurm/"
+    - "!README.Rmd"
+    - "!README.md"
+    - "!README.html"
+    - "!CODE_OF_CONDUCT.md"
+    - "!LICENSE.md"
+    - "!LICENSE"
+    - "!NEWS.md"
+    - "!tree.txt"
+    - "!quarto-inspect.json"
+    - "!quarto-debug.log"
+
+  preview:
+    watch-inputs: false
+
+
+website:
+  title: "website"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+    css: styles.css
+    toc: true
+
+
+

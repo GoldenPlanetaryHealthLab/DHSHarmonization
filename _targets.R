@@ -6,11 +6,14 @@
 # Load packages required to define the pipeline:
 library(targets)
 library(tarchetypes) # Load other packages as needed.
-library(DHSHarmonization)
+# library(DHSHarmonization)
 
 # Set target options:
 tar_option_set(
-  packages = c("DHSHarmonization") # Packages that your targets need for their tasks.
+  packages = c(
+    "here", "dplyr", "lubridate", "rdhs", "sf", "frictionless",
+    "tidyr", "haven", "stringr", "purrr"
+  ) # Packages that your targets need for their tasks.
   # format = "qs", # Optionally set the default storage format. qs is fast.
   #
   # Pipelines that take a long time to run may benefit from
@@ -46,14 +49,14 @@ tar_option_set(
 )
 
 # Run the R scripts in the R/ folder with your custom functions:
-# tar_source()
+tar_source()
 # tar_source("other_functions.R") # Source other scripts as needed.
 
 # Replace the target list below with your own:
 list(
   
   # extract default pipeline from the targets notebook
-  tar_tangle("_target_notebook.Rmd") #,
+  tar_tangle("_target_notebook.qmd") #,
 
   # you can now add more targets here if needed, e.g.:
   # tar_target(

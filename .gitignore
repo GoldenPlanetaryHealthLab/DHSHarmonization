@@ -13,7 +13,9 @@ _targets/
 /doc/
 /Meta/
 .spack-env
+.spack/
 .container-home/
+.container-tmp/
 
 *.err
 *.out
@@ -21,3 +23,9 @@ _targets/
 *.vdoc*
 *.sif
 *.envrc
+*.pkl
+**/submitit/*
+**/*.quarto_ipynb
+*.rv/
+.rv/*
+rv/*

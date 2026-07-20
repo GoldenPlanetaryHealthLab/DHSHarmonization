@@ -13,7 +13,7 @@
 list_raw_flat_dhs <- function(file_list){
     
   # Filter the file list to include only flat DHS recode files
-  flat_dhs_files <- stringr::str_subset(file_list, "MD(?:BR|HR|IR|PR|KR|CR|SQ|WI|MR|HW|FW)[0-9]{2}FL$")
+  flat_dhs_files <- stringr::str_subset(file_list, "MD(?:BR|HR|IR|PR|KR|CR|SQ|WI|MR|HW|FW)[0-9]{2}FL\\.[^.]+$")
 
   return(flat_dhs_files)
 }
