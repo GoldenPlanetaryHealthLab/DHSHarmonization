@@ -26,3 +26,6 @@ _targets/
 *.pkl
 **/submitit/*
 **/*.quarto_ipynb
+*.rv/
+.rv/*
+rv/*

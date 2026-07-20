@@ -17,41 +17,47 @@ knitr::opts_chunk$set(
 library(targets)
 library(tarchetypes)
 library(here)
+
 ```
 
 ## Preamble
 
-This project uses a notebook-driven pipeline architecture with three distinct layers:
-function development, pipeline definition, and reporting.
+This project uses a notebook-driven pipeline architecture centered on `targets` and
+Quarto. Rather than treating notebooks as polished reports or forcing exploratory
+code into packages, notebooks are the primary development environment where the
+computational workflow is discovered and recorded.
 
-Function-development notebooks live in a dedicated Quarto sub-project in `dev`. That
-sub-project uses `sorting-hat` and `ripper` to extract selected R code chunks into
-R module/package files. These generated functions define the reusable implementation
-details of the pipeline.
+This notebook contributes to the project's `targets` pipeline. During project
+execution, `tarchetypes::tar_tangle()` extracts the executable R code from pipeline
+notebooks and converts top-level assignments into `targets` objects. The project's
+`_targets.R` file assembles these targets into a directed acyclic graph (DAG), and
+`targets::tar_make()` executes only the work that is out of date.
 
-The pipeline itself is defined in this notebook. Rather than being run as a normal
-analysis report, this document is read by `tarchetypes::tar_tangle()`, which converts
-top-level assignments in R chunks into `targets` objects. The `_targets.R` file then
-loads this notebook as the literate source of the pipeline and `targets::tar_make()`
-executes the resulting workflow.
+Not every target in the DAG represents a permanent part of the analysis. Throughout
+development, exploratory, diagnostic, and intermediate targets are encouraged.
+Target metadata (for example, descriptions) distinguish between development targets
+that support exploration and the canonical targets that define the project's
+reproducible workflow.
 
-Rendered reports, Quarto websites, and downstream analyses are kept separate from
-pipeline definition and function extraction. They should consume completed pipeline
-outputs from the `_targets/` store using `targets::tar_read()` or `targets::tar_load()`,
-rather than redefining or rerunning the pipeline.
+Rendered reports, Quarto websites, manuscripts, and downstream analyses are separate
+consumers of the pipeline. They should read completed pipeline outputs from the
+`_targets/` store using `targets::tar_read()` or `targets::tar_load()` rather than
+recomputing the analysis themselves.
 
 In short:
 
 ```text
-function notebooks      -> generated R/package code
-this target notebook    -> targets pipeline via tar_tangle()
-targets pipeline        -> reproducible computed outputs in _targets/
-reports/websites        -> downstream consumers of pipeline outputs
+exploratory notebooks   -> develop ideas and define targets
+tar_tangle()            -> assemble the pipeline DAG
+targets                 -> reproducible computational workflow
+reports/websites        -> consume completed pipeline outputs
 ```
 
-This separation lets us use notebook-driven development while avoiding accidental
-coupling between code generation, pipeline execution, and rendered publication
-content.
+The guiding principle is simple: notebooks are where ideas are developed, while the
+`targets` DAG is the durable record of the computations that matter. As an analysis
+matures, important intermediate results become named targets, allowing the workflow
+to emerge naturally from exploratory data analysis without requiring premature
+software engineering.
 
 ## `stagecoach` Input Tracking
 
@@ -61,7 +67,7 @@ The first thing to track is the stagecoach manifest file:
 #| format: file
 #| packages: [here]
 
-stagecoach_manifest <- here("stagecoach_manifest.yaml")
+stagecoach_manifest <- here("stagecoach_manifest.yml")
 ```
 
 After running `stagecoach`, the input data were deposited:
@@ -70,11 +76,12 @@ After running `stagecoach`, the input data were deposited:
 #| packages: [stringr, dplyr, here]
 
 repo_files <- list.files(
-    here(
+    path = here(
       "data", 
       "inputs"
     ),
-    recursive = TRUE
+    recursive = TRUE,
+    full.names = TRUE
 )
 ```
 
@@ -84,73 +91,44 @@ As demonstrated in the `vignette("Linking and Tracking Raw Inputs")`,
 we catalog the different types of DHS data files present in the raw data directory.
 
 ```{r}
-
-raw_flat_dhs_files <- list_raw_flat_dhs(raw_data)
+box::use(R/list_raw_flat_dhs[...])
+raw_flat_dhs_files <- list_raw_flat_dhs(repo_files)
 ```
 
 
 ```{r}
-
-raw_gps_dhs_files <- list_raw_gps_dhs(raw_data)
+raw_gps_dhs_files <- list_raw_gps_dhs(repo_files)
 ```
 
 
 ```{r}
-
-raw_gps_covar_files <- list_raw_gps_covars(raw_data)
+raw_gps_covar_files <- list_raw_gps_covars(repo_files)
 ```
 
 
-For each type above, we create a mapping to read the data in:
+For each type above, we create a mapping to read the data in by year:
 ```{r}
 #| packages:
 #| - dplyr
 #| - stringr
 #| - purrr
+library(dplyr)
+library(tibble)
+library(purrr)
 
-raw_flat_dhs_files %>%
-  str_subset(., "BR") %>%
-  map(~ load_flat_dhs_data(.x)) -> dhs_data_BR
+dhs_flat_index <- tibble(path = raw_flat_dhs_files) %>%
+  mutate(
+    folder = dirname(path),
+    extract = basename(folder),
+    file = basename(path),
+    recode = str_match(extract, "^MD([A-Z]{2})[0-9A-Z]{2}FL$")[, 2],
+    survey_year = str_match(path, "/(?:DHS|MIS) ([0-9]{4}(?:-[0-9]{2})?)/")[, 2]
+  ) %>%
+  filter(!is.na(recode)) %>%
+  distinct(survey_year, recode, extract, folder)
 
-raw_flat_dhs_files %>%
-  str_subset(., "HW") %>%
-  map(~ load_flat_dhs_data(.x)) -> dhs_data_HW
-
-raw_flat_dhs_files %>%
-  str_subset(., "CR") %>%
-  map(~ load_flat_dhs_data(.x)) -> dhs_data_CR
-
-raw_flat_dhs_files %>%
-  str_subset(., "HR") %>%
-  map(~ load_flat_dhs_data(.x)) -> dhs_data_HR
-
-raw_flat_dhs_files %>%
-  str_subset(., "IR") %>%
-  map(~ load_flat_dhs_data(.x)) -> dhs_data_IR
-
-raw_flat_dhs_files %>%
-  str_subset(., "KR") %>%
-  map(~ load_flat_dhs_data(.x)) -> dhs_data_KR
-
-raw_flat_dhs_files %>%
-  str_subset(., "PR") %>%
-  map(~ load_flat_dhs_data(.x)) -> dhs_data_PR
-
-raw_flat_dhs_files %>%
-  str_subset(., "WI") %>%
-  map(~ load_flat_dhs_data(.x)) -> dhs_data_WI
-
-raw_flat_dhs_files %>%
-  str_subset(., "SQ") %>%
-  map(~ load_flat_dhs_data(.x)) -> dhs_data_SQ
-
-raw_flat_dhs_files %>%
-  str_subset(., "MR") %>%
-  map(~ load_flat_dhs_data(.x)) -> dhs_data_MR
-
-raw_flat_dhs_files %>%
-  str_subset(., "FW") %>%
-  map(~ load_flat_dhs_data(.x)) -> dhs_data_FW
+dhs_flat_index %>%
+  mutate(data = map(folder, load_flat_dhs_data)) -> dhs_data_grp
 ```
 
 
@@ -185,9 +163,23 @@ Olivia's analysis function to prepare the DHS data for climate-diarrhea work.
 #| - glue
 #| - rdhs
 
-climate_diarrhea_data <- climate_diarrhea_analysis(dhs_data_HR)
+#climate_diarrhea_data <- climate_diarrhea_analysis(dhs_data_HR)
 ```
 
+## Exports
+
+We export the data as a Data Package provided by Frictionless.
+
+```{r}
+dhs_data_grp %>%
+    rename_all(~paste0("dhs_", .x)) %>%
+    mutate(description = str_c(dhs_recode, "_", dhs_survey_year) %>% str_to_lower()) %>%
+    group_by(description) %>%
+    group_split() -> dhs_data_gp_spl
+
+dp <- compose_data_package(dhs_data_gp_spl)
+dhs_flat_dpkg <- write_package(dp, directory = here("data/outputs/dhs_flat_dpkg")); list.files(here("data/outputs/dhs_flat_dpkg"), recursive = TRUE, full.names = TRUE)
+```
 
 To fetch this endpoint, after you've run `tar_make()`, you can use:
 
@@ -195,4 +187,3 @@ To fetch this endpoint, after you've run `tar_make()`, you can use:
 tar_read(climate_diarrhea_data) #or
 tar_load(climate_diarrhea_data)
 ```
-

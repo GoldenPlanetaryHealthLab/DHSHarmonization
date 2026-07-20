@@ -1,41 +1,58 @@
 spack:
   specs:
-  - r@4.5.1
-  - python@3.14
-  - libiconv
-  - ncurses
-  - openblas
-  - curl
-  - openssl
-  - pkgconf
-  - abseil-cpp
-  - zlib
-  - zlib-ng+compat
-  - cmake
-  - gmake
-  - git
-  - libx11
-  - libxml2
-  - freetype
-  - libjpeg
-  - libjpeg-turbo
-  - libpng
-  - libtiff
+  - r-udunits2
   - libwebp +libwebpmux
-  - icu4c
   - fontconfig
   - fribidi
-  - harfbuzz
-  - libgit2
-  - cairo
-  - readline
-  - libuv
-  - proj
+  - openblas
   - geos
+  - freetype
+  - cairo
+  - flexiblas
+  - libgit2
+  - readline
   - gdal
+  - abseil-cpp
+  - libjpeg-turbo
+  - icu4c
+  - openssl
+  - libjpeg
+  - libuv
   - udunits
-  - r-udunits2
+  - r@4.5.1 +X
+  - proj
+  - pkgconf
+  - libx11
+  - python@3.14
+  - libiconv
+  - libxml2
+  - cmake
+  - cairo +X
+  - git
+  - harfbuzz
+  - libpng
+  - libtiff
+  - gmake
+  - zlib
+  - rust
+  - glpk
+  - curl
+  - ncurses
+  - zlib-ng+compat
   view: /work/.spack-env/view
+  packages:
+    gcc:
+      externals:
+      - spec: gcc@11.5.0 languages:='c,c++,fortran'
+        prefix: /usr
+        extra_attributes:
+          compilers:
+            c: /usr/bin/gcc
+            cxx: /usr/bin/g++
+            fortran: /usr/bin/gfortran
+    all:
+      compiler:
+      - gcc@11.5.0
   config:
     install_tree:
       root: /work/.spack-env/install
@@ -46,13 +63,3 @@ spack:
     shared_linking:
       type: rpath
       missing_library_policy: error
-  packages:
-    gcc:
-      externals:
-      - spec: gcc@8.5.0 languages:='c,c++,fortran'
-        prefix: /usr
-        extra_attributes:
-          compilers:
-            c: /usr/bin/gcc
-            cxx: /usr/bin/g++
-            fortran: /usr/bin/gfortran

@@ -1,7 +1,6 @@
 {
     "r.plot.useHttpgd": true,
     // "r.rterm.linux": "/n/home03/ttapera/.cargo/bin/arf",
-    // "r.useRenvLibPath": true,
     "r.workspaceViewer.showObjectSize": true,
     "terminal.integrated.defaultProfile.linux": "bash",
     "terminal.integrated.profiles.linux": {
@@ -9,13 +8,13 @@
         "path": "/bin/bash"
         }
     },
-    "r.rterm.linux": "/usr/local/bin/arf",
+    "r.rterm.linux": "/work/.spack-env/view/bin/R",
     "r.bracketedPaste": true,
     "livePreview.defaultPreviewPath": "/docs/index.html",
     "r.sessionWatcher": true,
     "r.alwaysUseActiveTerminal": true,
     "r.rpath.linux": "/work/.spack-env/view/bin/R",
-    "python.terminal.activateEnvInCurrentTerminal": true,
+    "python.terminal.activateEnvInCurrentTerminal": false,
     "r.libPaths": [
         "/work/rv/library/4.5/x86_64/redhat8",
         "/work/.spack-env/view/rlib/R/library"

@@ -9,12 +9,29 @@
 #' ex_data <- here("data", "DHS Data", "DHS 1992", "MDIR21FL")
 #' load_flat_dhs_data(ex_data) %>%
 #'   tibble() %>%
-#'   head()
+#'   head()  
 load_flat_dhs_data <- function(folder_path) {
-  
-  temp_zip <- tempfile(fileext = ".zip")
-  zip::zipr(zipfile = temp_zip, files = list.files(folder_path, full.names = TRUE))
-  dhs_data <- rdhs:::read_dhs_flat(temp_zip)
-  return(dhs_data)
+  if (!dir.exists(folder_path)) {
+    stop("Expected folder_path to be a directory, but got: ", folder_path, call. = FALSE)
+  }
 
+  files <- list.files(folder_path, full.names = FALSE)
+
+  if (length(files) == 0) {
+    stop("No files found in folder: ", folder_path, call. = FALSE)
+  }
+
+  temp_zip <- tempfile(fileext = ".zip")
+
+  zip::zipr(
+    zipfile = temp_zip,
+    files = files,
+    root = folder_path
+  )
+
+  if (!file.exists(temp_zip) || file.info(temp_zip)$size == 0) {
+    stop("Failed to create zip for folder: ", folder_path, call. = FALSE)
+  }
+
+  rdhs:::read_dhs_flat(temp_zip)
 }

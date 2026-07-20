@@ -22,7 +22,7 @@ We pull in the main targets:
 
 ```{r}
 library(targets)
-tar_manifest(store = here("_targets"))
+tar_manifest(script = here("targets.R"))
 ```
 
 We'll pull the variables from each category in `vars`:
@@ -93,7 +93,7 @@ climate_foodborne_illness_hr <- reduce2(
   seq_along(hr_filtered),
   function(pkg, x, i) {
     dat <- data_and_labels(x)$data %>%
-         delabel_df()
+         as_tibble()
     labs <- data_and_labels(x)$variable_names
 
     schema <- create_schema(dat)
@@ -120,7 +120,7 @@ climate_foodborne_illness_pr <- reduce2(
   seq_along(pr_filtered),
   function(pkg, x, i) {
     dat <- data_and_labels(x)$data %>%
-      delabel_df()
+      as_tibble()
     labs <- data_and_labels(x)$variable_names
 
     schema <- create_schema(dat)
@@ -147,7 +147,7 @@ climate_foodborne_illness_wi <- reduce2(
   seq_along(wi_filtered),
   function(pkg, x, i) {
     dat <- data_and_labels(x)$data %>%
-      delabel_df()
+      as_tibble()
     labs <- data_and_labels(x)$variable_names
 
     schema <- create_schema(dat)

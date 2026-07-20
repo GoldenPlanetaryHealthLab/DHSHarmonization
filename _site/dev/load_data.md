@@ -1,0 +1,220 @@
+# Loading All the DHS Data
+
+
+Here we demonstrate how we load and view the DHS datasets that will be
+harmonized in this package. Each section builds the function needed to
+read in the data, and then tests it to ensure it works as expected. The
+functions are then implemented in the targets pipeline.
+
+Some basic EDA is provided for you to help you understand what data can
+be made available to you through a data request.
+
+``` r
+library(targets)
+library(here)
+library(tidyverse)
+library(purrr)
+library(rdhs)
+library(glue)
+library(sf)
+```
+
+    Linking to GEOS 3.14.1, GDAL 3.13.1, PROJ 9.7.0; sf_use_s2() is TRUE
+
+## load_flat_dhs_data
+
+The goal of this section is a function that can read any `flat` DHS
+dataset (e.g., BR, HR, IR, KR, PR, WI, CR, MR, FW, SQ) and return it as
+a tibble.
+
+So long as the data has a flat structure, it should be straightforward
+to load it into R and view it using the `rdhs` package. The structure is
+taken from this [DHS
+page](https://dhsprogram.com/data/File-Types-and-Names.cfm#CP_JUMP_10334).
+
+    Example:
+    To give an example of how distribution files for a survey are organized, the following table shows the available files, along with the names that they are given for the Kenya 2003 DHS survey.
+    Kenya 2003 DHS Survey
+        ASCII File Types    Software-Specific Data File Types
+    Unit of Analysis    Hierarchical    Flat    SAS SPSS    Stata
+    Households      KEHR42FL.ZIP    KEHR42SD.ZIP    KEHR42SV.ZIP    KEHR42DT.ZIP
+    Household Members       KEPR42FL.ZIP    KEPR42SD.ZIP    KEPR42SV.ZIP    KEPR42DT.ZIP
+    Women   KEIR42.ZIP  KEIR42FL.ZIP    KEIR42SD.ZIP    KEIR42SV.ZIP    KEIR42DT.ZIP
+    Men KEMR42.ZIP  KEMR42FL.ZIP    KEMR42SD.ZIP    KEMR42SV.ZIP    KEMR42DT.ZIP
+    Births      KEBR42FL.ZIP    KEBR42SD.ZIP    KEBR42SV.ZIP    KEBR42DT.ZIP
+    Children        KEKR42FL.ZIP    KEKR42SD.ZIP    KEKR42SV.ZIP    KEKR42DT.ZIP
+    Couples     KECR42FL.ZIP    KECR42SD.ZIP    KECR42SV.ZIP    KECR42DT.ZIP
+    HIV Test Results    KEAR42.ZIP  KEAR42FL.ZIP    KEAR42SD.ZIP    KEAR42SV.ZIP    KEAR42DT.ZIP
+
+    The following reference tables contain the descriptions for the four different types of filename codes (country, data type, data version, and file format).
+
+In our case, we have the following:
+
+    tree -L 3 data/DHS\ Data/
+
+    data/DHS Data/
+    ├── DHS 1992
+    │   ├── MDBR21FL
+    │   │   ├── MDBR21FL.DAT
+    │   │   ├── MDBR21FL.DCF
+    │   │   ├── MDBR21FL.DCT
+    │   │   ├── MDBR21FL.DO
+    │   │   ├── MDBR21FL.frq
+    │   │   ├── MDBR21FL.frw
+    │   │   ├── MDBR21FL.MAP
+    │   │   ├── MDBR21FL.SAS
+    │   │   └── MDBR21FL.SPS
+    │   ├── MDHR21FL
+    │   │   ├── MDHR21FL.DAT
+    │   │   ├── MDHR21FL.DCT
+    │   │   ├── MDHR21FL.DO
+    │   │   ├── MDHR21FL.FRQ
+    │   │   ├── MDHR21FL.FRW
+    │   │   ├── MDHR21FL.MAP
+    │   │   ├── MDHR21FL.SAS
+    │   │   └── MDHR21FL.SPS
+    │   ├── MDHW21FL
+    │   │   ├── MDHW21FL.DAT
+    │   │   ├── MDHW21FL.DCF
+    │   │   ├── MDHW21FL.DCT
+    │   │   ├── MDHW21FL.DO
+    │   │   ├── MDHW21FL.MAP
+    │   │   ├── MDHW21FL.SAS
+    │   │   ├── MDHW21FL.SPS
+    │   │   └── MERGE.DOC
+    │   ├── MDIR21FL
+    │   │   ├── MDIR21FL.DAT
+    │   │   ├── MDIR21FL.DCT
+    │   │   ├── MDIR21FL.DO
+    │   │   ├── MDIR21FL.DOC
+    │   │   ├── MDIR21FL.FRQ
+    │   │   ├── MDIR21FL.FRW
+    │   │   ├── MDIR21FL.MAP
+    │   │   ├── MDIR21FL.SAS
+    │   │   └── MDIR21FL.SPS
+    │   ├── MDKR21FL
+    │   │   ├── MDKR21FL.DAT
+    │   │   ├── MDKR21FL.DCT
+    │   │   ├── MDKR21FL.DO
+    │   │   ├── MDKR21FL.DOC
+    │   │   ├── MDKR21FL.FRQ
+    │   │   ├── MDKR21FL.MAP
+    │   │   ├── MDKR21FL.SAS
+    │   │   └── MDKR21FL.SPS
+    │   ├── MDPR21FL
+    │   │   ├── MDPR21FL.DAT
+    │   │   ├── MDPR21FL.DCT
+    │   │   ├── MDPR21FL.DO
+    │   │   ├── MDPR21FL.FRQ
+    │   │   ├── MDPR21FL.FRW
+    │   │   ├── MDPR21FL.MAP
+    │   │   ├── MDPR21FL.SAS
+    │   │   └── MDPR21FL.SPS
+    │   └── MDSQ21FL
+    │       ├── MDSQ21FL.DAT
+    │       ├── MDSQ21FL.DCT
+    │       ├── MDSQ21FL.DO
+    │       ├── MDSQ21FL.MAP
+    │       ├── MDSQ21FL.SAS
+    │       └── MDSQ21FL.SPS
+
+So, for the generic ones, we know that we have BR (Birth rates), HR
+(Household), HW (height and weight), IR (individual), KR (kids), PR
+(household member), and SQ (Service Availability). We also have WI
+(wealth), CR (couples), MR (men’s), GE (Geographic Data), GC (geospatial
+covariates), FW (Fieldworker), and MIS data (malaria response survey).
+
+To read in the generic flat files, we can use the `rdhs` package. This
+has to be done by first zipping the files to a temporary location, and
+then using the `rdhs::read_flat()` function.
+
+We can see that the variables do come with labels and attributes. This
+is useful information for understanding the data.
+
+So, to read in a generic flat file from DHS, we can define the function
+`load_flat_dhs_data()`:
+
+``` r
+#' Load a flat DHS dataset from a folder
+#'
+#' This function zips the contents of the provided folder and uses rdhs:::
+#' read_dhs_flat to read a DHS flat file archive into R. It is intended for
+#' DHS flat file folders (e.g. MDIR21FL) that contain the standard DHS flat
+#' data files.
+#'
+#' @param folder_path Character. Path to a folder containing DHS flat files to
+#'   be zipped and read.
+#' @return A data.frame/tibble containing the DHS flat data as returned by
+#'   rdhs:::read_dhs_flat.
+#' @export
+#' @examples
+#' ex_data <- here::here("data", "DHS Data", "DHS 1992", "MDIR21FL")
+#' df <- load_flat_dhs_data(ex_data)
+#' head(df)
+load_flat_dhs_data <- function(folder_path) {
+
+  temp_zip <- tempfile(fileext = ".zip")
+  zip::zipr(zipfile = temp_zip, files = list.files(folder_path, full.names = TRUE))
+  dhs_data <- rdhs:::read_dhs_flat(temp_zip)
+  return(dhs_data)
+
+}
+```
+
+We can also test that this works for the malaria response survey data:
+
+Because the different kinds of surveys have different variable
+structures, we will read each type separately.
+
+To do this, we’ll read in a list of file paths, and then map over them
+to read them in.
+
+In the targets pipeline, we’ve assigned the BR files to a target called
+`dhs_data_BR`, which has multiple files per target.
+
+So even though they come from the same type of survey, the variables are
+different and cannot be easily merged with the `rhds::rbind_labelled()`
+function, because they change year over year:
+
+So with that in mind, we should take a look at the actual variable
+dictionaries for each survey type to plan how we will eventually
+harmonize and release them (descriptions are provided by ChatGPT and
+verified with DHS documentation available
+[here](https://preview.dhsprogram.com/pubs/pdf/DHSG1/Guide_to_DHS_Statistics_DHS-7_v2.pdf)).
+
+## summarize_dhs_flat_dictionary
+
+The function `summarize_dhs_flat_dictionary()` will read in all of the
+flat files of a given survey type (e.g., BR, HR, IR) and summarize the
+variable names.
+
+``` r
+#' Summarize DHS flat-file variable dictionaries
+#'
+#' Summarize variable names and descriptions across a list of DHS survey datasets.
+#'
+#' @param all_survey_data A list of survey datasets to summarize.
+#'
+#' @return A tibble of variable descriptions with counts across surveys.
+#'
+#' @export
+summarize_dhs_flat_dictionary <- function(all_survey_data){
+  
+  n_surveys <- length(all_survey_data) # shows the number of branches   
+
+  map(
+    all_survey_data,
+    ~ get_variable_labels(.x) %>%
+      as_tibble()
+    ) %>%
+    list_rbind() %>%
+    group_by(description, variable) %>%
+    summarise(
+      description = first(description),
+      n = n()
+    ) %>%
+    arrange(-n) -> var_descriptions
+
+  return(var_descriptions)
+}
+```
