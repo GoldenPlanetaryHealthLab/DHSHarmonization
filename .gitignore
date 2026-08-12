@@ -21,3 +21,12 @@ _targets/
 *.vdoc*
 *.sif
 *.envrc
+
+.spack*
+
+
+.container*
+
+
+rv
+

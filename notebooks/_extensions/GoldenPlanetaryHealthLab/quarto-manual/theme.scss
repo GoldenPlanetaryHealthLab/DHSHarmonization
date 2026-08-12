@@ -1,0 +1,17 @@
+/*-- scss:defaults --*/
+
+$body-bg: #f6f0e7;
+$body-color: #1f2933;
+$link-color: #0f5c4d;
+$code-block-bg: #fffaf2;
+$primary: #0f5c4d;
+
+/*-- scss:rules --*/
+
+.callout {
+  border-radius: 0.5rem;
+}
+
+.callout.manual-run {
+  border-left-color: #c05621;
+}

@@ -1,0 +1,26 @@
+---
+title: "Helper Functions"
+format: html
+---
+
+Use helper pages only when they support the operator across multiple workflow
+pages.
+
+Good uses for a helper page include:
+
+- installation notes for a required tool;
+- reusable shell commands the operator will run more than once;
+- links to credentials, API setup, or institutional documentation;
+- small helper functions that simplify repeated page logic.
+
+If a helper page is not necessary, delete it. A Quarto Manual should stay as
+small as the procedure allows.
+
+## Replace This With Real Content
+
+For example, a real helper page might explain:
+
+- how to request cluster access;
+- how to create an API token;
+- how to verify that `quarto`, `python`, `R`, or `apptainer` are available;
+- how to import helper code emitted by `quarto-emit`.

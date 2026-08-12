@@ -1,0 +1,69 @@
+---
+title: "Quarto Manuals"
+subtitle: "Executable operations manuals built from independent Quarto pages"
+format:
+  html:
+    toc: true
+    code-fold: false
+author: Tinashe M. Tapera
+date: last-modified
+filters:
+  - _extensions/quarto-manual/manual.lua
+execute: 
+  eval: false
+---
+
+## What Is A Quarto Manual?
+
+A Quarto Manual is a Quarto book that guides the user through a series of software steps by organizing it into independent, executable Quarto pages.
+
+Each Page of a Manual should:
+
+- confirm its prerequisites;
+- perform one or more procedure steps;
+- check that those steps worked.
+
+The Quarto Manual template ships lean on purpose. It should only give you enough structure to
+author a real manual without forcing your workflow into a hidden framework.
+
+## Quick Start
+
+To get started, install Quarto and run `quarto use GoldenPlanetaryHealthLab/QuartoManual` in 
+your project root. That will create a new Quarto project with the manual template.
+
+## What Ships In This Template
+
+This starter template includes:
+
+- `00_cover.qmd` for the manual cover;
+- `index.qmd` for a short overview and operator guidance;
+- optional helper pages such as `01_misc-helpers.qmd`;
+- numbered workflow pages such as `10_page-setup-environment.qmd`.
+
+## How To Author A Manual
+
+Use the shipped files as prompts:
+
+1. rename the cover and index content for your real procedure;
+2. keep helper pages only if they genuinely help the operator;
+3. duplicate the page template for each workflow step;
+4. make each page prove its own state with prerequisites and checks.
+
+The recommended file naming convention is:
+
+- `00_cover.qmd` for the manual cover page;
+- `01-09` for orientation, helper, and miscellaneous pages;
+- `10-99` for the main procedure pages in workflow order.
+
+## What To Avoid
+
+Avoid building a manual that depends on hidden notebook state from another
+page. Prefer visible project artifacts instead:
+
+- files and directories;
+- configuration files;
+- emitted scripts or testing suites;
+- environment checks and command output.
+
+When pages computationally depend on one another, express that dependency in the page's
+prerequisite block using side-effects like tests, files, scripts, or environment variables.

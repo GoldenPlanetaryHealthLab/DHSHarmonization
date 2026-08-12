@@ -1,0 +1,19 @@
+title: Quarto Manual
+author: Tinashe M. Tapera, Golden Lab, National Studies on Air Pollution and Health, Harvard University T. H. Chan School of Public Health
+version: 0.1.0
+quarto-required: ">=1.5.0"
+
+contributes:
+  project:
+    project:
+      type: book
+    format: manual-html
+
+  formats:
+    html:
+      theme: [default, theme.scss]
+      toc: true
+      code-overflow: wrap
+      code-line-numbers: true
+      filters:
+        - manual.lua

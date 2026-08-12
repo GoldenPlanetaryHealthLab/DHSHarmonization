@@ -1,0 +1,26 @@
+---
+title: "<Procedure Name> Manual"
+format: html
+---
+
+This manual helps an operator carry out one concrete procedure step by step.
+
+Replace this page with a short description of:
+
+- what the procedure prepares or orchestrates;
+- who should use this manual;
+- what the operator should have before they begin;
+- what visible project state should exist by the end.
+
+Keep this page brief. The cover page should orient the reader, not duplicate the
+full workflow.
+
+## Before You Publish
+
+Before you share this manual, make sure you have:
+
+- renamed the manual to match the real procedure;
+- replaced all placeholder text with project-specific instructions;
+- added at least one real workflow page such as `10_page-setup-environment.qmd`;
+- verified that each workflow page has exactly one prerequisite block, one or
+  more procedure blocks, and exactly one check block.

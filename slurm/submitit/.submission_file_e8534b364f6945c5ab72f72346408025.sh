@@ -1,0 +1,1 @@
+/n/holylabs/LABS/cgolden_lab/Lab/frontier/works/prospectors/prospectorDHSMadagascar/slurm/submitit/31061192/31061192_submission.sh

@@ -1,0 +1,170 @@
+---
+title: "Manual Page X: <task>"
+subtitle: "A template for a Quarto Manual page"
+format: html
+execute:
+  eval: false
+---
+
+This file is the core template for a Quarto Manual workflow page.
+
+A page should do three things:
+
+1. prove that the page is ready to run;
+2. perform one or more concrete procedure steps;
+3. prove that those steps worked.
+
+In Quarto Manuals, we implement these requirements in specific block types, which means:
+
+- exactly one `.manual-prereq` block;
+- one or more `.manual-procedure` blocks;
+- exactly one `.manual-check` block.
+
+Replace the placeholder prose and code below with your real procedure.
+
+## 1. Prerequisites
+
+Use the prerequisite block to check whether the page is allowed to proceed.
+This is where page-to-page dependency should be enforced.
+
+Good prerequisite checks look for visible project state:
+
+- does a required file already exist?
+- did a previous page create the expected directory?
+- does a previously emitted test suite pass?
+- is the required tool available?
+
+
+::: {.callout-tip}
+
+The easiest way to set up a prerequisite block is to use
+the tests you defined in the check block from a previous page.
+
+:::
+
+
+::: {.manual-prereq title="Confirm Required State"}
+
+Before running this page, confirm that the project already has a `data/`
+directory and a `README.md` file.
+
+```{python}
+#| eval: false
+from pathlib import Path
+
+assert Path("README.md").exists(), "Expected README.md to exist before this page runs."
+
+assert Path("_extensions").is_dir(), "Expected _extensions directory to exist before this page runs."
+```
+
+You can also express prerequisites with shell checks:
+
+```{bash}
+#| eval: false
+test -f README.md
+test -d data
+```
+
+If this page depends on tests from a previous page, run them here:
+
+```{bash}
+#| eval: false
+pytest tests/test_previous_step.py
+```
+
+:::
+
+## 2. Procedure
+
+Procedure blocks contain the work of the page. A page may use one procedure
+block or several.
+
+Each procedure block should do one clear part of the step.
+
+::: {.manual-procedure title="Create A Configuration Directory"}
+
+Create a directory for project configuration files. Note that this chunk won't
+run because we need the user to define the `Path("config")` variable at runtime,
+and we're using `assert` to reinforce that
+
+```{python}
+#| eval: false
+from pathlib import Path
+
+myconfig_dir = "" #Path("config")
+
+assert myconfig_dir.exists() is False, "Expected config directory to not exist before this page runs. Please define the variable `myconfig_dir`"
+
+myconfig_dir.mkdir(exist_ok=True)
+```
+
+:::
+
+::: {.manual-procedure title="Write A Minimal Configuration File"}
+
+Write a small JSON file that later pages can inspect.
+
+```{python}
+#| eval: false
+from pathlib import Path
+import json
+
+config_path = myconfig_dir / "manual.json"
+config_path.write_text(
+    json.dumps({"status": "configured"}, indent=2) + "\n",
+    encoding="utf-8",
+)
+```
+
+:::
+
+## 3. Check
+
+Use the check block to prove that the page succeeded.
+
+Checks should assert the results of the procedure blocks above. If you want the
+page to emit a reusable test file, you can combine the manual check block with a
+`quarto-emit` class.
+
+::: {.manual-check .emit-test-py file="tests/test_manual_page.py" title="Verify Page Outcome"}
+
+```{python}
+from pathlib import Path
+import json
+
+
+def test_manual_page_created_config():
+    config_path = Path("config/manual.json")
+    assert config_path.exists(), "Expected config/manual.json to exist."
+
+    data = json.loads(config_path.read_text(encoding="utf-8"))
+    assert data["status"] == "configured"
+```
+
+:::
+
+This block serves two purposes:
+
+- as a Manual check, it shows the reader how to verify their work on the page;
+- as an `emit` block, it can materialize a real test file for later reuse.
+
+## Authoring Notes
+
+Keep page state local. Do not rely on notebook variables from another page.
+Instead:
+
+- use prerequisite blocks to enforce dependency on earlier pages;
+- use procedure blocks to create visible project artifacts;
+- use check blocks to test those artifacts directly.
+
+That keeps each page independent, rerunnable, and easy to reason about.
+
+To order your pages, use a consistent naming convention in filenames, for
+example `10_page-<description>.qmd`, `11_page-<description>.qmd`, and so on.
+
+- `index.qmd` is reserved for the index page of the manual;
+- file `00` is reserved for the cover page;
+- files `01-09` are reserved for orientation, miscellaneous functions, and other helper pages;
+- files `10-99` are reserved for the main workflow pages, which should be ordered numerically to reflect the intended workflow order, with the optional suffix `[NN]a`, `[NN]b`, etc. for pages that are logically grouped together;
+- use underscores in filenames to separate entities, e.g., section and page type: `01_misc-helpers.qmd` and `02_misc-API-keys.qmd` are helper pages, and are functionally different from `10_page-task-description.qmd`, `11_page-run-analysis.qmd`, etc. with explicit procedures;
+- Use dashes in filenames to separate words within an entity, e.g., `10_page-task-description.qmd`, `11_page-run-analysis.qmd`, etc.
